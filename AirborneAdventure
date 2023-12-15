@@ -1,1 +1,131 @@
 
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.*;
+public class AirborneAdventure extends JPanel {
+	private int y;
+	private PipeThingy[] p = new PipeThingy[10];
+	private Level1 level1 = new Level1(40, 390);
+	private GravityandCollision gc = new GravityandCollision(40, 390, false);
+	private boolean gameStarted = false;
+	AirborneAdventure() {
+		for (int i = 0; i < p.length; i++) {
+			p[i] = new PipeThingy(((int) (275 * Math.random()) + 200));
+			p[i].setX(350 * i + 600);
+		}
+       addKeyListener(new KeyAdapter() {
+           @Override
+           public void keyPressed(KeyEvent e) {
+               gc.keyPressed(e);
+               level1.keyPressed(e);
+               if (e.getKeyCode() == KeyEvent.VK_UP) {
+                   gameStarted = true; // Start the game when the up arrow key is pressed
+                   level1.startGame();
+               }
+           }
+           @Override
+           public void keyReleased(KeyEvent e) {
+               gc.keyReleased(e);
+           }
+       });
+       setFocusable(true);
+	}
+	private void move() {
+       if (!gc.getMoving()) {
+           gc.setMoving(true); // Start the game when the up arrow key is pressed
+       }
+       for (int i = 0; i < p.length; i++)
+       {
+    	   if(p[i].getX() <= 280 && p[i].getX() + 75 >= 280 && (gc.getY() <= p[i].getHeight()-115 || gc.getY() + 25 >= p[i].getHeight()))
+    	   {
+    		   gc.sethitsPipe(true);
+    	   }
+    	   
+    	   if(gc.getY() > 467)
+    	   {
+    		   gc.sethitsPipe(true);
+    	   }
+    	   
+    	  
+       }
+       for (PipeThingy pipe : p) {
+    	   if (gc.gethitsPipe() == false) {
+           pipe.move(gameStarted); // Pass game start status to pipes
+    	   }
+       }
+       
+       
+		 if (gc.gethitsPipe() == false && gameStarted == true) {
+				gc.move();
+		 }
+		repaint();
+
+
+	}
+	public void paint(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		// Creating Colors
+		Color SkyBlue = new Color(112, 197, 206, 255);
+		Color lightBrown = new Color(222, 216, 149, 255);
+		Color darkBrown = new Color(210, 166, 74, 255);
+		Color darkGreen = new Color(85, 128, 34, 255);
+		Color lightGreen = new Color(156, 230, 89, 255);
+		Color lightYellow = new Color(226, 251, 138, 255);
+		Color kalaBrown = new Color(90, 65, 74, 255);
+		Color LightLightGreen = new Color(130, 227, 140, 255);
+		Color kalaGreen = new Color(119, 207, 137, 255);
+		// The ground
+		g2d.setColor(SkyBlue);
+		g2d.fillRect(0, 0, getWidth(), getHeight());
+		g2d.setColor(lightBrown);
+		g2d.fillRect(0, getHeight() - (getHeight() / 4), getWidth(), 275);
+		g2d.setColor(darkBrown);
+		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 6), getWidth(), 6);
+		g2d.setColor(darkGreen);
+		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 8), getWidth(), 2);
+		g2d.setColor(lightGreen);
+		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 23), getWidth(), 15);
+		g2d.setColor(lightYellow);
+		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 25), getWidth(), 2);
+		g2d.setColor(kalaBrown);
+		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 28), getWidth(), 3);
+		g2d.setColor(LightLightGreen);
+		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 88), getWidth(), 60);
+		for (PipeThingy pipe : p) {
+			pipe.paint(g, getHeight());
+		}
+		level1.paint(g2d);
+		gc.paint(g2d);
+
+
+	}
+	
+	public int getPanelHeight() {
+		return this.getHeight();
+	}
+	public static void main(String[] args) throws InterruptedException {
+		  SwingUtilities.invokeLater(() -> {
+		        JFrame frame = new JFrame("Airborne Adventure");
+		        AirborneAdventure panel = new AirborneAdventure();
+		        frame.add(panel);
+		        frame.setSize(600, 1040);
+		        frame.setVisible(true);
+		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		        // Game loop with Swing Timer
+		        Timer timer = new Timer(10, new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent e) {
+		                panel.move();
+		                panel.repaint();
+		            }
+		        });
+		        timer.start(); // Start the timer
+		    });
+	}
+}
+
