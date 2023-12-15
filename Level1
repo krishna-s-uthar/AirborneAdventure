@@ -1,1 +1,88 @@
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.imageio.ImageIO;
+public class Level1 {
+	private int x, y;
+	private BufferedImage gameTitle = null;
+	private BufferedImage blackFlappy = null;
+	private boolean gameStarted = false;
+	private Boolean up = false;
+	public Level1(int x, int y) {
+		this.x = x;
+		this.y = y;
+		try {
+			gameTitle = ImageIO.read(new File("gametitle.png"));
+			blackFlappy = ImageIO.read(new File("blackFlappy.png"));
+		} catch (IOException e) {
+			System.out.println("No Image");
+		}
+	}
+	public void startGame() {
+		gameStarted = true;
+	}
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			up = true;
+			startGame();
+		}
+	}
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			up = false;
+		}
+	}
+	private void imageBox(Graphics2D g2d) {
+		int borderThickness = 5;
+		g2d.setColor(new Color(204, 0, 0));
+		g2d.setStroke(new BasicStroke(borderThickness));
+		g2d.fillRect(x + 150, y - 66, 200, 150);
+		g2d.setColor(Color.black);
+		g2d.drawRect(x + 150, y - 66, 200, 150);
+		g2d.drawImage(blackFlappy, 199, y - 55, 175, 175, null);
+	}
+	private static void homeScreenDetails(Graphics g) {
+		// Draw Start Button
+		buttons(g, "START", 120, 555);
+		// Draw Settings Button
+		buttons(g, " SETTINGS", 330, 555);
+	}
+	private static void buttons(Graphics g, String text, int x, int y) {
+		// button outline
+		g.setColor(Color.white);
+		g.fillRect(x + 1, y + 2, 130, 50);
+		// button base
+		g.setColor(Color.black);
+		g.fillRect(x + 1, y + 1, 130, 48);
+		g.setColor(new Color(204, 0, 0));
+		g.fillRect(x + 5, y + 8, 122, 35);
+		// button text
+		g.setColor(Color.white);
+		Font buttonFont = new Font("Verdana", Font.BOLD, 17);
+		g.setFont(buttonFont);
+		FontMetrics metrics = g.getFontMetrics(buttonFont);
+		int textX = x + (130 - metrics.stringWidth(text)) / 2;
+		int textY = y + ((50 - metrics.getHeight()) / 2) + metrics.getAscent();
+		g.drawString(text, textX, textY);
+	}
+	public void paint(Graphics2D g) {
+       if (!gameStarted) {
+           homeScreenDetails(g);
+           imageBox(g);
+           g.drawImage(gameTitle, 80, y - 230, 450, 100, null);
+           int borderThickness = 4;
+           g.setStroke(new BasicStroke(borderThickness));
+           g.setColor(Color.black);
+           g.drawLine(x + 60, y - 227, 497, y - 227);
+           g.drawLine(x + 60, y - 140, 497, y - 140);
+       }
+	}
+}
+
+
+
+
 
