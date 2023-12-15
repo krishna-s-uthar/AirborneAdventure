@@ -1,1 +1,110 @@
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+public class GravityandCollision {
+	private int x, y, speed;
+	private BufferedImage flappy = null;
+	private BufferedImage gameOverScreen = null;
+	private boolean isJumping = false;
+	private boolean space = false;
+	private boolean moving = false;
+	private boolean gameOver = false;
+	private boolean hitsPipe = false;
+	
+	public int getX() {
+		return x;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setY(int n) {
+		this.y = n;
+	}
+	public boolean getSpace() {
+		return space;
+	}
+	public boolean getMoving() {
+		return moving;
+	}
+	public void setMoving(boolean moving) {
+		this.moving = moving;
+	}
+	
+	public void sethitsPipe(boolean hitsPipe) {
+		this.hitsPipe = hitsPipe;
+	}
+	
+	public boolean gethitsPipe() {
+		return hitsPipe;
+	}
+	
+	public GravityandCollision(int x, int y, boolean space) {
+		this.x = x;
+		this.y = y;
+		this.space = space;
+		this.isJumping = isJumping;
+		this.speed = 0;
+		this.moving = true;
+		try {
+			flappy = ImageIO.read(new File("Flappy.png"));
+			gameOverScreen = ImageIO.read(new File("gameOver.png"));
+		} catch (IOException e) {
+			System.out.println("No Image");
+		}
+	}
+	
+   public void move() {
+       final int maxY = 472; // Adjust this value as needed for the maximum height
+       final int minY = 0;   // Adjust this value as needed for the minimum height
+       final int jumpSpeed = -4; // Adjust jump speed as needed
+       if (this.getMoving()) {
+           if (isJumping && y > minY) {
+               speed = jumpSpeed; // Jump speed
+               y += speed; // Adjust the bird's position based on speed
+           } else {
+               speed += 1; // Acceleration/gravity
+               y += speed; // Adjust the bird's position based on speed
+              
+               if (y < minY) {
+                   y = minY;
+                   speed = 0; // Stop the upward motion when reaching the top
+               }
+           }
+       }
+   }
+  
+   public boolean gameOver()
+   {
+   	return gameOver = true;
+   }
+  
+  
+   public void keyPressed(KeyEvent e) {
+       if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+           isJumping = true; // Set jumping flag on space key press
+       }
+   }
+   
+   public void keyReleased(KeyEvent e) {
+       if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+           isJumping = false; // Reset jumping flag on space key release
+       }
+   }
+	public void paint(Graphics2D g) {
+		g.drawImage(flappy, 220, y-40, 100, 100, null);
+		
+		if (hitsPipe == true) {
+			g.drawImage(gameOverScreen, 45, 50, 510, 610, null);
+		}
+		
+	}
+}
+
+
