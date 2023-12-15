@@ -1,1 +1,106 @@
 
+import java.awt.*;
+public class PipeThingy {
+	private int height, x;
+	PipeThingy(int height) {
+		this.height = height;
+		this.x = 260;
+	}
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public int getX()
+	{
+		return this.x;
+	}
+	
+	public int getHeight() {
+		return this.height;
+	}
+	public void paint(Graphics g, int panelHeight) {
+		Graphics2D g2d = (Graphics2D) g;
+		pipes(g2d, 700);
+		
+	}
+	
+	private void pipes(Graphics g, int panelHeight) {
+		Graphics2D g2d = (Graphics2D) g;
+		
+		Color kalaBrown = new Color(90, 65, 74, 255);
+		g2d.setColor(kalaBrown);
+		g2d.fillRect(x + 5, 0, 65, height - 145);
+		Color green2 = new Color(155, 228, 89, 255);
+		g2d.setColor(green2);
+		g2d.fillRect(x + 9, 0, 57, height - 145);
+		Color yellow2 = new Color(225, 252, 137, 255);
+		g2d.setColor(yellow2);
+		g2d.fillRect(x + 13, 0, 2, height - 145);
+		Color darkGreen2 = new Color(115, 191, 46, 255);
+		g2d.setColor(darkGreen2);
+		g2d.fillRect(x + 23,0, 2, height - 145);
+		g2d.fillRect(x + 28, 0, 38, height - 145);
+		Color kalaGreen2 = new Color(85, 128, 34, 255);
+		g2d.setColor(kalaGreen2);
+		g2d.fillRect(x + 58, 0, 8, height - 145);
+		g2d.setColor(darkGreen2);
+		g2d.fillRect(x + 60, 0, 2, height - 145);
+		g2d.setColor(kalaBrown);
+		g2d.fillRect(x, height - 151, 75, 28);
+		g2d.setColor(kalaGreen2);
+		g2d.fillRect(x + 4, height - 147, 67, 18);
+		g2d.setColor(green2);
+		g2d.fillRect(x + 4, height - 145, 62, 18);
+		g2d.setColor(yellow2);
+		g2d.fillRect(x + 10, height - 145, 2, 16);
+		g2d.fillRect(x + 12, height - 129, 30, 2);
+		g2d.fillRect(x + 46, height - 129, 5, 2);
+		g2d.setColor(darkGreen2);
+		g2d.fillRect(x + 21, height - 145, 2, 16);
+		g2d.fillRect(x + 25, height - 145, 41, 16);
+		g2d.fillRect(x + 4, height - 129, 6, 2);
+		g2d.fillRect(x + 66, height - 129, 3, 2);
+		g2d.setColor(kalaGreen2);
+		g2d.fillRect(x + 61, height - 145, 2, 16);
+		g2d.fillRect(x + 59, height - 129, 2, 2);
+		g2d.setColor(kalaBrown);
+		g2d.fillRect(x + 5, height + 28, 65,  (panelHeight - (panelHeight / 4 + 28)) );
+		g2d.setColor(green2);
+		g2d.fillRect(x + 9, height + 28, 57, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.setColor(yellow2);
+		g2d.fillRect(x + 13, height + 28, 2, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.setColor(darkGreen2);
+		g2d.fillRect(x + 23, height + 28, 2, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.fillRect(x + 28, height + 28, 38, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.setColor(kalaGreen2);
+		g2d.fillRect(x + 58, height + 28, 8, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.setColor(darkGreen2);
+		g2d.fillRect(x + 60, height + 28, 2, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.setColor(kalaBrown);
+		g2d.fillRect(x, height, 75, 28);
+		g2d.setColor(kalaGreen2);
+		g2d.fillRect(x + 4, height + 6, 67, 18);
+		g2d.setColor(green2);
+		g2d.fillRect(x + 4, height + 4, 62, 18);
+		g2d.setColor(yellow2);
+		g2d.fillRect(x + 10, height + 6, 2, 16);
+		g2d.fillRect(x + 12, height + 4, 30, 2);
+		g2d.fillRect(x + 46, height + 4, 5, 2);
+		g2d.setColor(darkGreen2);
+		g2d.fillRect(x + 21, height + 6, 2, 16);
+		g2d.fillRect(x + 25, height + 6, 41, 16);
+		g2d.fillRect(x + 4, height + 4, 6, 2);
+		g2d.fillRect(x + 66, height + 4, 3, 2);
+		g2d.setColor(kalaGreen2);
+		g2d.fillRect(x + 61, height + 6, 2, 16);
+		g2d.fillRect(x + 69, height + 4, 2, 2);
+		
+		
+	}
+   public void move(boolean gameStarted) {
+       if (gameStarted) {
+           x -= 2; // Adjust the speed of pipe movement here
+       }
+   }
+}
+
