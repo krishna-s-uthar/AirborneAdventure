@@ -6,14 +6,61 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 public class GravityandCollision {
 	private int x, y, speed;
+	private int xa = 0;
+	 private int ya = 0;
 	private BufferedImage flappy = null;
+	private BufferedImage turtle = null;
+	private BufferedImage Pumpkin = null;
+	private BufferedImage snowman = null;
+	private BufferedImage mike = null;
 	private BufferedImage gameOverScreen = null;
+	private BufferedImage Level2GameOver = null;
+	private BufferedImage Level3GameOver = null;
+	private BufferedImage Level4GameOver = null;
+	private BufferedImage Level5GameOver = null;
+
+
 	private boolean isJumping = false;
-	private boolean space = false;
 	private boolean moving = false;
 	private boolean gameOver = false;
-	private boolean hitsPipe = false;
+	private boolean moveUp = true;
+	private boolean moveDown = false;
+	private boolean moveDownDown = true;
+	private boolean level1complete = false;
+	private boolean level2complete = false;
+	private boolean level3complete = false;
+	private boolean level4complete = false;
+	private boolean easyMode = true;
+	private boolean right = false, left = false;
+	private Boolean up = false, down = false;
+	private static boolean gamePhase1 = false;
 	
+	GravityandCollision(int x, int y, boolean space){
+		this.x = x;
+		this.y = y;
+		this.isJumping = isJumping;
+		this.speed = 0;
+		this.moving = true;
+		try {
+		    flappy = ImageIO.read(new File("Flappy.png"));		
+		    turtle = ImageIO.read(new File("turtle.png"));
+		    Pumpkin = ImageIO.read(new File("Pumpkin.png"));
+		    snowman = ImageIO.read(new File("snowman.png"));
+		    mike = ImageIO.read(new File("mike.png"));
+		    gameOverScreen = ImageIO.read(new File("gameOVER.png"));
+		    Level2GameOver = ImageIO.read(new File("Level2GameOver.png"));
+		    Level3GameOver = ImageIO.read(new File("Level3GameOver.png"));
+		    Level4GameOver = ImageIO.read(new File("Level4GameOver.png"));
+		    Level5GameOver = ImageIO.read(new File("Level5GameOver.png"));
+
+
+		    
+		} catch (IOException e) {
+		    System.out.println("No Image");
+		}
+		
+		
+	}
 	public int getX() {
 		return x;
 	}
@@ -26,9 +73,7 @@ public class GravityandCollision {
 	public void setY(int n) {
 		this.y = n;
 	}
-	public boolean getSpace() {
-		return space;
-	}
+	
 	public boolean getMoving() {
 		return moving;
 	}
@@ -36,74 +81,211 @@ public class GravityandCollision {
 		this.moving = moving;
 	}
 	
-	public void sethitsPipe(boolean hitsPipe) {
-		this.hitsPipe = hitsPipe;
+	
+	
+	public void setlevel1complete(boolean level1complete)
+	{
+		this.level1complete = level1complete;
 	}
 	
-	public boolean gethitsPipe() {
-		return hitsPipe;
+	public void setlevel2complete(boolean level2complete)
+	{
+		this.level2complete = level2complete;
 	}
 	
-	public GravityandCollision(int x, int y, boolean space) {
-		this.x = x;
-		this.y = y;
-		this.space = space;
-		this.isJumping = isJumping;
-		this.speed = 0;
-		this.moving = true;
-		try {
-			flappy = ImageIO.read(new File("Flappy.png"));
-			gameOverScreen = ImageIO.read(new File("gameOver.png"));
-		} catch (IOException e) {
-			System.out.println("No Image");
-		}
+	public void setlevel3complete(boolean level3complete)
+	{
+		this.level3complete = level3complete;
 	}
 	
-   public void move() {
-       final int maxY = 472; // Adjust this value as needed for the maximum height
-       final int minY = 0;   // Adjust this value as needed for the minimum height
-       final int jumpSpeed = -4; // Adjust jump speed as needed
-       if (this.getMoving()) {
-           if (isJumping && y > minY) {
-               speed = jumpSpeed; // Jump speed
-               y += speed; // Adjust the bird's position based on speed
-           } else {
-               speed += 1; // Acceleration/gravity
-               y += speed; // Adjust the bird's position based on speed
-              
-               if (y < minY) {
-                   y = minY;
-                   speed = 0; // Stop the upward motion when reaching the top
-               }
-           }
-       }
-   }
-  
-   public boolean gameOver()
-   {
-   	return gameOver = true;
-   }
-  
-  
-   public void keyPressed(KeyEvent e) {
-       if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-           isJumping = true; // Set jumping flag on space key press
-       }
-   }
-   
-   public void keyReleased(KeyEvent e) {
-       if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-           isJumping = false; // Reset jumping flag on space key release
-       }
-   }
+	public void setlevel4complete(boolean level4complete)
+	{
+		this.level4complete = level4complete;
+	}
+	
+	
+	
+public void move() {
+  final int maxY = 472; // Adjust this value as needed for the maximum height
+  final int minY = 0;   // Adjust this value as needed for the minimum height
+  final int jumpSpeed = -4; // Adjust jump speed as needed
+  if (easyMode == false)
+  {
+  if (this.getMoving()) {
+      if (isJumping && y > minY) {
+          speed = jumpSpeed; // Jump speed
+          y += speed; // Adjust the bird's position based on speed
+      } else {
+          speed += 1; // Acceleration/gravity
+          y += speed; // Adjust the bird's position based on speed
+    
+          if (y < minY) {
+              y = minY;
+              speed = 0; // Stop the upward motion when reaching the top
+          }
+      }
+  }
+  }
+  else
+  {
+	  if (right){
+		  xa = 2;
+		  }
+		  if (left){
+		  xa = -2;
+		  }
+		  if (down){
+		  ya = 2;
+		  }
+		  if (up){
+		  ya = -2;
+		  }
+		  x+=xa;
+		  y+=ya;
+  }
+}
+public void move2()
+{
+	
+	  if (y == 25)
+	  {
+		  moveUp = false;
+		  moveDown = true;
+	  }
+	  if (y == 56)
+	  {
+		  moveUp = true;
+		  moveDown = false;
+	  }
+	
+	  if (moveUp == true)
+	  {
+		  y -= 1;
+	  }
+	  if (moveDown == true)
+	  {
+		  y += 1;
+	  }
+	
+}
+public void move3()
+{
+	
+	  if (y == 309)
+	  {
+		  moveUp = false;
+		  moveDown = true;
+	  }
+	  if (y >= 340)
+	  {
+		  moveUp = true;
+		  moveDown = false;
+		  moveDownDown = false;
+	  }
+	
+	  if (moveUp == true)
+	  {
+		  y -= 1;
+	  }
+	  if (moveDown == true)
+	  {
+		  y += 1;
+	  }
+	  if (moveDownDown == true)
+	  {
+		  y += 3;
+	  }
+}
+public boolean gameOver()
+{
+	return gameOver = true;
+}
+public void keyPressed(KeyEvent e) {
+  if (easyMode == false)
+  {
+	if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+	  	isJumping = true; // Set jumping flag on space key press
+  	}
+  }
+  if(easyMode == true)
+  {
+	  if (e.getKeyCode() == KeyEvent.VK_LEFT){
+		  left = true;
+		  }
+		  if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+		  right = true;
+		  }
+		  if (e.getKeyCode() == KeyEvent.VK_UP){
+		  up = true;
+		  }
+		  if (e.getKeyCode() == KeyEvent.VK_DOWN){
+		  down = true;
+		  }
+  }
+}
+public void keyReleased(KeyEvent e) {
+  if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+      isJumping = false; // Reset jumping flag on space key release
+  }
+  if (e.getKeyCode() == KeyEvent.VK_LEFT){
+	  left = false;
+	  xa=0;
+	  }
+	  if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+	  right = false;
+	  xa=0;
+	  }
+	  if (e.getKeyCode() == KeyEvent.VK_UP){
+	  up = false;
+	  ya=0;
+	  }
+	  if (e.getKeyCode() == KeyEvent.VK_DOWN){
+		  down = false;
+		  ya=0;
+		  }
+
+}
 	public void paint(Graphics2D g) {
-		g.drawImage(flappy, 220, y-40, 100, 100, null);
-		
-		if (hitsPipe == true) {
-			g.drawImage(gameOverScreen, 45, 50, 510, 610, null);
+		if (level1complete == false)
+		{
+			g.drawImage(flappy, x, y-40, 100, 100, null);
+			g.setColor(Color.RED);
+			//Flappy hitbox
+			g.drawRect(x + 15, y - 12, 54, 38);
+
+
 		}
+		else if (level1complete == true && level2complete == false)
+		{
+			g.drawImage(turtle, x, y-40, 100, 100, null);
+			//turtle hitbox
+			g.drawRect(x + 20, y - 10, 55, 52);
+			
+		}
+		else if (level2complete == true && level3complete == false)
+		{
+			g.drawImage(Pumpkin, x, y-40, 100, 100, null);
+			//Pumpkin hitbox
+			g.drawRect(x + 8, y - 15, 73, 68);
+			
+
+
+		}
+		else if (level3complete == true && level4complete == false)
+		{
+			g.drawImage(snowman, x, y-40, 100, 100, null);
+			//snowman hitbox
+			g.drawRect(x + 30, y - 2, 35, 53);
+			
+		}
+		else
+		{
+			g.drawImage(mike, x, y-40, 100, 100, null);
+			//mike hitbox
+			g.drawRect(x + 15, y - 15, 56, 58);
+			
+		}
+		
 		
 	}
 }
-
-
