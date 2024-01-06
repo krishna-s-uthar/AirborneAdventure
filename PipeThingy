@@ -1,6 +1,12 @@
 import java.awt.*;
 public class PipeThingy {
 	private int height, x;
+	private boolean isOnLevel1 = true;
+	private boolean isOnLevel2 = false;
+	private boolean isOnLevel3 = false;
+	private boolean isOnLevel4 = false;
+	private boolean isOnLevel5 = false;
+
 	PipeThingy(int height) {
 		this.height = height;
 		this.x = 260;
@@ -17,16 +23,317 @@ public class PipeThingy {
 	public int getHeight() {
 		return this.height;
 	}
+	public void setHeight(int value)
+	{
+		this.height = value;
+	}
+	
+	
+	public void setIsOnLevel1(boolean value)
+	{
+		this.isOnLevel1 = value;
+	}
+	
+	public void setIsOnLevel2(boolean value)
+	{
+		this.isOnLevel2 = value;
+	}
+	
+	public void setIsOnLevel3(boolean value)
+	{
+		this.isOnLevel3 = value;
+	}
+	
+	public void setIsOnLevel4(boolean value)
+	{
+		this.isOnLevel4 = value;
+	}
+	
+	public void setIsOnLevel5(boolean value)
+	{
+		this.isOnLevel5 = value;
+	}
+	
 	public void paint(Graphics g, int panelHeight) {
 		Graphics2D g2d = (Graphics2D) g;
 		pipes(g2d, 700);
 		
 	}
 	
+	
 	private void pipes(Graphics g, int panelHeight) {
 		Graphics2D g2d = (Graphics2D) g;
 		
 		Color kalaBrown = new Color(90, 65, 74, 255);
+		g2d.setColor(kalaBrown);
+		if(isOnLevel5 == true)
+		{
+		 Color cyan = new Color(76,226,230,255);
+		 Color pink = new Color(239,63,197,255);
+		 g2d.setColor(pink);
+		 for (int i = 0; i < 32; i ++)
+		 {
+			 if (i % 4 == 0)
+			 {
+				 g2d.setColor(pink);
+			 }
+			 else if (i % 4 == 1)
+			 {
+				 g2d.setColor(Color.WHITE);
+			 }
+			 else if (i % 4 == 2)
+			 {
+				 g2d.setColor(cyan);
+			 }
+			 else
+			 {
+				 g2d.setColor(Color.WHITE);
+			 }
+			 g2d.fillRect(i * 2 + x + 5, 0, 2, height - 151);
+			 g2d.fillRect(i * 2 + x + 5, height + 28, 2, 579 - height);
+			 if (i < 14)
+			 {
+			 g2d.fillRect(x, height - 151 + i * 2, 75, 2);
+			 g2d.fillRect(x, height + i * 2, 75, 2);
+			 }
+		 }
+		}
+		
+		//g2d.fillRect(x + 5, 0, 65, height - 145);
+		//g2d.fillRect(x, height - 151, 75, 28);
+		//g2d.fillRect(x + 5, height + 28, 65, 1000);
+		//g2d.fillRect(x, height, 75, 28);
+		
+		if (isOnLevel2 == true)
+		{
+		//g2d.fillRect(x + 5, 154, 65, height - 299);
+		//g2d.fillRect(x, height - 151, 75, 28);
+		//g2d.fillRect(x + 5, height + 28, 65, 1000);
+		//g2d.fillRect(x, height, 75, 28);
+		Color green1 = new Color (186,227,124,255);
+		Color green2 = new Color (156,216,89,255);
+		Color green3 = new Color (134,199,90,255);
+		Color green4 = new Color (124,180,80,255);
+		Color green5 = new Color (108,157,60,255);
+		Color green6 = new Color (66,93,40,255);
+		Color green7 = new Color (54,70,38,255);
+
+		int borderThickness = 5;
+		g2d.setColor(green1);
+        g2d.setStroke(new BasicStroke(borderThickness));
+        for (int i = 0; i < 10; i ++)
+        {
+    		int angle = 90;
+        	if (i % 7 == 0)
+        	{
+        		g2d.setColor(green1);
+        	}
+        	else if (i % 7 == 1)
+        	{
+        		g2d.setColor(green2);
+        	}
+        	else if (i % 7 == 2)
+        	{
+        		g2d.setColor(green3);
+        	}
+        	else if (i % 7 == 3)
+        	{ 
+        		g2d.setColor(green4);
+        	}
+        	else if (i % 7 == 4)
+        	{
+        		g2d.setColor(green5);
+        	}
+        	else if (i % 7 == 5)
+        	{
+        		g2d.setColor(green6);
+        	}
+        	else
+        	{
+        		g2d.setColor(green7);
+        	}
+        	for (int j = 0; j < (height - 313) / 30 + 1; j++)
+        	{
+        		if (j % 2 == 0)
+        		{
+        			angle = 90;
+        		}
+        		else
+        		{
+        			angle = 270;
+        		}
+        		g2d.drawArc(i * 5 + x + 9, 158 + j * 27, 15, 27, angle, 180);
+        	}
+        	for (int j = 0; j < 15; j++)
+        	{
+        		if (j % 2 == 0)
+        		{
+        			angle = 90;
+        		}
+        		else
+        		{
+        			angle = 270;
+        		}
+        		g2d.drawArc(i * 5 + x + 9, height + j * 30 + 23, 15, 30, angle, 180);
+        	}
+        }
+        for (int i = 0; i < 10; i ++)
+        {
+    		int angle = 90;
+        	if (i % 7 == 0)
+        	{
+        		g2d.setColor(green1);
+        	}
+        	else if (i % 7 == 1)
+        	{
+        		g2d.setColor(green2);
+        	}
+        	else if (i % 7 == 2)
+        	{
+        		g2d.setColor(green3);
+        	}
+        	else if (i % 7 == 3)
+        	{ 
+        		g2d.setColor(green4);
+        	}
+        	else if (i % 7 == 4)
+        	{
+        		g2d.setColor(green5);
+        	}
+        	else if (i % 7 == 5)
+        	{
+        		g2d.setColor(green6);
+        	}
+        	else
+        	{
+        		g2d.setColor(green7);
+        	}
+        	for (int j = 0; j < 6; j++)
+        	{
+        		if (j % 2 == 0)
+        		{
+        			angle = 0;
+        		}
+        		else
+        		{
+        			angle = 180;
+        		}
+        		g2d.drawArc(x + j * 12 + 1, height - 149 + i* 2 , 12, 5, angle, 180);
+        		g2d.drawArc(x + j * 12 + 1, height + i* 2 , 12, 5, angle, 180);
+
+        	}
+        }
+		}
+		
+	    if (isOnLevel3 == true)
+	    {
+	    	g2d.setColor(kalaBrown);
+	    	Color pumpkinOrange = new Color(250,99,19,255);
+	    	Color pumpkinStem = new Color (38,27,31,255);
+	    	Color semiTransparentColor = new Color(255, 255, 255, 30);
+			g2d.setColor(semiTransparentColor);
+			g2d.fillRect(0, 0, 530, 607);
+
+			g2d.setColor(Color.WHITE);
+			g2d.fillOval(x + 5, 0, 65, height - 123);
+			g2d.fillRect(x + 5, 0, 65, (height - 123) / 2);
+			g2d.fillOval(x + 5, height + 10, 65, 597 - height );
+			g2d.fillRect(x + 5, (607 - height) / 2 + height + 10, 65, 607 -((607 - height) / 2 + height) - 10);
+
+
+			g2d.setColor(Color.BLACK);
+			g2d.fillOval(x + 25, height - 170, 10, 20);
+			g2d.fillOval(x + 38, height - 170, 10, 20);
+			g2d.fillOval(x + 25, height + 45, 10, 20);
+			g2d.fillOval(x + 38, height + 45, 10, 20);
+			g2d.fillOval(x + 27, height + 68, 20, 30);
+			g2d.fillOval(x + 27, height - 202, 20, 30);
+
+
+			g2d.setColor(pumpkinOrange);
+			g2d.fillOval(x, height - 151, 75, 28);
+			g2d.fillOval(x, height + 10, 75, 28);
+			g2d.setColor(pumpkinStem);
+			g2d.fillRect(x + 34, height - 133, 6, 16);
+			g2d.fillRect(x + 34, height + 4, 6, 16);
+			int[] x1 = {x + 31, x + 43, x + 40, x + 34};
+			int[] y1 = {height - 135, height - 135, height - 130, height - 130};
+			int[] x2 = {x + 31, x + 43, x + 40, x + 34};
+			int[] y2 = {height + 23, height + 23, height + 18, height + 18};
+	    	g2d.fillPolygon(x1, y1, 4);
+	    	g2d.fillPolygon(x2, y2, 4);
+	    }
+		
+		
+	    if (isOnLevel4 == true)
+	    {
+		Color green = new Color(83, 255, 77);
+		g2d.setColor(kalaBrown);
+		g2d.fillRect(x + 5, 0, 65, height - 145);
+		g2d.fillRect(x, height - 151, 75, 28);
+		g2d.fillRect(x + 5, height + 28, 65,  579 - height);
+		g2d.fillRect(x, height, 75, 28);
+		for (int i = 0; i < (height - 145) / 5; i ++)
+		{
+			if (i % 3 == 0)
+			{
+				g2d.setColor(Color.red);
+			}
+			else if (i % 3 == 1)
+			{
+				g2d.setColor(Color.WHITE);
+
+			}
+			else
+			{
+				g2d.setColor(green);
+
+			}
+			g2d.fillRect(x + 7, i * 5, 61, 5);
+	
+		}
+		for (int i = 0; i < 5; i ++)
+		{
+			if (i % 3 == 0)
+			{
+				g2d.setColor(green);
+			}
+			else if (i % 3 == 1)
+			{
+				g2d.setColor(Color.RED);
+
+			}
+			else
+			{
+				g2d.setColor(Color.WHITE);
+
+			}
+			g2d.fillRect(x + 2, i * 5 + height - 150, 71, 5);
+			g2d.fillRect(x + 2, i * 5 + height + 2, 71, 5);
+		}
+		
+		for (int i = 0; i < (579 - height) / 5; i ++)
+		{
+			if (i % 3 == 0)
+			{
+				g2d.setColor(Color.WHITE);
+			}
+			else if (i % 3 == 1)
+			{
+				g2d.setColor(green);
+
+			}
+			else
+			{
+				g2d.setColor(Color.RED);
+			}
+			g2d.fillRect(x + 7, i * 5 + height + 28, 61, 5);
+	
+		}
+	    }
+	    
+		if (isOnLevel1 == true)
+		{
 		g2d.setColor(kalaBrown);
 		g2d.fillRect(x + 5, 0, 65, height - 145);
 		Color green2 = new Color(155, 228, 89, 255);
@@ -63,18 +370,18 @@ public class PipeThingy {
 		g2d.fillRect(x + 61, height - 145, 2, 16);
 		g2d.fillRect(x + 59, height - 129, 2, 2);
 		g2d.setColor(kalaBrown);
-		g2d.fillRect(x + 5, height + 28, 65,  (panelHeight - (panelHeight / 4 + 28)) );
+		g2d.fillRect(x + 5, height + 28, 65, 1000);
 		g2d.setColor(green2);
-		g2d.fillRect(x + 9, height + 28, 57, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.fillRect(x + 9, height + 28, 57, 1000);
 		g2d.setColor(yellow2);
-		g2d.fillRect(x + 13, height + 28, 2, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.fillRect(x + 13, height + 28, 2, 1000);
 		g2d.setColor(darkGreen2);
-		g2d.fillRect(x + 23, height + 28, 2, (panelHeight - panelHeight / 4 - 59) - height);
-		g2d.fillRect(x + 28, height + 28, 38, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.fillRect(x + 23, height + 28, 2, 1000);
+		g2d.fillRect(x + 28, height + 28, 38, 1000);
 		g2d.setColor(kalaGreen2);
-		g2d.fillRect(x + 58, height + 28, 8, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.fillRect(x + 58, height + 28, 8, 1000);
 		g2d.setColor(darkGreen2);
-		g2d.fillRect(x + 60, height + 28, 2, (panelHeight - panelHeight / 4 - 59) - height);
+		g2d.fillRect(x + 60, height + 28, 2, 1000);
 		g2d.setColor(kalaBrown);
 		g2d.fillRect(x, height, 75, 28);
 		g2d.setColor(kalaGreen2);
@@ -93,13 +400,17 @@ public class PipeThingy {
 		g2d.setColor(kalaGreen2);
 		g2d.fillRect(x + 61, height + 6, 2, 16);
 		g2d.fillRect(x + 69, height + 4, 2, 2);
-		
+		}
+		if(isOnLevel5 == true)
+		{
+			isOnLevel3 = false;
+		}
 		
 	}
-   public void move(boolean gameStarted) {
-       if (gameStarted) {
-           x -= 2; // Adjust the speed of pipe movement here
-       }
-   }
+ public void move(boolean gameStarted) {
+     if (gameStarted) {
+         x -= 2; // Adjust the speed of pipe movement here
+     }
+ }
 }
 
