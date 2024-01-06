@@ -1,0 +1,149 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+public class ProgressionBar
+{
+	private int x;
+	private boolean endOfScreen = false;
+	private BufferedImage nextLevelScreen = null;
+	private BufferedImage Level1EndScreen = null;
+	private BufferedImage Level2EndScreen = null;
+	private BufferedImage Level3EndScreen = null;
+	private BufferedImage Level4EndScreen = null;
+	private BufferedImage Level5EndScreen = null;
+
+	private BufferedImage level2nextLevelScreen = null;
+	private BufferedImage level4nextLevelScreen = null;
+	private BufferedImage level5nextLevelScreen = null;
+
+
+
+	private AirborneAdventure gamePanel;
+
+	
+	ProgressionBar (int x, AirborneAdventure gamePanel)
+	{
+		this.x = x;
+	    this.gamePanel = gamePanel;
+
+		try {
+			Level1EndScreen = ImageIO.read(new File("Level1EndScreen.png"));
+			Level2EndScreen = ImageIO.read(new File("Level2EndScreen.png"));
+			Level3EndScreen = ImageIO.read(new File("Level3EndScreen.png"));
+			Level4EndScreen = ImageIO.read(new File("Level4EndScreen.png"));
+			Level5EndScreen = ImageIO.read(new File("Level5EndScreen.png"));
+
+			nextLevelScreen = ImageIO.read(new File("game over.png"));
+			level2nextLevelScreen = ImageIO.read(new File("lvl2GameOver2.png"));
+			level4nextLevelScreen = ImageIO.read(new File("game over screens.png"));
+			level4nextLevelScreen = ImageIO.read(new File("Level5EndScreen.png"));
+
+
+		} catch (IOException e) {
+			System.out.println("No Image");
+		}
+		
+	}
+	
+	public int getX()
+	{
+		return this.x;
+	}
+	
+	public void setX(int x) 
+	{
+		this.x = x;
+	}
+	
+	public boolean getendOfScreen()
+	{
+		return endOfScreen;
+	}
+	
+	public void setEndOfScreen(boolean EndOfScreen)
+	{
+		this.endOfScreen = EndOfScreen;
+	}
+	
+	public void move(boolean gameStarted)
+	{
+	       if (gameStarted) {
+	           x -= 2; // Adjust the speed of pipe movement here
+	       }
+	       if (x == 150)
+	       {
+	    	   endOfScreen = true;
+	    	   x = -500;
+	    	   
+	    	   if (gamePanel.getisOnLevel1() == true)
+	    	   {
+		    	   gamePanel.setlevel1Completed(true);
+	    	   }
+	    	   else if (gamePanel.getisOnLevel2() == true)
+	    	   {
+		    	   gamePanel.setlevel2Completed(true);
+	    	   }
+	    	   else if (gamePanel.getisOnLevel3() == true)
+	    	   {
+		    	   gamePanel.setlevel3Completed(true);
+	    	   }
+	    	   else if (gamePanel.getisOnLevel4() == true)
+	    	   {
+		    	   gamePanel.setlevel4Completed(true);
+	    	   }	       
+	       }
+	       else
+	       {
+	    	   endOfScreen = false;
+	       }
+	}
+	
+	public void paint(Graphics g)
+	{
+	     Graphics2D g2d = (Graphics2D) g;
+		 for (int i = 0; i < 9; i++)
+		 {
+			 for (int j =0; j < 28; j++)
+			 {
+				if ((i + j) % 2 == 0)
+				{
+					g2d.setColor(Color.BLACK);
+				}
+				else
+				{
+					g2d.setColor(Color.WHITE);
+				}
+				g2d.fillRect(i*30 + x, 577 - j*30, 30, 30);
+			 }
+		 }	
+		 if(endOfScreen == true) 
+		 {
+			 if (gamePanel.getisOnLevel1() == true)
+			 {
+				 g.drawImage(Level1EndScreen, 0, 0, 530, 800, null);
+			 }
+			 if (gamePanel.getisOnLevel2() == true)
+			 {
+				 g.drawImage(Level2EndScreen, 0, 0, 530, 800, null);
+			 }
+			 if (gamePanel.getisOnLevel3() == true)
+			 {
+				 g.drawImage(Level3EndScreen, 0, 0, 530, 800, null);
+			 }
+			 if (gamePanel.getisOnLevel4() == true)
+			 {
+				 g.drawImage(Level4EndScreen, 0, 0, 530, 800, null);
+			 }
+			 if(gamePanel.getisOnLevel5() == true)
+			 {
+				 g.drawImage(Level5EndScreen, 0, 0, 530, 800, null);
+			 }
+		 }
+
+	}
+	
+}
