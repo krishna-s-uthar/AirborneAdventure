@@ -4,66 +4,336 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
-public class AirborneAdventure extends JPanel {
-	private int y;
-	private PipeThingy[] p = new PipeThingy[10];
-	private Level1 level1 = new Level1(40, 390);
-	private GravityandCollision gc = new GravityandCollision(40, 390, false);
+import javax.swing.JButton;
+public class AirborneAdventure extends JPanel implements ActionListener {
+	private int x = 0;
+	private PipeThingy[] p = new PipeThingy[1];
+	private Level1 level1 = new Level1(50, 400, this);//525
+	private Level2 level2 = new Level2(this);
+	private Level3 level3 = new Level3(this);
+	private Level4 level4 = new Level4(this);
+	private Level5 level5 = new Level5(this);
+	private PowerUps PowerUps = new PowerUps(this);
+	private GravityandCollision gc = new GravityandCollision(230, 55, false);//550 //390
+    private Clicky Clicky = new Clicky(this);
+	private Collision Collision = new Collision(level1, level2, level3, level4, level5, p, gc, Clicky);
+
+
+	private ProgressionBar pb;
+	private Instructions instructions = new Instructions(this); 
+	private Backstory Backstory = new Backstory(this); 
+
 	private boolean gameStarted = false;
+	private boolean gamePhase1 = false;
+
+	private boolean level1Completed = false;
+	private boolean level2Completed = false;
+	private boolean level3Completed = false;
+	private boolean level4Completed = false;
+	private int score = 0;
+    private boolean teleport = false;
+    private boolean isOnLevel1= true;
+    private boolean isOnLevel2 = false;
+    private boolean isOnLevel3 = false;
+    private boolean isOnLevel4 = false;
+    private boolean isOnLevel5 = false;
+    private boolean b = false;
+    private boolean c = false;
+    private boolean d = false;
+    private boolean e = false;
+    private boolean ENDOFSCREEN = false;
+    
+ 
 	AirborneAdventure() {
 		for (int i = 0; i < p.length; i++) {
-			p[i] = new PipeThingy(((int) (275 * Math.random()) + 200));
-			p[i].setX(350 * i + 600);
+			p[i] = new PipeThingy(((int) (325 * Math.random()) + 200));
+			p[i].setX(350 * i + 700);
+			//p[i] = new PipeThingy((int) (325 * Math.random()) + 350);
+			//p[i].setX(300);
+			if(i == p.length - 1)
+			{
+			pb = new ProgressionBar(350 * i + 900, this);
+			}
 		}
-       addKeyListener(new KeyAdapter() {
-           @Override
-           public void keyPressed(KeyEvent e) {
-               gc.keyPressed(e);
-               level1.keyPressed(e);
-               if (e.getKeyCode() == KeyEvent.VK_UP) {
-                   gameStarted = true; // Start the game when the up arrow key is pressed
-                   level1.startGame();
-               }
-           }
-           @Override
-           public void keyReleased(KeyEvent e) {
-               gc.keyReleased(e);
-           }
-       });
-       setFocusable(true);
+		
+  addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+          gc.keyPressed(e);
+          level1.keyPressed(e);
+          if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+              if (gamePhase1 == true)
+              {
+            	  gameStarted = true; // Start the game when the up arrow key is pressed
+
+              }
+          }
+      }
+      @Override
+      public void keyReleased(KeyEvent e) {
+          gc.keyReleased(e);
+      }
+  
+  });
+  addMouseListener(Clicky);
+  setFocusable(true);
 	}
+	
+	public void reset()
+	{
+		Collision.sethitsPipe(false);
+		gameStarted = false;
+		gc.setY(55);
+		score = 0;
+		teleport = false;
+		for (int i = 0; i < p.length; i++) 
+		{
+			p[i].setX(350 * i + 700);
+			if(i == p.length - 1)
+			{
+				pb.setX(350 * i + 900);
+			}
+		}
+		
+	}
+	
+	public void setGamePhase1(boolean value) {
+      gamePhase1 = value;
+    }
+	
+	public boolean getGamePhase1()
+	{
+		return gamePhase1;
+	}
+	
+	public boolean getGameStarted()
+	{
+		return gameStarted;
+	}
+	
+	public void setlevel1Completed(boolean value)
+	{
+		level1Completed = value;
+	}
+	
+	public boolean getLevel1Completed()
+	{
+		return level1Completed;
+	}
+	
+	public void setlevel2Completed(boolean value)
+	{
+		level2Completed = value;
+	}
+	
+	public boolean getLevel2Completed()
+	{
+		return level2Completed;
+	}
+	
+	public void setlevel3Completed(boolean value)
+	{
+		level3Completed = value;
+	}
+	
+	public boolean getLevel3Completed()
+	{
+		return level3Completed;
+	}
+	
+	public void setlevel4Completed(boolean value)
+	{
+		level4Completed = value;
+	}
+	
+	public boolean getLevel4Completed()
+	{
+		return level4Completed;
+	}
+	
+	
+	public void setisOnLevel1(boolean value)
+	{
+		isOnLevel1 = value;
+	}
+	
+	public void setisOnLevel2(boolean value)
+	{
+		isOnLevel2 = value;
+	}
+	
+	public void setisOnLevel3(boolean value)
+	{
+		isOnLevel3 = value;
+	}
+	
+	public void setisOnLevel4(boolean value)
+	{
+		isOnLevel4 = value;
+	}
+	
+	public void setisOnLevel5(boolean value)
+	{
+		isOnLevel5 = value;
+	}
+	
+	public boolean getisOnLevel1()
+	{
+		return isOnLevel1;
+	}
+	
+	public boolean getisOnLevel2()
+	{
+		return isOnLevel2;
+	}
+	
+	public boolean getisOnLevel3()
+	{
+		return isOnLevel3;
+	}
+	
+	public boolean getisOnLevel4()
+	{
+		return isOnLevel4;
+	}
+	
+	public boolean getisOnLevel5()
+	{
+		return isOnLevel5;
+	}
+
+	
+	public boolean getENDOFSCREEN()
+	{
+		return ENDOFSCREEN;
+	}
+	
+	
 	private void move() {
-       if (!gc.getMoving()) {
-           gc.setMoving(true); // Start the game when the up arrow key is pressed
-       }
-       for (int i = 0; i < p.length; i++)
-       {
-    	   if(p[i].getX() <= 280 && p[i].getX() + 75 >= 280 && (gc.getY() <= p[i].getHeight()-115 || gc.getY() + 25 >= p[i].getHeight()))
-    	   {
-    		   gc.sethitsPipe(true);
-    	   }
-    	   
-    	   if(gc.getY() > 467)
-    	   {
-    		   gc.sethitsPipe(true);
-    	   }
-    	   
-    	  
-       }
-       for (PipeThingy pipe : p) {
-    	   if (gc.gethitsPipe() == false) {
-           pipe.move(gameStarted); // Pass game start status to pipes
-    	   }
-       }
-       
-       
-		 if (gc.gethitsPipe() == false && gameStarted == true) {
+		if (x <= -1000)
+		{
+			x+= 1000;
+		}
+	 if (Collision.gethitsPipe() == false && pb.getendOfScreen() == false)
+	 {
+		  x-= 2;
+	 }
+	 if (gamePhase1 == true && Collision.gethitsPipe() == false)
+	 {
+		 if (teleport == false)
+		 {
+			 gc.setY(341);
+			 teleport = true;
+		 }
+		 //gc.move3();
+	 }
+	  if (gameStarted == false  && gamePhase1 == false)
+	  {
+		gc.move2();
+	  }
+	
+  if (!gc.getMoving()) {
+      gc.setMoving(true); // Start the game when the up arrow key is pressed
+  }
+  Collision.CheckForCollision();
+	  
+	 
+		 
+	
+	
+  
+  for (PipeThingy pipe : p) {
+	   if (Collision.gethitsPipe() == false && pb.getendOfScreen() == false) {
+		   pipe.move(gameStarted); // Pass game start status to pipes
+		   if(pipe.getX() == 190)
+		   {
+			   score += 1;
+		   }
+	   }
+	
+  }
+	   if (Collision.gethitsPipe() == false && pb.getendOfScreen() == false) {
+	       pb.move(gameStarted);
+	   }
+	 
+	
+		 if (Collision.gethitsPipe() == false && gameStarted == true && pb.getendOfScreen() == false) {
 				gc.move();
 		 }
+		
+		 if(pb.getendOfScreen() == true)
+		 {
+			 p[p.length -1].setX(-100);
+		 }
+		 if (level1Completed == true)
+		 {
+			 gc.setlevel1complete(true);
+		 }
+		 if (level2Completed == true)
+		 {
+			 gc.setlevel2complete(true);
+		 }
+		 if(level3Completed == true)
+		 {
+			 gc.setlevel3complete(true);
+		 }
+		 if(level4Completed == true)
+		 {
+			 gc.setlevel4complete(true);
+		 }
+		 if (isOnLevel1 == false && Collision.gethitsPipe() == false)
+		 {
+			 if (b == false)
+			 {
+				 pb.setEndOfScreen(false);
+				 b = true;
+			 }
+			 level2.move();
+		 }
+		 
+		 if (isOnLevel1 == false && isOnLevel2 == false && Collision.gethitsPipe() == false)
+		 {
+			 if (c == false)
+			 {
+				 pb.setEndOfScreen(false);
+				 c = true;
+			 }
+			 level3.move();
+		 }
+		 
+		 if (isOnLevel4 == true && Collision.gethitsPipe() == false)
+		 {
+			 if (d == false)
+			 {
+				 pb.setEndOfScreen(false);
+				 d = true;
+			 }
+			 level4.move();
+		 }
+		 
+		 if (isOnLevel5 == true && Collision.gethitsPipe() == false)
+		 {
+			 if (e == false)
+			 {
+				 pb.setEndOfScreen(false);
+				 e = true;
+			 }
+			 level5.move();
+		 }
+		 
+		 if (pb.getendOfScreen() == true)
+		 {
+			 ENDOFSCREEN = true;
+		 }
+		 else
+		 {
+			 ENDOFSCREEN = false;
+		 }
+		//PowerUps.move();
 		repaint();
-
-
 	}
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
@@ -77,43 +347,284 @@ public class AirborneAdventure extends JPanel {
 		Color kalaBrown = new Color(90, 65, 74, 255);
 		Color LightLightGreen = new Color(130, 227, 140, 255);
 		Color kalaGreen = new Color(119, 207, 137, 255);
+		Color green3 = new Color(115,191,46,255);
+		
 		// The ground
 		g2d.setColor(SkyBlue);
 		g2d.fillRect(0, 0, getWidth(), getHeight());
-		g2d.setColor(lightBrown);
-		g2d.fillRect(0, getHeight() - (getHeight() / 4), getWidth(), 275);
-		g2d.setColor(darkBrown);
-		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 6), getWidth(), 6);
-		g2d.setColor(darkGreen);
-		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 8), getWidth(), 2);
-		g2d.setColor(lightGreen);
-		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 23), getWidth(), 15);
-		g2d.setColor(lightYellow);
-		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 25), getWidth(), 2);
-		g2d.setColor(kalaBrown);
-		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 28), getWidth(), 3);
 		g2d.setColor(LightLightGreen);
-		g2d.fillRect(0, getHeight() - (getHeight() / 4 + 88), getWidth(), 60);
-		for (PipeThingy pipe : p) {
+		g2d.fillRect(0, getHeight() - (getHeight() / 6 + 88), getWidth(), 60);
+		
+		pb.paint(g2d);
+		for (PipeThingy pipe : p) 
+		{
 			pipe.paint(g, getHeight());
 		}
-		level1.paint(g2d);
-		gc.paint(g2d);
+		g2d.setColor(lightBrown);
+		g2d.fillRect(0, getHeight() - (getHeight() / 6), getWidth(), 126);
+		g2d.setColor(darkBrown);
+		g2d.fillRect(0, getHeight() - (getHeight() / 6 + 6), getWidth(), 6);
+		g2d.setColor(darkGreen);
+		g2d.fillRect(0, getHeight() - (getHeight() / 6 + 8), getWidth(), 2);
+		g2d.setColor(lightGreen);
+		g2d.fillRect(0, getHeight() - (getHeight() / 6 + 23), getWidth(), 15);
+		g2d.setColor(lightYellow);
+		g2d.fillRect(0, getHeight() - (getHeight() / 6 + 25), getWidth(), 2);
+		g2d.setColor(kalaBrown);
+		g2d.fillRect(0, getHeight() - (getHeight() / 6 + 28), getWidth(), 3);
+		for (int i = 0; i < 172; i++)
+		{
+			int[] x1 = {i * 20 + x ,i * 20 + x + 10, i *20 + x + 2, i*20 + x -7};
+			int[] y1 = {612, 612, 612 + 15, 612 + 15};
+			g2d.setColor(green3);
+    	g2d.fillPolygon(x1, y1, 4);
+    	g2d.setColor(Color.BLACK);
+		}
+		if (gameStarted == false)
+		{
+			level1.paint(g2d);
+		}
+		if (isOnLevel1 == false)
+		{
+		  level2.paint(g2d);
+		  pb.paint(g2d);
+		  level1.setisOnLevel(false);
+		  level2.setisOnLevel(true);
+		}
+		if (isOnLevel1 == false && isOnLevel2 == false)
+		{
+			isOnLevel3 = true;
+			level3.paint(g2d);
+			pb.paint(g2d);
+			level2.setisOnLevel(false);
+			level3.setisOnLevel(true);
+		}
+		
+		if (isOnLevel4 == true)
+		{
+			level4.paint(g2d);
+			pb.paint(g2d);
+			level3.setisOnLevel(false);
+			level4.setisOnLevel(true);
+		}
+		if (isOnLevel5 == true)
+		{
+			level5.paint(g2d);
+			pb.paint(g2d);
+			level4.setisOnLevel(false);
+			level5.setisOnLevel(true);
 
+		}
+		
+		
+		g2d.setColor(Color.WHITE);
+		 Font scoreFont1 = new Font("Bangers", Font.BOLD, 75);
+		 Font scoreFont2 = new Font("Bangers", Font.BOLD, 30);
+		 g2d.setFont(scoreFont1);
+		 if (pb.getendOfScreen() == false)
+		 {
+			 if(gamePhase1 == false)
+			 {
+					g2d.drawString(Integer.toString(score), -10, -10);
 
+			 }
+				if (isOnLevel1 == true && gameStarted == true)
+				{
+					g2d.drawString(Integer.toString(score), 250, 100);
+				}
+				else
+				{
+					//g2d.setColor(Color.BLUE);
+				  	//g2d.drawString(Integer.toString(score), 250, getHeight() - 50);
+
+				}
+		 }
+		 if (pb.getendOfScreen() == true)
+		 {
+			 gc.setX(-200);
+			 g2d.setFont(scoreFont2);
+			 g2d.drawString(Integer.toString(score), 330, 288);
+		 }
+		 if (Clicky.getisInstructions() == true)
+		 {
+			instructions.paint(g2d);
+		 }
+		 if (Clicky.getisBackstory() == true)
+		 {
+			 Backstory.paint(g2d);
+		 }
+		 
+		 g2d.setColor(Color.RED);
+		 if (Clicky.getstartLevel2() == true)
+		 {
+			 gameStarted = false;
+			 level2.setStart(true);
+			 score = 0;
+			 teleport = false;
+				for (int i = 0; i < p.length; i++) 
+				{
+					p[i].setX(350 * i + 700);
+					if(i == p.length - 1)
+					{
+						pb.setX(900);
+					}
+				}
+			 gc.setX(230);
+			 gc.setY(341);
+			 Clicky.setStartLevel2(false);
+			 isOnLevel2 = true;
+			 for (PipeThingy pipe : p) 
+			 {
+				 pipe.setHeight((int) (325 * Math.random()) + 350);
+				 pipe.setIsOnLevel1(false);
+				 pipe.setIsOnLevel2(true);
+
+			 }
+		 }
+		 if (Clicky.getstartLevel3() == true)
+		 {
+			 gameStarted = false;
+			 level3.setStart(true);
+			 score = 0;
+			 teleport = false;
+				for (int i = 0; i < p.length; i++) 
+				{
+					p[i].setX(350 * i + 700);
+					if(i == p.length - 1)
+					{
+						pb.setX(900);
+						
+					}
+				}
+			 gc.setX(230);
+			 gc.setY(341);
+			 Clicky.setStartLevel3(false);
+			 isOnLevel3 = true;
+			 for (PipeThingy pipe : p) 
+			 {
+				 pipe.setHeight((int)(325 * Math.random()) + 200);
+				 pipe.setIsOnLevel2(false);
+				 pipe.setIsOnLevel3(true);
+			 }
+		 }
+		 if (Clicky.getstartLevel4() == true)
+		 {
+			 gameStarted = false;
+			 level4.setStart(true);
+			 score = 0;
+			 teleport = false;
+				for (int i = 0; i < p.length; i++) 
+				{
+					p[i].setX(350 * i + 700);
+					if(i == p.length - 1)
+					{
+						pb.setX(900);
+					}
+				}
+			 gc.setX(230);
+			 gc.setY(341);
+			 Clicky.setStartLevel4(false);
+			 for (PipeThingy pipe : p) 
+			 {
+				 pipe.setHeight((int)(325 * Math.random()) + 200);
+				 pipe.setIsOnLevel3(false);
+				 pipe.setIsOnLevel4(true);
+			 }
+		 }
+		 if (Clicky.getstartLevel5() == true)
+		 {
+			 gameStarted = false;
+			 level5.setStart(true);
+			 score = 0;
+			 teleport = false;
+				for (int i = 0; i < p.length; i++) 
+				{
+					p[i].setX(350 * i + 700);
+					if(i == p.length - 1)
+					{
+						pb.setX(900);
+					}
+				}
+			 gc.setX(230);
+			 gc.setY(341);
+			 Clicky.setStartLevel5(false);
+			 isOnLevel5 = true;
+			 gc.setlevel4complete(true);
+			 for (PipeThingy pipe : p) 
+			 {
+				 pipe.setHeight((int)(325 * Math.random()) + 200);
+				 pipe.setIsOnLevel4(false);
+				 pipe.setIsOnLevel5(true);
+			 }
+		 }
+		 
+		 if(isOnLevel2 == true)
+		 {
+			 
+			 for (PipeThingy pipe : p) 
+			 {
+				 pipe.paint(g, getHeight());
+			 }
+		 }
+		 
+		 if(isOnLevel3 == true)
+		 {
+			 
+			 for (PipeThingy pipe : p) 
+			 {
+				 pipe.paint(g, getHeight());
+			 }
+		 }
+		 
+		 if(isOnLevel4 == true)
+		 {
+			 
+			 for (PipeThingy pipe : p) 
+			 {
+				 pipe.paint(g, getHeight());
+			 }
+		 }
+		 if(isOnLevel5 == true)
+		 {
+			 
+			 for (PipeThingy pipe : p) 
+			 {
+				 pipe.paint(g, getHeight());
+			 }
+		 }
+		 if (Clicky.getisInstructions() == false && Clicky.getisBackstory() == false)
+		 {
+			 gc.paint(g2d);
+		 }
+		 if (pb.getendOfScreen() == true)
+		 {
+			 pb.paint(g2d);
+		 }
+
+		 Clicky.paint(g2d);
+		 Collision.paint(g2d);
+		 //PowerUps.paint(g2d);
 	}
 	
 	public int getPanelHeight() {
 		return this.getHeight();
 	}
+	
+	public int getPanelWidth() {
+		return this.getWidth();
+	}
 	public static void main(String[] args) throws InterruptedException {
 		  SwingUtilities.invokeLater(() -> {
 		        JFrame frame = new JFrame("Airborne Adventure");
+		   
 		        AirborneAdventure panel = new AirborneAdventure();
+		   
 		        frame.add(panel);
-		        frame.setSize(600, 1040);
+		        frame.setSize(530, 800);
 		        frame.setVisible(true);
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		        frame.setLayout(null);
+		        frame.addMouseListener(panel.Clicky);		    
 		        // Game loop with Swing Timer
 		        Timer timer = new Timer(10, new ActionListener() {
 		            @Override
@@ -124,6 +635,11 @@ public class AirborneAdventure extends JPanel {
 		        });
 		        timer.start(); // Start the timer
 		    });
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
