@@ -1,0 +1,29 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+public class Backstory
+{
+	private BufferedImage Backstory = null;
+	private AirborneAdventure gamePanel;
+	
+	Backstory (AirborneAdventure gamePanel)
+	{
+	    this.gamePanel = gamePanel;
+		try {
+			Backstory = ImageIO.read(new File("Backstory.png"));
+		} catch (IOException e) {
+			System.out.println("No Image");
+		}
+		
+	}
+	public void paint(Graphics g)
+	{
+	     Graphics2D g2d = (Graphics2D) g;			
+		 g.drawImage(Backstory,0, 0, 515, 761, null);
+	}
+	
+}
