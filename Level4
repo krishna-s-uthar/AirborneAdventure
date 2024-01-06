@@ -1,0 +1,100 @@
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+public class Level4 
+{
+	private AirborneAdventure gamePanel;
+	private BufferedImage Level4HomeScreen = null;
+	private BufferedImage level4Start = null;
+	private BufferedImage Level4Label = null;
+	private boolean isOnLevel = false;
+
+	private boolean start = false;
+	private int x;
+	Level4 (AirborneAdventure gamePanel)
+	{		
+	    this.gamePanel = gamePanel;
+		try {
+			Level4HomeScreen = ImageIO.read(new File("Level4HomeScreen.png"));
+			level4Start = ImageIO.read(new File("level4background.png"));
+			Level4Label = ImageIO.read(new File("Level4Label.png"));
+
+		} catch (IOException e) {
+			System.out.println("No Image");
+		}
+		this.x = 0;
+	}
+	
+	public boolean getisOnLevel()
+	{
+		return this.isOnLevel;
+	}
+	
+	public void setisOnLevel(boolean value)
+	{
+		this.isOnLevel = value;
+	}
+	public void setStart(boolean value)
+	{
+		this.start = value;
+	}
+	
+	public void paint(Graphics g)
+	{
+		if (start == false)
+	     {
+	    	 g.drawImage(Level4HomeScreen, 0, 0, 515, 770, null);
+	     }
+	     else
+	     {
+	     Graphics2D g2d = (Graphics2D) g;
+		 g.drawImage(level4Start, 0, 0, 515, 770, null);
+		 //Color semiTransparentColor = new Color(255, 255, 255, 15);
+		 //setColor(semiTransparentColor);
+		 //.fillRect(0, 0, gamePanel.getPanelWidth(), gamePanel.getPanelHeight());
+		 Color brown = new Color(143,107,83,255);
+		 Color green = new Color(83, 255, 77);
+		 Color darkgreen = new Color(132,191,148,255);
+		 Color kalaBrown = new Color(90, 65, 74, 255);
+		 
+		 g2d.setColor(green);
+		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 23), gamePanel.getPanelWidth(), 15);
+		 for (int i = 0; i < 172; i++)
+ 		 {
+			 int borderThickness = 2;
+			 g2d.setColor(Color.RED);
+	         g2d.setStroke(new BasicStroke(borderThickness));
+	         g2d.drawArc(i * 30 + x, 612, 14, 15, 0, 180);
+        	 g2d.drawArc(i * 30 + 15 + x, 614, 14, 13, 180, 180);
+ 		 }
+		 g2d.setColor(darkgreen);
+		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 6), gamePanel.getPanelWidth(), 6);
+		 g2d.setColor(brown);
+		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 8), gamePanel.getPanelWidth(), 2);
+		 g2d.setColor(Color.WHITE);
+		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 25), gamePanel.getPanelWidth(), 2);
+		 g2d.setColor(kalaBrown);
+		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 28), gamePanel.getPanelWidth(), 3);
+		 if (gamePanel.getGameStarted() == false)
+    	 {
+			g.drawImage(Level4Label, -60, -50, 650, 350, null);	
+    	 }
+	     }
+	}
+	
+	public void move()
+	{
+		if (x <= -1000)
+		{
+			x+= 990;
+		}
+		x -= 2;
+	}
+}
