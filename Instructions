@@ -1,0 +1,29 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+public class Instructions
+{
+	private BufferedImage Instructions = null;
+	private AirborneAdventure gamePanel;
+	
+	Instructions (AirborneAdventure gamePanel)
+	{
+	    this.gamePanel = gamePanel;
+		try {
+			Instructions = ImageIO.read(new File("instructions.png"));
+		} catch (IOException e) {
+			System.out.println("No Image");
+		}
+		
+	}
+	public void paint(Graphics g)
+	{
+	     Graphics2D g2d = (Graphics2D) g;			
+		 g.drawImage(Instructions,0, 0, 515, 761, null);
+	}
+	
+}
