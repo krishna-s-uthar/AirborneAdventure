@@ -26,11 +26,7 @@ public class GravityandCollision {
 	private boolean moveUp = true;
 	private boolean moveDown = false;
 	private boolean moveDownDown = true;
-	private boolean level1complete = false;
-	private boolean level2complete = false;
-	private boolean level3complete = false;
-	private boolean level4complete = false;
-	private boolean easyMode = true;
+	private boolean easyMode = false;
 	private boolean right = false, left = false;
 	private Boolean up = false, down = false;
 	private Level1 Level1;
@@ -95,48 +91,51 @@ public class GravityandCollision {
 	
 	
 	
-	public void setlevel1complete(boolean level1complete)
-	{
-		this.level1complete = level1complete;
-	}
 	
-	public void setlevel2complete(boolean level2complete)
-	{
-		this.level2complete = level2complete;
-	}
-	
-	public void setlevel3complete(boolean level3complete)
-	{
-		this.level3complete = level3complete;
-	}
-	
-	public void setlevel4complete(boolean level4complete)
-	{
-		this.level4complete = level4complete;
-	}
 	
 	
 	
 public void move() {
   final int maxY = 472; // Adjust this value as needed for the maximum height
   final int minY = 0;   // Adjust this value as needed for the minimum height
-  final int jumpSpeed = -4; // Adjust jump speed as needed
+  int jumpSpeed = -4; // Adjust jump speed as needed
   if (easyMode == false)
   {
-  if (this.getMoving()) {
-      if (isJumping && y > minY) {
-          speed = jumpSpeed; // Jump speed
-          y += speed; // Adjust the bird's position based on speed
-      } else {
-          speed += 1; // Acceleration/gravity
-          y += speed; // Adjust the bird's position based on speed
+	  
+	  if(Level2.getisOnLevel() == false)
+	  {
+		  if (this.getMoving()) {
+			  if (isJumping && y > 0) {
+				  speed = jumpSpeed; // Jump speed
+				  y += speed; // Adjust the bird's position based on speed
+			  } else {
+				  speed += 1; // Acceleration/gravity
+				  y += speed; // Adjust the bird's position based on speed
     
-          if (y < minY) {
-              y = minY;
-              speed = 0; // Stop the upward motion when reaching the top
-          }
-      }
-  }
+				  if (y < 0) {
+					  y = 0;
+					  speed = 0; // Stop the upward motion when reaching the top
+				  }
+			  }
+		  }
+	  }
+	  else
+	  {
+		  if (this.getMoving()) {
+			  if (isJumping && y < 756 ) {
+				  jumpSpeed = 4;
+				  speed = jumpSpeed; // Jump speed
+				  y += speed; // Adjust the bird's position based on speed
+			  } else {
+				  speed -= 1; // Acceleration/gravity
+				  y += speed; // Adjust the bird's position based on speed
+				  if (y > 756) {
+					  y = 756;
+					  speed = 0; // Stop the upward motion when reaching the top
+				  }
+			  }
+		  }
+	  }
   }
   else
   {
@@ -182,7 +181,8 @@ public void move2()
 }
 public void move3()
 {
-	
+	if(easyMode == false)
+	{
 	  if (y == 309)
 	  {
 		  moveUp = false;
@@ -207,17 +207,25 @@ public void move3()
 	  {
 		  y += 3;
 	  }
+	}
 }
 public boolean gameOver()
 {
 	return gameOver = true;
 }
 public void keyPressed(KeyEvent e) {
+	if (e.getKeyCode() == KeyEvent.VK_E) {
+	  	easyMode = true; // Set jumping flag on space key press
+  	}
+	if (e.getKeyCode() == KeyEvent.VK_F) {
+	  	easyMode = false; // Set jumping flag on space key press
+  	}
   if (easyMode == false)
   {
 	if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 	  	isJumping = true; // Set jumping flag on space key press
   	}
+	
   }
   if(easyMode == true)
   {
@@ -258,28 +266,37 @@ public void keyReleased(KeyEvent e) {
 
 }
 	public void paint(Graphics2D g) {
+		g.setColor(Color.RED);
+		int borderThickness = 1;
+	    g.setStroke(new BasicStroke(borderThickness));
 		if (Level1.getisOnLevel() == true)
 		{
 			g.drawImage(flappy, x, y-40, 100, 100, null);
-			g.setColor(Color.RED);
 			//Flappy hitbox
+			if(easyMode == true)
+			{
 			g.drawRect(x + 15, y - 12, 54, 38);
-
+			}
 
 		}
 		else if (Level2.getisOnLevel() == true)
 		{
 			g.drawImage(turtle, x, y-40, 100, 100, null);
 			//turtle hitbox
-			g.drawRect(x + 20, y - 10, 55, 52);
+			if(easyMode == true)
+			{
 			
+			g.drawRect(x + 20, y - 10, 55, 52);
+			}
 		}
 		else if (Level3.getisOnLevel() == true)
 		{
 			g.drawImage(Pumpkin, x, y-40, 100, 100, null);
 			//Pumpkin hitbox
+			if(easyMode == true)
+			{
 			g.drawRect(x + 8, y - 15, 73, 68);
-			
+			}
 
 
 		}
@@ -287,15 +304,19 @@ public void keyReleased(KeyEvent e) {
 		{
 			g.drawImage(snowman, x, y-40, 100, 100, null);
 			//snowman hitbox
+			if(easyMode == true)
+			{
 			g.drawRect(x + 30, y - 2, 35, 53);
-			
+			}
 		}
 		else
 		{
 			g.drawImage(mike, x, y-40, 100, 100, null);
 			//mike hitbox
+			if(easyMode == true)
+			{
 			g.drawRect(x + 15, y - 15, 56, 58);
-			
+			}
 		}
 		
 		
