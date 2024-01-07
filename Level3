@@ -58,9 +58,6 @@ public class Level3
 	     {
 	     Graphics2D g2d = (Graphics2D) g;
 		 g.drawImage(level3Start, 0, 0, 515, 770, null);
-		 //Color semiTransparentColor = new Color(255, 255, 255, 15);
-		 //setColor(semiTransparentColor);
-		 //.fillRect(0, 0, gamePanel.getPanelWidth(), gamePanel.getPanelHeight());
 		 Color darkpurple = new Color(34,32,59,255);
 		 Color orange = new Color(255, 128, 0);
 		 Color purple = new Color(82,68,106,255);
@@ -97,6 +94,7 @@ public class Level3
 			g.drawImage(Level3Label, -60, -50, 650, 350, null);	
     	 }
 	     }
+		 
 	}
 	
 	public void move()
