@@ -56,9 +56,7 @@ public class Level4
 	     {
 	     Graphics2D g2d = (Graphics2D) g;
 		 g.drawImage(level4Start, 0, 0, 515, 770, null);
-		 //Color semiTransparentColor = new Color(255, 255, 255, 15);
-		 //setColor(semiTransparentColor);
-		 //.fillRect(0, 0, gamePanel.getPanelWidth(), gamePanel.getPanelHeight());
+
 		 Color brown = new Color(143,107,83,255);
 		 Color green = new Color(83, 255, 77);
 		 Color darkgreen = new Color(132,191,148,255);
@@ -87,6 +85,7 @@ public class Level4
 			g.drawImage(Level4Label, -60, -50, 650, 350, null);	
     	 }
 	     }
+		
 	}
 	
 	public void move()
