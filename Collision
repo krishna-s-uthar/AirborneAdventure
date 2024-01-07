@@ -1,29 +1,160 @@
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
-public class Backstory
-{
-	private BufferedImage Backstory = null;
-	private AirborneAdventure gamePanel;
-	
-	Backstory (AirborneAdventure gamePanel)
-	{
-	    this.gamePanel = gamePanel;
-		try {
-			Backstory = ImageIO.read(new File("Backstory.png"));
-		} catch (IOException e) {
-			System.out.println("No Image");
+
+public class Collision {
+	private Level1 Level1;
+	private Level2 Level2;
+	private Level3 Level3;
+	private Level4 Level4;
+	private Level5 Level5;
+	private PipeThingy[] p = new PipeThingy[1];
+	private GravityandCollision gc;
+	private Clicky Clicky;
+	private boolean hitsPipe = false;
+	private BufferedImage Level1GameOver = null;
+	private BufferedImage Level2GameOver = null;
+	private BufferedImage Level3GameOver = null;
+	private BufferedImage Level4GameOver = null;
+	private BufferedImage Level5GameOver = null;
+
+
+	Collision(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, PipeThingy [] p, GravityandCollision gc, Clicky Clicky){
+		for (int i = 0; i < p.length; i++) {
+			p[i] = new PipeThingy(((int) (325 * Math.random()) + 200));
+			p[i].setX(350 * i + 700);
+			//p[i] = new PipeThingy((int) (325 * Math.random()) + 350);
+			//p[i].setX(300);
 		}
-		
+		this.Level1 = a;
+		this.Level2 = b;
+		this.Level3 = c;
+		this.Level4 = d;
+		this.Level5 = f;
+		this.p = p;
+		this.gc= gc;
+		this.Clicky = Clicky;
+		try {
+		Level1GameOver = ImageIO.read(new File("gameOVER.png"));
+		Level2GameOver = ImageIO.read(new File("Level2GameOver.png"));
+		Level3GameOver = ImageIO.read(new File("Level3GameOver.png"));
+		Level4GameOver = ImageIO.read(new File("Level4GameOver.png"));
+		Level5GameOver = ImageIO.read(new File("Level5GameOver.png"));
+		} catch (IOException e) {
+		    System.out.println("No Image");
+		}
 	}
-	public void paint(Graphics g)
+	public boolean gethitsPipe()
 	{
-	     Graphics2D g2d = (Graphics2D) g;			
-		 g.drawImage(Backstory,0, 0, 515, 761, null);
+		return this.hitsPipe;
 	}
 	
+	public void sethitsPipe(boolean value)
+	{
+		this.hitsPipe = value;
+	}
+	
+	public void CheckForCollision()
+	{
+		for (int i = 0; i < p.length; i++)
+		{
+		if(Level1.getisOnLevel() == true)
+		  {
+		  	if (gc.getX() + 69 >= p[i].getX() && gc.getX() + 15 <= p[i].getX() + 75 && (gc.getY() - 12 <= p[i].getHeight() - 123 || gc.getY() + 26 >= p[i].getHeight()))
+		  	{
+		  		hitsPipe = true;
+		  		 //g.drawRect(x + 15, y - 12, 54, 38);
+		  	}
+		  	if(gc.getY() + 26 > 607)
+			  {
+		  		hitsPipe = true;			  
+		  	  }
+
+		  	
+		  }
+		  if(Level2.getisOnLevel() == true)
+		  {
+		  	if (gc.getX() + 75 >= p[i].getX() && gc.getX() + 20 <= p[i].getX() + 75 && (gc.getY() - 10 <= p[i].getHeight() - 123 || gc.getY() + 42 >= p[i].getHeight()))
+		  	{
+		  		hitsPipe = true;
+		  		 //g.drawRect(x + 20, y - 10, 55, 52);
+		  	}
+		  	if(gc.getY() - 10 < 157)
+			   {
+		  		hitsPipe = true;
+			   }
+		  }	   
+		  if(Level3.getisOnLevel() == true)
+		  {
+		  	if (gc.getX() + 91 >= p[i].getX() && gc.getX() + 8 <= p[i].getX() + 75 && (gc.getY() - 15 <= p[i].getHeight() - 123 || gc.getY() + 53 >= p[i].getHeight() + 10))
+		  	{
+		  		hitsPipe = true;
+		  		 //g.drawRect(x + 8, y - 15, 73, 68);
+		  	}
+		  	if(gc.getY() + 53 > 607)
+			  {
+		  		hitsPipe = true;
+			  }
+		  }
+		  if(Level4.getisOnLevel() == true)
+		  {
+		  	if (gc.getX() + 65 >= p[i].getX() && gc.getX() + 30 <= p[i].getX() + 75 && (gc.getY() - 2 <= p[i].getHeight() - 123 || gc.getY() + 51 >= p[i].getHeight()))
+		  	{
+		  		hitsPipe = true;
+		  		 //g.drawRect(x + 30, y - 2, 35, 53);
+		  	}
+		  	if(gc.getY() + 51 > 607)
+			  {
+		  		hitsPipe = true;
+			  }
+		  }
+		  
+		  if(Level5.getisOnLevel() == true)
+		  {
+		  	if (gc.getX() + 71 >= p[i].getX() && gc.getX() + 15 <= p[i].getX() + 75 && (gc.getY() - 15 <= p[i].getHeight() - 123 || gc.getY() + 43 >= p[i].getHeight()))
+		  	{
+		  		hitsPipe = true;
+		  		 //g.drawRect(x + 15, y - 15, 56, 58);
+		  	}
+		  	if(gc.getY() + 43 > 607)
+			  {
+		  		hitsPipe = true;
+			  }
+		  }
+		}
+		if(hitsPipe == true)
+		{
+			Clicky.setgameOver(true);
+		}
+	}
+	
+	public void paint(Graphics2D g) 
+	{
+		if(hitsPipe == true)
+		{
+			if(Level1.getisOnLevel() == true)
+			{
+				g.drawImage(Level1GameOver, 35, 90, 510, 610, null);
+			}
+			if(Level2.getisOnLevel() == true)
+			{
+				g.drawImage(Level2GameOver, 35, 90, 510, 610, null);
+			}
+			if(Level3.getisOnLevel() == true)
+			{
+				g.drawImage(Level3GameOver, 35, 90, 510, 610, null);
+			}
+			if(Level4.getisOnLevel() == true)
+			{
+				g.drawImage(Level4GameOver, 35, 90, 510, 610, null);
+			}
+			if(Level5.getisOnLevel() == true)
+			{
+				g.drawImage(Level5GameOver, 35, 90, 510, 610, null);
+			}
+		}
+	}
 }
