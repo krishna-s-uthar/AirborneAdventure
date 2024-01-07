@@ -13,6 +13,7 @@ public class Collision {
 	private Level5 Level5;
 	private PipeThingy[] p = new PipeThingy[1];
 	private GravityandCollision gc;
+	private ProgressionBar pb;
 	private Clicky Clicky;
 	private boolean hitsPipe = false;
 	private BufferedImage Level1GameOver = null;
@@ -22,7 +23,7 @@ public class Collision {
 	private BufferedImage Level5GameOver = null;
 
 
-	Collision(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, PipeThingy [] p, GravityandCollision gc, Clicky Clicky){
+	Collision(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, PipeThingy [] p, GravityandCollision gc, Clicky Clicky, ProgressionBar pb){
 		for (int i = 0; i < p.length; i++) {
 			p[i] = new PipeThingy(((int) (325 * Math.random()) + 200), a, b, c, d, f);
 			p[i].setX(350 * i + 700);
@@ -37,8 +38,9 @@ public class Collision {
 		this.p = p;
 		this.gc= gc;
 		this.Clicky = Clicky;
+		this.pb = pb;
 		try {
-		Level1GameOver = ImageIO.read(new File("gameOVER.png"));
+		Level1GameOver = ImageIO.read(new File("Level1GameOver.png"));
 		Level2GameOver = ImageIO.read(new File("Level2GameOver.png"));
 		Level3GameOver = ImageIO.read(new File("Level3GameOver.png"));
 		Level4GameOver = ImageIO.read(new File("Level4GameOver.png"));
@@ -59,6 +61,8 @@ public class Collision {
 	
 	public void CheckForCollision()
 	{
+		if(pb.getendOfScreen() == false)
+		{
 		for (int i = 0; i < p.length; i++)
 		{
 		if(Level1.getisOnLevel() == true)
@@ -89,7 +93,7 @@ public class Collision {
 		  }	   
 		  if(Level3.getisOnLevel() == true)
 		  {
-			if (gc.getX() + 81 >= p[i].getX() && gc.getX() + 8 <= p[i].getX() + 75 && (gc.getY() - 15 <= p[i].getHeight() - 123 || gc.getY() + 53 >= p[i].getHeight()))
+			if (gc.getX() + 81 >= p[i].getX() && gc.getX() + 8 <= p[i].getX() + 75 && (gc.getY() - 1 <= p[i].getHeight() - 133 || gc.getY() + 44 >= p[i].getHeight()))
 		  	{
 		  		hitsPipe = true;
 		  		 //g.drawRect(x + 8, y - 15, 73, 68);
@@ -123,6 +127,7 @@ public class Collision {
 			  {
 		  		hitsPipe = true;
 			  }
+		  }
 		  }
 		}
 		if(hitsPipe == true)
