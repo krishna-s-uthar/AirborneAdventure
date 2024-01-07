@@ -24,7 +24,7 @@ public class Collision {
 
 	Collision(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, PipeThingy [] p, GravityandCollision gc, Clicky Clicky){
 		for (int i = 0; i < p.length; i++) {
-			p[i] = new PipeThingy(((int) (325 * Math.random()) + 200));
+			p[i] = new PipeThingy(((int) (325 * Math.random()) + 200), a, b, c, d, f);
 			p[i].setX(350 * i + 700);
 			//p[i] = new PipeThingy((int) (325 * Math.random()) + 350);
 			//p[i].setX(300);
@@ -89,7 +89,7 @@ public class Collision {
 		  }	   
 		  if(Level3.getisOnLevel() == true)
 		  {
-		  	if (gc.getX() + 91 >= p[i].getX() && gc.getX() + 8 <= p[i].getX() + 75 && (gc.getY() - 15 <= p[i].getHeight() - 123 || gc.getY() + 53 >= p[i].getHeight() + 10))
+			if (gc.getX() + 81 >= p[i].getX() && gc.getX() + 8 <= p[i].getX() + 75 && (gc.getY() - 15 <= p[i].getHeight() - 123 || gc.getY() + 53 >= p[i].getHeight()))
 		  	{
 		  		hitsPipe = true;
 		  		 //g.drawRect(x + 8, y - 15, 73, 68);
@@ -129,6 +129,12 @@ public class Collision {
 		{
 			Clicky.setgameOver(true);
 		}
+		else
+		{
+			Clicky.setgameOver(false);
+
+		}
+		
 	}
 	
 	public void paint(Graphics2D g) 
