@@ -17,7 +17,12 @@ public class Level4
 	private boolean isOnLevel = false;
 
 	private boolean start = false;
-	private int x;
+	private int x, y;
+	private boolean isCompleted = false;
+	private boolean isMedalCollected = false;
+	private boolean moveUp = true;
+	private boolean moveDown = false;
+
 	Level4 (AirborneAdventure gamePanel)
 	{		
 	    this.gamePanel = gamePanel;
@@ -30,6 +35,26 @@ public class Level4
 			System.out.println("No Image");
 		}
 		this.x = 0;
+		this.y = -50;
+	}
+	
+	public void setisMedalCollected(boolean value)
+	{
+		this.isMedalCollected= value;
+	}
+	
+	public boolean getisMedalCollected()
+	{
+		return this.isMedalCollected;
+	}
+	
+	public void setisCompleted(boolean value)
+	{
+		this.isCompleted = value;
+	} 
+	public boolean getisCompleted()
+	{
+		return this.isCompleted;
 	}
 	
 	public boolean getisOnLevel()
@@ -82,7 +107,7 @@ public class Level4
 		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 28), gamePanel.getPanelWidth(), 3);
 		 if (gamePanel.getGameStarted() == false)
     	 {
-			g.drawImage(Level4Label, -60, -50, 650, 350, null);	
+			g.drawImage(Level4Label, -60, y, 650, 350, null);	
     	 }
 	     }
 		
@@ -95,5 +120,29 @@ public class Level4
 			x+= 990;
 		}
 		x -= 2;
+	}
+	
+	public void move2()
+	{
+		 if (y == -80)
+		  {
+			  moveUp = false;
+			  moveDown = true;
+		  }
+		  if (y >= -49)
+		  {
+			  moveUp = true;
+			  moveDown = false;
+		  }
+		
+		  if (moveUp == true)
+		  {
+			  y -= 1;
+		  }
+		  if (moveDown == true)
+		  {
+			  y += 1;
+		  }
+		 
 	}
 }
