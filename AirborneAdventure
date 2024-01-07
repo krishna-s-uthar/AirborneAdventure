@@ -152,7 +152,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 	
   
   for (PipeThingy pipe : p) {
-	   if (Collision.gethitsPipe() == false && pb.getendOfScreen() == false) {
+	   if (Collision.gethitsPipe() == false && pb.getendOfScreen() == false && gameStarted == true) {
 		   pipe.move(); // Pass game start status to pipes
 		   if(pipe.getX() == 190)
 		   {
@@ -161,7 +161,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 	   }
 	
   }
-	   if (Collision.gethitsPipe() == false && pb.getendOfScreen() == false) {
+	   if (Collision.gethitsPipe() == false && pb.getendOfScreen() == false && gameStarted == true) {
 	       pb.move();
 	   }
 	 
