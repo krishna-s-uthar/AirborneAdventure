@@ -25,8 +25,7 @@ public class GravityandCollision {
 	private boolean gameOver = false;
 	private boolean moveUp = true;
 	private boolean moveDown = false;
-	private boolean moveDownDown = true;
-	private boolean easyMode = false;
+ 	private boolean easyMode = false;
 	private boolean right = false, left = false;
 	private Boolean up = false, down = false;
 	private Level1 Level1;
@@ -49,7 +48,7 @@ public class GravityandCollision {
 		    Pumpkin = ImageIO.read(new File("Pumpkin.png"));
 		    snowman = ImageIO.read(new File("snowman.png"));
 		    mike = ImageIO.read(new File("mike.png"));
-		    gameOverScreen = ImageIO.read(new File("gameOVER.png"));
+		    gameOverScreen = ImageIO.read(new File("Level1GameOver.png"));
 		    Level2GameOver = ImageIO.read(new File("Level2GameOver.png"));
 		    Level3GameOver = ImageIO.read(new File("Level3GameOver.png"));
 		    Level4GameOver = ImageIO.read(new File("Level4GameOver.png"));
@@ -87,6 +86,11 @@ public class GravityandCollision {
 	}
 	public void setMoving(boolean moving) {
 		this.moving = moving;
+	}
+	
+	public boolean geteasyMode() 
+	{
+		return this.easyMode;
 	}
 	
 	
@@ -192,7 +196,6 @@ public void move3()
 	  {
 		  moveUp = true;
 		  moveDown = false;
-		  moveDownDown = false;
 	  }
 	
 	  if (moveUp == true)
@@ -202,10 +205,6 @@ public void move3()
 	  if (moveDown == true)
 	  {
 		  y += 1;
-	  }
-	  if (moveDownDown == true)
-	  {
-		  y += 3;
 	  }
 	}
 }
@@ -295,7 +294,7 @@ public void keyReleased(KeyEvent e) {
 			//Pumpkin hitbox
 			if(easyMode == true)
 			{
-			g.drawRect(x + 8, y - 15, 73, 68);
+			g.drawRect(x + 8, y -1 , 73, 54);
 			}
 
 
