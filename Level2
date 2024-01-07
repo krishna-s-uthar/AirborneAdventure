@@ -16,21 +16,47 @@ public class Level2
 	private BufferedImage Level2Label = null;
 
 	private boolean start = false;
-	private int x;
+	private int x, y;
 	private boolean isOnLevel = false;
+	private boolean isCompleted = false;
+	private boolean isMedalCollected = false;
+	private boolean moveUp = true;
+	private boolean moveDown = false;
+
 
 	Level2 (AirborneAdventure gamePanel)
 	{		
 	    this.gamePanel = gamePanel;
 		try {
 			Level2HomeScreen = ImageIO.read(new File("Level2HomeScreen.png"));
-			level2Start = ImageIO.read(new File("level2background (1).png"));
+			level2Start = ImageIO.read(new File("level2background.png"));
 			Level2Label = ImageIO.read(new File("Level2Label.png"));
 
 		} catch (IOException e) {
 			System.out.println("No Image");
 		}
 		this.x = 0;
+		this.y = 350;
+	}
+	
+	public void setisMedalCollected(boolean value)
+	{
+		this.isMedalCollected= value;
+	}
+	
+	public boolean getisMedalCollected()
+	{
+		return this.isMedalCollected;
+	}
+	
+	public void setisCompleted(boolean value)
+	{
+		this.isCompleted = value;
+	}
+	
+	public boolean getisCompleted()
+	{
+		return this.isCompleted;
 	}
 	
 	public boolean getisOnLevel()
@@ -99,7 +125,7 @@ public class Level2
 			 g2d.fillRect(0, 151, gamePanel.getPanelWidth(), 3);
 			 if (gamePanel.getGameStarted() == false)
 	    	 {
-	    		g.drawImage(Level2Label, -60, 350, 650, 350, null);	
+	    		g.drawImage(Level2Label, -60, y, 650, 350, null);	
 	    	 }
 	     }
 		
@@ -113,5 +139,29 @@ public class Level2
 			x+= 990;
 		}
 		x -= 2;
+	}
+	
+	public void move2()
+	{
+		 if (y == 308)
+		  {
+			  moveUp = false;
+			  moveDown = true;
+		  }
+		  if (y >= 349)
+		  {
+			  moveUp = true;
+			  moveDown = false;
+		  }
+		
+		  if (moveUp == true)
+		  {
+			  y -= 1;
+		  }
+		  if (moveDown == true)
+		  {
+			  y += 1;
+		  }
+		 
 	}
 }
