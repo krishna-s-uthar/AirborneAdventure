@@ -1,0 +1,65 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+public class LevelSelect
+{
+	private BufferedImage LevelSelect = null;
+	private BufferedImage LevelLocked = null;
+	private BufferedImage Medal = null;
+
+	private Level1 Level1;
+	private Level2 Level2;
+	private Level3 Level3;
+	private Level4 Level4;
+	private Level5 Level5;
+
+	
+	LevelSelect (  Level1 a, Level2 b, Level3 c, Level4 d, Level5 f)
+	{
+		try {
+			LevelSelect = ImageIO.read(new File("LevelSelectScreen.png"));
+			LevelLocked = ImageIO.read(new File("LevelLocked.png"));
+			Medal = ImageIO.read(new File("Medal.png"));
+
+
+		} catch (IOException e) {
+			System.out.println("No Image");
+		}
+		this.Level1 = a;
+		this.Level2 = b;
+		this.Level3 = c;
+		this.Level4 = d;
+		this.Level5 = f;
+	}
+	public void paint(Graphics g)
+	{
+	     Graphics2D g2d = (Graphics2D) g;			
+		 g.drawImage(LevelSelect,0, 0, 515, 761, null);
+		 if(Level1.getisCompleted() == false)
+		 {
+			 g.drawImage(LevelLocked, 80, -127, 545, 761, null);
+
+		 }
+		 if(Level2.getisCompleted() == false)
+		 {
+			 g.drawImage(LevelLocked,-20, 0, 545, 761, null);
+
+		 }
+		 if(Level3.getisCompleted() == false)
+		 {
+			 g.drawImage(LevelLocked, -111, 127, 545, 761, null);
+		 }
+		 if(Level4.getisCompleted() == false)
+		 {
+			 g.drawImage(LevelLocked, 75, 127, 545, 761, null);
+		 }
+		
+
+
+	}
+	
+}
