@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.JButton;
 public class AirborneAdventure extends JPanel implements ActionListener {
 	private int x = 0;
-	private PipeThingy[] p = new PipeThingy[1];
+	private PipeThingy[] p = new PipeThingy[7];
 	private Level1 level1 = new Level1(0, 400, this);//525
 	private Level2 level2 = new Level2(this);
 	private Level3 level3 = new Level3(this);
@@ -18,7 +18,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 	private Level5 level5 = new Level5(this);
 	private PowerUps PowerUps = new PowerUps(this);
 	private GravityandCollision gc = new GravityandCollision(230, 55, false, level1, level2, level3, level4, level5);//550 //390
-    private Clicky Clicky = new Clicky(level1, level2, level3, level4, level5, this);
+    private Clicky Clicky = new Clicky(level1, level2, level3, level4, level5, this, gc);
 	private Collision Collision = new Collision(level1, level2, level3, level4, level5, p, gc, Clicky);
 
 
@@ -42,7 +42,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
  
 	AirborneAdventure() {
 		for (int i = 0; i < p.length; i++) {
-			p[i] = new PipeThingy(((int) (325 * Math.random()) + 200));
+			p[i] = new PipeThingy(((int) (325 * Math.random()) + 200), level1, level2, level3, level4, level5 );
 			p[i].setX(350 * i + 700);
 			//p[i] = new PipeThingy((int) (325 * Math.random()) + 350);
 			//p[i].setX(300);
@@ -84,12 +84,21 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 		teleport = false;
 		for (int i = 0; i < p.length; i++) 
 		{
+			if (level2.getisOnLevel() == true)
+			{
+				p[i].setHeight((int) (325 * Math.random()) + 350);
+			}
+			else
+			{
+				p[i].setHeight((int) (325 * Math.random()) + 200);
+			}
 			p[i].setX(350 * i + 700);
 			if(i == p.length - 1)
 			{
 				pb.setX(350 * i + 900);
 			}
 		}
+		
 		
 	}
 	
@@ -107,11 +116,9 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 		return gameStarted;
 	}
 	
-	
-	
-	
-
-	
+	public void setGameStarted (boolean value) {
+		gameStarted = value;
+	    }
 	public boolean getENDOFSCREEN()
 	{
 		return ENDOFSCREEN;
@@ -134,7 +141,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 			 gc.setY(341);
 			 teleport = true;
 		 }
-		 //gc.move3();
+		 gc.move3();
 	 }
 	  if (gameStarted == false  && gamePhase1 == false)
 	  {
@@ -174,8 +181,12 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 		 {
 			 p[p.length -1].setX(-100);
 		 }
-		
-		 if (level1.getisOnLevel()  == false && Collision.gethitsPipe() == false)
+		 if (level1.getisOnLevel() == true && Collision.gethitsPipe() == false)
+		 {
+			 level1.move();
+
+		 }
+		 if (level2.getisOnLevel() == true && Collision.gethitsPipe() == false)
 		 {
 			 if (b == false)
 			 {
@@ -185,7 +196,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 			 level2.move();
 		 }
 		 
-		 if (level1.getisOnLevel()  == false && level2.getisOnLevel() == false && Collision.gethitsPipe() == false)
+		 if (level3.getisOnLevel() == true && Collision.gethitsPipe() == false)
 		 {
 			 if (c == false)
 			 {
@@ -224,20 +235,11 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 			 ENDOFSCREEN = false;
 		 }
 		//PowerUps.move();
-		 level1.move();
 		repaint();
 	}
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
-		// Creating Colors
-		level1.paint(g2d);
-		for (PipeThingy pipe : p) 
-		{
-			pipe.paint(g, getHeight());
-		}
-		
-		
-		
+		level1.paint(g2d);	
 		if (level2.getisOnLevel() == true)
 		{
 		   level2.paint(g2d);
@@ -259,7 +261,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 
 		
 		
-		g2d.setColor(Color.WHITE);
+		 g2d.setColor(Color.WHITE);
 		 Font scoreFont1 = new Font("Bangers", Font.BOLD, 75);
 		 Font scoreFont2 = new Font("Bangers", Font.BOLD, 30);
 		 g2d.setFont(scoreFont1);
@@ -285,6 +287,8 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 			 //g2d.setFont(scoreFont2);
 			 //g2d.drawString(Integer.toString(score), 330, 288);
 		 
+		 
+		 g2d.setColor(Color.RED);
 		 if (Clicky.getisInstructions() == true)
 		 {
 			instructions.paint(g2d);
@@ -294,141 +298,15 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 			 Backstory.paint(g2d);
 		 }
 		 
-		 g2d.setColor(Color.RED);
-		 if (Clicky.getstartLevel2() == true)
-		 {
-			 gameStarted = false;
-			 level2.setStart(true);
-			 score = 0;
-			 teleport = false;
-				for (int i = 0; i < p.length; i++) 
-				{
-					p[i].setX(350 * i + 700);
-					if(i == p.length - 1)
-					{
-						pb.setX(900);
-					}
-				}
-			 gc.setX(230);
-			 gc.setY(341);
-			 Clicky.setStartLevel2(false);
-			 for (PipeThingy pipe : p) 
-			 {
-				 pipe.setHeight((int) (325 * Math.random()) + 350);
-				 pipe.setIsOnLevel1(false);
-				 pipe.setIsOnLevel2(true);
-
-			 }
-		 }
-		 if (Clicky.getstartLevel3() == true)
-		 {
-			 gameStarted = false;
-			 level3.setStart(true);
-			 score = 0;
-			 teleport = false;
-				for (int i = 0; i < p.length; i++) 
-				{
-					p[i].setX(350 * i + 700);
-					if(i == p.length - 1)
-					{
-						pb.setX(900);
-						
-					}
-				}
-			 gc.setX(230);
-			 gc.setY(341);
-			 Clicky.setStartLevel3(false);
-			 for (PipeThingy pipe : p) 
-			 {
-				 pipe.setHeight((int)(325 * Math.random()) + 200);
-				 pipe.setIsOnLevel2(false);
-				 pipe.setIsOnLevel3(true);
-			 }
-		 }
-		 if (Clicky.getstartLevel4() == true)
-		 {
-			 gameStarted = false;
-			 level4.setStart(true);
-			 score = 0;
-			 teleport = false;
-				for (int i = 0; i < p.length; i++) 
-				{
-					p[i].setX(350 * i + 700);
-					if(i == p.length - 1)
-					{
-						pb.setX(900);
-					}
-				}
-			 gc.setX(230);
-			 gc.setY(341);
-			 Clicky.setStartLevel4(false);
-			 for (PipeThingy pipe : p) 
-			 {
-				 pipe.setHeight((int)(325 * Math.random()) + 200);
-				 pipe.setIsOnLevel3(false);
-				 pipe.setIsOnLevel4(true);
-			 }
-		 }
-		 if (Clicky.getstartLevel5() == true)
-		 {
-			 gameStarted = false;
-			 level5.setStart(true);
-			 score = 0;
-			 teleport = false;
-				for (int i = 0; i < p.length; i++) 
-				{
-					p[i].setX(350 * i + 700);
-					if(i == p.length - 1)
-					{
-						pb.setX(900);
-					}
-				}
-			 gc.setX(230);
-			 gc.setY(341);
-			 Clicky.setStartLevel5(false);
-			 gc.setlevel4complete(true);
-			 for (PipeThingy pipe : p) 
-			 {
-				 pipe.setHeight((int)(325 * Math.random()) + 200);
-				 pipe.setIsOnLevel4(false);
-				 pipe.setIsOnLevel5(true);
-			 }
-		 }
 		 
-		 if(level2.getisOnLevel() == true)
-		 {
+		
+		
 			 
-			 for (PipeThingy pipe : p) 
-			 {
-				 pipe.paint(g, getHeight());
-			 }
-		 }
-		 
-		 if(level3.getisOnLevel() == true)
+		 for (PipeThingy pipe : p) 
 		 {
-			 
-			 for (PipeThingy pipe : p) 
-			 {
 				 pipe.paint(g, getHeight());
-			 }
 		 }
-		 
-		 if(level4.getisOnLevel() == true)
-		 {
-			 
-			 for (PipeThingy pipe : p) 
-			 {
-				 pipe.paint(g, getHeight());
-			 }
-		 }
-		 if(level5.getisOnLevel() == true)
-		 {
-			 
-			 for (PipeThingy pipe : p) 
-			 {
-				 pipe.paint(g, getHeight());
-			 }
-		 }
+		
 		 if (Clicky.getisInstructions() == false && Clicky.getisBackstory() == false)
 		 {
 			 gc.paint(g2d);
@@ -438,9 +316,11 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 			 pb.paint(g2d);
 		 }
 
-		 Clicky.paint(g2d);
 		 Collision.paint(g2d);
+		 Clicky.paint(g2d);
 		 //PowerUps.paint(g2d);
+
+
 	}
 	
 	public int getPanelHeight() {
