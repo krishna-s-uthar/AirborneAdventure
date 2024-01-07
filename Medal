@@ -1,0 +1,266 @@
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+public class Medal {
+	private BufferedImage Medal = null;
+	private Level1 Level1;
+	private Level2 Level2;
+	private Level3 Level3;
+	private Level4 Level4;
+	private Level5 Level5;
+	private GravityandCollision gc;
+	private Clicky Clicky;
+	private ProgressionBar pb;
+	private Collision Collision;
+	private int x;
+	private int y;
+	private int y2 = 176;
+	
+	Medal (Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, int x, int y, GravityandCollision gc, Clicky Clicky, ProgressionBar pb, Collision Collision)
+	{
+		try {
+			Medal = ImageIO.read(new File("Medal.png"));
+
+
+		} catch (IOException e) {
+			System.out.println("No Image");
+		}
+		this.Level1 = a;
+		this.Level2 = b;
+		this.Level3 = c;
+		this.Level4 = d;
+		this.Level5 = f;
+		this.x = x;
+		this.y = y; 
+		this.gc = gc;
+		this.Clicky = Clicky;
+		this.pb = pb;
+		this.Collision = Collision;
+	}
+	
+	public void setX(int value)
+	{
+		this.x = value;
+	}
+	
+	public void setY(int value)
+	{
+		this.y = value;
+	}
+	
+	public void paint(Graphics g)
+	{
+	     Graphics2D g2d = (Graphics2D) g;	
+		 Color kalaBrown = new Color(90, 65, 74, 255);
+		 g2d.setColor(kalaBrown);
+		 int borderThickness = 2;
+		 g2d.setStroke(new BasicStroke(borderThickness));
+		 if(Collision.gethitsPipe() == false)
+		 {
+			 g.drawImage(Medal, x, y, 300, 500, null);
+	     	g2d.drawOval(x + 120, y + 220, 58, 58);
+		 }
+	     if(Clicky.getisLevelSelect() == true)
+	     {
+	    	 if(Level1.getisMedalCollected() == true)
+	    	 {
+		    	 g.drawImage(Medal, 52, 480, 200, 350, null);
+	    	 }
+	    	 if(Level2.getisMedalCollected() == true)
+	    	 {
+				 g.drawImage(Medal, 102, 480, 200, 350, null);
+	    	 }
+	    	 if(Level3.getisMedalCollected() == true)
+	    	 {
+				 g.drawImage(Medal, 152, 480, 200, 350, null);
+	    	 }
+	    	 if(Level4.getisMedalCollected() == true)
+	    	 {
+				 g.drawImage(Medal, 203, 480, 200, 350, null);
+	    	 }
+	    	 if(Level5.getisMedalCollected() == true)
+	    	 {
+				 g.drawImage(Medal, 253, 480, 200, 350, null);
+	    	 }	    	
+	     }
+	     if(pb.getendOfScreen() == true)
+	     {
+	    	 
+	    	 if(Level1.getisOnLevel())
+	    	 {
+	    		 if(Level1.getisMedalCollected() == true){
+				 g.drawImage(Medal, 69, y2, 200, 390, null);
+		    	 }
+	    		 if(Level2.getisMedalCollected() == true){
+				 g.drawImage(Medal, 117, y2, 200, 390, null);
+	    		 }
+				 if(Level3.getisMedalCollected() == true){
+				 g.drawImage(Medal, 164, y2, 200, 390, null);
+				 }
+				 if(Level4.getisMedalCollected() == true){
+				 g.drawImage(Medal, 212, y2, 200, 390, null);
+				 }
+				 if(Level5.getisMedalCollected() == true){
+				 g.drawImage(Medal, 260, y2, 200, 390, null);
+				 }
+	    	 }
+	    	 if(Level2.getisOnLevel())
+	    	 {
+	    		 if(Level1.getisMedalCollected() == true){
+				 g.drawImage(Medal, 69, y2 + 5, 200, 390, null);
+	    		 }
+	    		 if(Level2.getisMedalCollected() == true){
+				 g.drawImage(Medal, 117, y2 + 5, 200, 390, null);
+	    		 }
+	    		 if(Level3.getisMedalCollected() == true){
+				 g.drawImage(Medal, 164, y2 + 5, 200, 390, null);
+	    		 }
+	    		 if(Level4.getisMedalCollected() == true){
+				 g.drawImage(Medal, 212, y2 + 5, 200, 390, null);
+	    		 }
+	    		 if(Level5.getisMedalCollected() == true){
+				 g.drawImage(Medal, 260, y2 + 5, 200, 390, null);
+	    		 }
+	    	 }
+	    	 if(Level3.getisOnLevel())
+	    	 {
+	    		 if(Level1.getisMedalCollected() == true){
+				 g.drawImage(Medal, 69, y2 + 10, 200, 390, null);
+	    		 }
+	    		 if(Level2.getisMedalCollected() == true){
+				 g.drawImage(Medal, 117, y2 + 10, 200, 390, null);
+	    		 }
+	    		 if(Level3.getisMedalCollected() == true){
+				 g.drawImage(Medal, 164, y2 + 10, 200, 390, null);
+	    		 }
+	    		 if(Level4.getisMedalCollected() == true){
+				 g.drawImage(Medal, 212, y2 + 10, 200, 390, null);
+	    		 }
+	    		 if(Level5.getisMedalCollected() == true){
+				 g.drawImage(Medal, 260, y2 + 10, 200, 390, null);
+	    		 }
+	    	 }
+	    	 if(Level4.getisOnLevel())
+	    	 {
+	    		 if(Level1.getisMedalCollected() == true){
+				 g.drawImage(Medal, 69, y2 + 3, 200, 390, null);
+	    		 }
+	    		 if(Level2.getisMedalCollected() == true){
+				 g.drawImage(Medal, 117, y2 + 3, 200, 390, null);
+	    		 }
+	    		 if(Level3.getisMedalCollected() == true){
+				 g.drawImage(Medal, 164, y2 + 3, 200, 390, null);
+	    		 }
+	    		 if(Level4.getisMedalCollected() == true){
+				 g.drawImage(Medal, 212, y2 + 3, 200, 390, null);
+	    		 }
+	    		 if(Level5.getisMedalCollected() == true){
+				 g.drawImage(Medal, 260, y2 + 3, 200, 390, null);
+	    		 }
+	    	 }
+	     }
+	     if(Collision.gethitsPipe() == true)
+	     {
+
+	    	 if(Level1.getisMedalCollected() == true && Level1.getisOnLevel() == true)
+	    	 {
+	    		 g.drawImage(Medal, 50, 99, 325, 550, null);
+	    	 }
+	    	 if(Level2.getisMedalCollected() == true && Level2.getisOnLevel() == true)
+	    	 {
+	    		 g.drawImage(Medal, 50, 99, 325, 550, null);
+	    	 }
+	    	 if(Level3.getisMedalCollected() == true && Level3.getisOnLevel() == true)
+	    	 {
+	    		 g.drawImage(Medal, 50, 99, 325, 550, null);
+	    	 }
+	    	 if(Level4.getisMedalCollected() == true && Level4.getisOnLevel() == true)
+	    	 {
+	    		 g.drawImage(Medal, 50, 99, 325, 550, null);
+	    	 }
+	    	 if(Level5.getisMedalCollected() == true && Level5.getisOnLevel() == true)
+	    	 {
+	    		 g.drawImage(Medal, 50, 99, 325, 550, null);
+	    	 }
+	     }
+
+	}
+	
+	public void move()
+	{
+	   x -=2;
+	   if (Level1.getisOnLevel() == true)
+	   {
+		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 69 && y + 220 <= gc.getY() + 26 && y + 278 >= gc.getY() - 12)
+	   		{
+		   		Level1.setisMedalCollected(true);
+	   		}
+		   	//			g.drawRect(x + 15, y - 12, 54, 38);
+
+	   }
+	   if (Level2.getisOnLevel() == true)
+	   {
+		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 75 && y + 220 <= gc.getY() + 42 && y + 278 >= gc.getY() - 10)
+	   		{
+		   		Level2.setisMedalCollected(true);
+	   		}
+		   	//			g.drawRect(x + 20, y - 10, 55, 52);
+
+	   }
+	   if (Level3.getisOnLevel() == true)
+	   {
+		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 81 && y + 220 <= gc.getY() + 53 && y + 278 >= gc.getY() - 1)
+	   		{
+		   		Level3.setisMedalCollected(true);
+	   		}
+		   	//			g.drawRect(x + 8, y - 15, 73, 68);
+
+		   	
+	   }
+	   if (Level4.getisOnLevel() == true)
+	   {
+		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 75 && y + 220 <= gc.getY() + 51 && y + 278 >= gc.getY() - 2)
+	   		{
+		   		Level4.setisMedalCollected(true);
+	   		}
+		   	//			g.drawRect(x + 30, y - 2, 35, 53);
+
+	   }
+	   if (Level5.getisOnLevel() == true)
+	   {
+		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 71 && y + 220 <= gc.getY() + 43 && y + 278 >= gc.getY() - 15)
+	   		{
+		   		Level5.setisMedalCollected(true);
+	   		}
+		   	//			g.drawRect(x + 15, y - 15, 56, 58);
+	   }
+	     if(Level1.getisMedalCollected() == true && Level1.getisOnLevel() == true)
+		 {
+			 y = -1000;
+		 }
+		 if(Level2.getisMedalCollected() == true && Level2.getisOnLevel() == true)
+		 {
+			 y = -1000;
+		 }
+		 if(Level3.getisMedalCollected() == true && Level3.getisOnLevel() == true)
+		 {
+			 y = -1000;
+		 }
+		 if(Level4.getisMedalCollected() == true && Level4.getisOnLevel() == true)
+		 {
+			 y = -1000;
+		 }
+		 if(Level5.getisMedalCollected() == true && Level5.getisOnLevel() == true)
+		 {
+			 y = -1000;
+		 }
+		   
+	}
+}
