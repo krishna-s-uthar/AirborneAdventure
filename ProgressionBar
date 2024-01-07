@@ -25,6 +25,7 @@ public class ProgressionBar
 
 
 
+
 	private AirborneAdventure gamePanel;
 
 	
@@ -39,6 +40,8 @@ public class ProgressionBar
 			Level3EndScreen = ImageIO.read(new File("Level3EndScreen.png"));
 			Level4EndScreen = ImageIO.read(new File("Level4EndScreen.png"));
 			Level5EndScreen = ImageIO.read(new File("CongratsScreen.png"));
+
+
 
 
 		} catch (IOException e) {
@@ -82,16 +85,37 @@ public class ProgressionBar
 	    	   endOfScreen = true;
 	    	   x = -500; 
 	    	   gc.setX(-200);
+	    	   if(Level1.getisOnLevel() == true)
+	    	   {
+	    		   Level1.setisCompleted(true);
+	    	   }
+	    	   if(Level2.getisOnLevel() == true)
+	    	   {
+	    		   Level2.setisCompleted(true);
+	    	   }
+	    	   if(Level3.getisOnLevel() == true)
+	    	   {
+	    		   Level3.setisCompleted(true);
+	    	   }
+	    	   if(Level4.getisOnLevel() == true)
+	    	   {
+	    		   Level4.setisCompleted(true);
+	    	   }
+	    	   if(Level5.getisOnLevel() == true)
+	    	   {
+	    		   Level5.setisCompleted(true);
+	    	   }
+	    	 
 	       }
-	       else
-	       {
-	    	   endOfScreen = false;
-	       }
+	      
 	}
 	
 	public void paint(Graphics g)
 	{
 	     Graphics2D g2d = (Graphics2D) g;
+		
+
+	    
 		 for (int i = 0; i < 9; i++)
 		 {
 			 for (int j =0; j < 28; j++)
@@ -114,6 +138,7 @@ public class ProgressionBar
 				}
 			 }
 		 }	
+	  
 		 if(endOfScreen == true) 
 		 {
 			 if (Level1.getisOnLevel() == true)
