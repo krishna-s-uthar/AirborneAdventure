@@ -33,9 +33,15 @@ public class GravityandCollision {
 	private boolean easyMode = true;
 	private boolean right = false, left = false;
 	private Boolean up = false, down = false;
+	private Level1 Level1;
+	private Level2 Level2;
+	private Level3 Level3;
+	private Level4 Level4;
+	private Level5 Level5;
+	
 	private static boolean gamePhase1 = false;
 	
-	GravityandCollision(int x, int y, boolean space){
+	GravityandCollision(int x, int y, boolean space, Level1 a, Level2 b, Level3 c, Level4 d, Level5 f){
 		this.x = x;
 		this.y = y;
 		this.isJumping = isJumping;
@@ -58,6 +64,12 @@ public class GravityandCollision {
 		} catch (IOException e) {
 		    System.out.println("No Image");
 		}
+		this.Level1 = a;
+		this.Level2 = b;
+		this.Level3 = c;
+		this.Level4 = d;
+		this.Level5 = f;
+		
 		
 		
 	}
@@ -246,7 +258,7 @@ public void keyReleased(KeyEvent e) {
 
 }
 	public void paint(Graphics2D g) {
-		if (level1complete == false)
+		if (Level1.getisOnLevel() == true)
 		{
 			g.drawImage(flappy, x, y-40, 100, 100, null);
 			g.setColor(Color.RED);
@@ -255,14 +267,14 @@ public void keyReleased(KeyEvent e) {
 
 
 		}
-		else if (level1complete == true && level2complete == false)
+		else if (Level2.getisOnLevel() == true)
 		{
 			g.drawImage(turtle, x, y-40, 100, 100, null);
 			//turtle hitbox
 			g.drawRect(x + 20, y - 10, 55, 52);
 			
 		}
-		else if (level2complete == true && level3complete == false)
+		else if (Level3.getisOnLevel() == true)
 		{
 			g.drawImage(Pumpkin, x, y-40, 100, 100, null);
 			//Pumpkin hitbox
@@ -271,7 +283,7 @@ public void keyReleased(KeyEvent e) {
 
 
 		}
-		else if (level3complete == true && level4complete == false)
+		else if (Level4.getisOnLevel() == true)
 		{
 			g.drawImage(snowman, x, y-40, 100, 100, null);
 			//snowman hitbox
