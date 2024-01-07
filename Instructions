@@ -8,11 +8,9 @@ import javax.imageio.ImageIO;
 public class Instructions
 {
 	private BufferedImage Instructions = null;
-	private AirborneAdventure gamePanel;
 	
-	Instructions (AirborneAdventure gamePanel)
+	Instructions ()
 	{
-	    this.gamePanel = gamePanel;
 		try {
 			Instructions = ImageIO.read(new File("instructions.png"));
 		} catch (IOException e) {
