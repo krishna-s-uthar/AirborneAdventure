@@ -48,6 +48,11 @@ public class Level2
 		this.start = value;
 	}
 	
+	public boolean getStart()
+	{
+		return this.start;
+	}
+	
 	
 	public void paint(Graphics g)
 	{
