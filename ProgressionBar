@@ -9,23 +9,26 @@ public class ProgressionBar
 {
 	private int x;
 	private boolean endOfScreen = false;
-	private BufferedImage nextLevelScreen = null;
+	private Level1 Level1;
+	private Level2 Level2;
+	private Level3 Level3;
+	private Level4 Level4;
+	private Level5 Level5;
+	private GravityandCollision gc;
 	private BufferedImage Level1EndScreen = null;
 	private BufferedImage Level2EndScreen = null;
 	private BufferedImage Level3EndScreen = null;
 	private BufferedImage Level4EndScreen = null;
 	private BufferedImage Level5EndScreen = null;
 
-	private BufferedImage level2nextLevelScreen = null;
-	private BufferedImage level4nextLevelScreen = null;
-	private BufferedImage level5nextLevelScreen = null;
+
 
 
 
 	private AirborneAdventure gamePanel;
 
 	
-	ProgressionBar (int x, AirborneAdventure gamePanel)
+	ProgressionBar (int x, AirborneAdventure gamePanel,  Level1 a, Level2 b, Level3 c, Level4 d, Level5 f,  GravityandCollision gc)
 	{
 		this.x = x;
 	    this.gamePanel = gamePanel;
@@ -37,15 +40,16 @@ public class ProgressionBar
 			Level4EndScreen = ImageIO.read(new File("Level4EndScreen.png"));
 			Level5EndScreen = ImageIO.read(new File("Level5EndScreen.png"));
 
-			nextLevelScreen = ImageIO.read(new File("game over.png"));
-			level2nextLevelScreen = ImageIO.read(new File("lvl2GameOver2.png"));
-			level4nextLevelScreen = ImageIO.read(new File("game over screens.png"));
-			level4nextLevelScreen = ImageIO.read(new File("Level5EndScreen.png"));
-
 
 		} catch (IOException e) {
 			System.out.println("No Image");
 		}
+		this.Level1 = a;
+		this.Level2 = b;
+		this.Level3 = c;
+		this.Level4 = d;
+		this.Level5 = f;
+		this.gc = gc;
 		
 	}
 	
@@ -69,32 +73,15 @@ public class ProgressionBar
 		this.endOfScreen = EndOfScreen;
 	}
 	
-	public void move(boolean gameStarted)
+	public void move()
 	{
-	       if (gameStarted) {
-	           x -= 2; // Adjust the speed of pipe movement here
-	       }
+	       
+	       x -= 2; // Adjust the speed of pipe movement here
 	       if (x == 150)
 	       {
 	    	   endOfScreen = true;
-	    	   x = -500;
-	    	   
-	    	   if (gamePanel.getisOnLevel1() == true)
-	    	   {
-		    	   gamePanel.setlevel1Completed(true);
-	    	   }
-	    	   else if (gamePanel.getisOnLevel2() == true)
-	    	   {
-		    	   gamePanel.setlevel2Completed(true);
-	    	   }
-	    	   else if (gamePanel.getisOnLevel3() == true)
-	    	   {
-		    	   gamePanel.setlevel3Completed(true);
-	    	   }
-	    	   else if (gamePanel.getisOnLevel4() == true)
-	    	   {
-		    	   gamePanel.setlevel4Completed(true);
-	    	   }	       
+	    	   x = -500; 
+	    	   gc.setX(-200);
 	       }
 	       else
 	       {
@@ -122,23 +109,23 @@ public class ProgressionBar
 		 }	
 		 if(endOfScreen == true) 
 		 {
-			 if (gamePanel.getisOnLevel1() == true)
+			 if (Level1.getisOnLevel() == true)
 			 {
 				 g.drawImage(Level1EndScreen, 0, 0, 530, 800, null);
 			 }
-			 if (gamePanel.getisOnLevel2() == true)
+			 if (Level2.getisOnLevel() == true)
 			 {
 				 g.drawImage(Level2EndScreen, 0, 0, 530, 800, null);
 			 }
-			 if (gamePanel.getisOnLevel3() == true)
+			 if (Level3.getisOnLevel() == true)
 			 {
 				 g.drawImage(Level3EndScreen, 0, 0, 530, 800, null);
 			 }
-			 if (gamePanel.getisOnLevel4() == true)
+			 if (Level4.getisOnLevel() == true)
 			 {
 				 g.drawImage(Level4EndScreen, 0, 0, 530, 800, null);
 			 }
-			 if(gamePanel.getisOnLevel5() == true)
+			 if(Level5.getisOnLevel() == true)
 			 {
 				 g.drawImage(Level5EndScreen, 0, 0, 530, 800, null);
 			 }
