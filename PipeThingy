@@ -1,15 +1,20 @@
 import java.awt.*;
 public class PipeThingy {
 	private int height, x;
-	private boolean isOnLevel1 = true;
-	private boolean isOnLevel2 = false;
-	private boolean isOnLevel3 = false;
-	private boolean isOnLevel4 = false;
-	private boolean isOnLevel5 = false;
+	private Level1 Level1;
+	private Level2 Level2;
+	private Level3 Level3;
+	private Level4 Level4;
+	private Level5 Level5;
 
-	PipeThingy(int height) {
+	PipeThingy(int height, Level1 a, Level2 b, Level3 c, Level4 d, Level5 f ) {
 		this.height = height;
 		this.x = 260;
+		this.Level1 = a;
+		this.Level2 = b;
+		this.Level3 = c;
+		this.Level4 = d;
+		this.Level5 = f;
 	}
 	public void setX(int x) {
 		this.x = x;
@@ -29,30 +34,7 @@ public class PipeThingy {
 	}
 	
 	
-	public void setIsOnLevel1(boolean value)
-	{
-		this.isOnLevel1 = value;
-	}
 	
-	public void setIsOnLevel2(boolean value)
-	{
-		this.isOnLevel2 = value;
-	}
-	
-	public void setIsOnLevel3(boolean value)
-	{
-		this.isOnLevel3 = value;
-	}
-	
-	public void setIsOnLevel4(boolean value)
-	{
-		this.isOnLevel4 = value;
-	}
-	
-	public void setIsOnLevel5(boolean value)
-	{
-		this.isOnLevel5 = value;
-	}
 	
 	public void paint(Graphics g, int panelHeight) {
 		Graphics2D g2d = (Graphics2D) g;
@@ -66,7 +48,7 @@ public class PipeThingy {
 		
 		Color kalaBrown = new Color(90, 65, 74, 255);
 		g2d.setColor(kalaBrown);
-		if(isOnLevel5 == true)
+		if(Level5.getisOnLevel() == true)
 		{
 		 Color cyan = new Color(76,226,230,255);
 		 Color pink = new Color(239,63,197,255);
@@ -104,7 +86,7 @@ public class PipeThingy {
 		//g2d.fillRect(x + 5, height + 28, 65, 1000);
 		//g2d.fillRect(x, height, 75, 28);
 		
-		if (isOnLevel2 == true)
+		if (Level2.getisOnLevel() == true)
 		{
 		//g2d.fillRect(x + 5, 154, 65, height - 299);
 		//g2d.fillRect(x, height - 151, 75, 28);
@@ -225,14 +207,11 @@ public class PipeThingy {
         }
 		}
 		
-	    if (isOnLevel3 == true)
+	    if (Level3.getisOnLevel() == true)
 	    {
 	    	g2d.setColor(kalaBrown);
 	    	Color pumpkinOrange = new Color(250,99,19,255);
 	    	Color pumpkinStem = new Color (38,27,31,255);
-	    	Color semiTransparentColor = new Color(255, 255, 255, 30);
-			g2d.setColor(semiTransparentColor);
-			g2d.fillRect(0, 0, 530, 607);
 
 			g2d.setColor(Color.WHITE);
 			g2d.fillOval(x + 5, 0, 65, height - 123);
@@ -265,7 +244,7 @@ public class PipeThingy {
 	    }
 		
 		
-	    if (isOnLevel4 == true)
+	    if (Level4.getisOnLevel() == true)
 	    {
 		Color green = new Color(83, 255, 77);
 		g2d.setColor(kalaBrown);
@@ -332,7 +311,7 @@ public class PipeThingy {
 		}
 	    }
 	    
-		if (isOnLevel1 == true)
+		if (Level1.getisOnLevel() == true)
 		{
 		g2d.setColor(kalaBrown);
 		g2d.fillRect(x + 5, 0, 65, height - 145);
@@ -401,11 +380,11 @@ public class PipeThingy {
 		g2d.fillRect(x + 61, height + 6, 2, 16);
 		g2d.fillRect(x + 69, height + 4, 2, 2);
 		}
-		if(isOnLevel5 == true)
+		if(Level5.getisOnLevel() == true)
 		{
-			isOnLevel3 = false;
+			Level3.setisOnLevel(false);
 		}
-		
+
 	}
  public void move( ) 
  {
