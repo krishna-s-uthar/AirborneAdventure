@@ -8,11 +8,9 @@ import javax.imageio.ImageIO;
 public class Backstory
 {
 	private BufferedImage Backstory = null;
-	private AirborneAdventure gamePanel;
 	
-	Backstory (AirborneAdventure gamePanel)
+	Backstory ()
 	{
-	    this.gamePanel = gamePanel;
 		try {
 			Backstory = ImageIO.read(new File("Backstory.png"));
 		} catch (IOException e) {
