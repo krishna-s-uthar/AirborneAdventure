@@ -55,6 +55,48 @@ public class Level1 {
 		}
 	}
 	public void paint(Graphics2D g) {
+		
+		Graphics2D g2d = (Graphics2D) g;
+
+		Color SkyBlue = new Color(112, 197, 206, 255);
+		Color lightBrown = new Color(222, 216, 149, 255);
+		Color darkBrown = new Color(210, 166, 74, 255);
+		Color darkGreen = new Color(85, 128, 34, 255);
+		Color lightGreen = new Color(156, 230, 89, 255);
+		Color lightYellow = new Color(226, 251, 138, 255);
+		Color kalaBrown = new Color(90, 65, 74, 255);
+		Color LightLightGreen = new Color(130, 227, 140, 255);
+		Color kalaGreen = new Color(119, 207, 137, 255);
+		Color green3 = new Color(115,191,46,255);
+		
+		// The ground
+		g2d.setColor(SkyBlue);
+		g2d.fillRect(0, 0, 530, 800);
+		g2d.setColor(LightLightGreen);
+		g2d.fillRect(0, 560, 530, 60);
+
+		
+		
+		g2d.setColor(lightBrown);
+		g2d.fillRect(0, 634, 530, 127);
+		g2d.setColor(darkBrown);
+		g2d.fillRect(0, 628,530, 6);
+
+		g2d.setColor(darkGreen);
+		g2d.fillRect(0, 626, 530, 2);
+		g2d.setColor(lightGreen);
+		g2d.fillRect(0, 611, 530, 15);
+		g2d.setColor(lightYellow);
+		g2d.fillRect(0, 609, 530, 2);
+		g2d.setColor(kalaBrown);
+		g2d.fillRect(0, 606, 530, 3);
+		for (int i = 0; i < 172; i++)
+		{
+			int[] x1 = {i * 20 + x ,i * 20 + x + 10, i *20 + x + 2, i*20 + x -7};
+			int[] y1 = {612, 612, 612 + 14, 612 + 14};
+			g2d.setColor(green3);
+    	g2d.fillPolygon(x1, y1, 4);
+		}
 	if (gamePanel.getGamePhase1() == false) 
 	{
 	g.drawImage(Level1HomeScreen, 70, -50, 400, 710, null);	
@@ -63,5 +105,14 @@ public class Level1 {
 	{
 		g.drawImage(Level1Label, -60, -50, 650, 350, null);	
 	}
+	}
+	
+	public void move()
+	{
+		if (x <= -1000)
+		{
+			x+= 990;
+		}
+		x -= 2;
 	}
 }
