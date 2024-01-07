@@ -370,18 +370,18 @@ public class PipeThingy {
 		g2d.fillRect(x + 61, height - 145, 2, 16);
 		g2d.fillRect(x + 59, height - 129, 2, 2);
 		g2d.setColor(kalaBrown);
-		g2d.fillRect(x + 5, height + 28, 65, 1000);
+		g2d.fillRect(x + 5, height + 28, 65, 579 - height);
 		g2d.setColor(green2);
-		g2d.fillRect(x + 9, height + 28, 57, 1000);
+		g2d.fillRect(x + 9, height + 28, 57, 578 - height);
 		g2d.setColor(yellow2);
-		g2d.fillRect(x + 13, height + 28, 2, 1000);
+		g2d.fillRect(x + 13, height + 28, 2, 578 - height);
 		g2d.setColor(darkGreen2);
-		g2d.fillRect(x + 23, height + 28, 2, 1000);
-		g2d.fillRect(x + 28, height + 28, 38, 1000);
+		g2d.fillRect(x + 23, height + 28, 2, 578 - height);
+		g2d.fillRect(x + 28, height + 28, 38, 578 - height);
 		g2d.setColor(kalaGreen2);
-		g2d.fillRect(x + 58, height + 28, 8, 1000);
+		g2d.fillRect(x + 58, height + 28, 8, 578 - height);
 		g2d.setColor(darkGreen2);
-		g2d.fillRect(x + 60, height + 28, 2, 1000);
+		g2d.fillRect(x + 60, height + 28, 2, 578 - height);
 		g2d.setColor(kalaBrown);
 		g2d.fillRect(x, height, 75, 28);
 		g2d.setColor(kalaGreen2);
@@ -407,10 +407,11 @@ public class PipeThingy {
 		}
 		
 	}
- public void move(boolean gameStarted) {
-     if (gameStarted) {
+ public void move( ) 
+ {
+	 
          x -= 2; // Adjust the speed of pipe movement here
-     }
+     
  }
 }
 
