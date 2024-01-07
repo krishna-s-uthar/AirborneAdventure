@@ -10,22 +10,21 @@
 	private Level3 Level3;
 	private Level4 Level4;
 	private Level5 Level5;
+	private GravityandCollision gc;
     private boolean startLevel2 = false;
-    private boolean startLevel3 = false;
-    private boolean startLevel4 = false;
-    private boolean startLevel5 = false;
     private boolean isInstructions = false;
     private boolean isBackstory = false;
     private boolean isOnHomeScreen = true;
     private boolean flash = false;
     private boolean gameOver = false;
-    public Clicky(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, AirborneAdventure gamePanel) {
+    public Clicky(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, AirborneAdventure gamePanel, GravityandCollision gc) {
         this.gamePanel = gamePanel;
         this.Level1 = a;
 		this.Level2 = b;
 		this.Level3 = c;
 		this.Level4 = d;
 		this.Level5 = f;
+		this.gc = gc;
     }
     public boolean getisOnHomeScreen()
     {
@@ -39,36 +38,6 @@
     public void setStartLevel2(boolean value)
     {
   	  this.startLevel2 = value;
-    }
-    
-    public boolean getstartLevel3()
-    {
-  	  return startLevel3;
-    }
-    
-    public void setStartLevel3(boolean value)
-    {
-  	  this.startLevel3 = value;
-    }
-    
-    public boolean getstartLevel4()
-    {
-  	  return startLevel4;
-    }
-    
-    public void setStartLevel4(boolean value)
-    {
-  	  this.startLevel4 = value;
-    }
-    
-    public boolean getstartLevel5()
-    {
-  	  return startLevel5;
-    }
-    
-    public void setStartLevel5(boolean value)
-    {
-  	  this.startLevel5 = value;
     }
     
     public boolean getisInstructions()
@@ -99,16 +68,21 @@
             mouseY >= 434 && mouseY <= 434 + 40 && isInstructions == false && isBackstory == false &&          
             gamePanel.getGamePhase1() == false ) {
             gamePanel.setGamePhase1(true);
+            isOnHomeScreen = false;
             flash = true;
 
         }
         
         //After level1 is complete, this button brings you to the next level(Press the "NEXT LEVEL" button)
         if (mouseX >= 170 && mouseX <= 170 + 189 &&
-                mouseY >= 493 && mouseY <= 493 + 50 && Level1.getisOnLevel() == true  ) {
+                mouseY >= 493 && mouseY <= 493 + 50 && Level1.getisOnLevel() == true && gamePanel.getENDOFSCREEN() == true  ) {
 
       	  	  Level1.setisOnLevel(false);
       	  	  Level2.setisOnLevel(true);
+              isOnHomeScreen = true;
+  	  	  	  gamePanel.reset();
+
+
                 flash = true;
         }
         
@@ -117,13 +91,19 @@
                 mouseY >= 493 && mouseY <= 493 + 50 && Level2.getisOnLevel() == true && gamePanel.getENDOFSCREEN() == true ) {
         	  Level2.setisOnLevel(false);
         	  Level3.setisOnLevel(true);
-                flash = true;
+              isOnHomeScreen = true;
+  	  	  		gamePanel.reset();
+
+              flash = true;
         }
         //level3 to 4
         else if (mouseX >= 170 && mouseX <= 170 + 189 &&
                 mouseY >= 493 && mouseY <= 493 + 50 && Level3.getisOnLevel() == true &&  gamePanel.getENDOFSCREEN() == true  ) {
         	Level3.setisOnLevel(false);
         	Level4.setisOnLevel(true);
+            isOnHomeScreen = true;
+	  	  	gamePanel.reset();
+
             flash = true;
         }
         
@@ -133,29 +113,75 @@
         {
         	Level4.setisOnLevel(false);
         	Level5.setisOnLevel(true);
+            isOnHomeScreen = true;
+	  	  	gamePanel.reset();
+
+
               flash = true;
         }
+        //Displaying the BackStory (pressing the "STORY" button)
+        else if (mouseX >= 280 && mouseX <= 280 + 176 &&
+                mouseY >= 514 && mouseY <= 514 + 42 && isOnHomeScreen == true && Level1.getisOnLevel() == false) {
+      	  	    isBackstory = true;
+                flash = true;
+            }
+        //Displaying the INSTRUCTIONS (pressing the "INSTRUCTIONS" button)
+        else if (mouseX >= 69 && mouseX <= 69 + 176 &&
+                mouseY >= 592 && mouseY <= 592 + 42 && isOnHomeScreen == true && Level1.getisOnLevel() == false) {
+        	isInstructions = true;
+                flash = true;
+            }
+        
+        else if (mouseX >= 69 && mouseX <= 69 + 176 &&
+        mouseY >= 514 && mouseY <= 514 + 42 &&  Level1.getisOnLevel() == false && isOnHomeScreen == true) {
+        	if ( Level2.getisOnLevel() == true)
+        	{
+        		startLevel2 = true;
+        		Level2.setStart(true);
+        	}
+        	if ( Level3.getisOnLevel() == true)
+        	{
+        		Level3.setStart(true);
+        	}
+        	if ( Level4.getisOnLevel() == true)
+        	{
+        		Level4.setStart(true);
+        	}
+        	if (Level5.getisOnLevel() == true)
+        	{
+        		Level5.setStart(true);
+        	}
+	  	  	flash = true;
+	  	  	isOnHomeScreen = false;
+	  	  	gamePanel.setGameStarted(false);
+	  	  	gc.setX(230);
+	  	  	gc.setY(341);
+	  	  	 gamePanel.reset();
+
+}
         //Reseting the game(Pressing the "Play again" button)
-        if (mouseX >= 199 && mouseX <= 199 + 182 &&
+        else if (mouseX >= 199 && mouseX <= 199 + 182 &&
                 mouseY >= 460 && mouseY <= 460 + 48 && gameOver == true) {
                 gamePanel.reset();    
                 flash = true;
         }
         
         //Displaying the INSTRUCTIONS (pressing the "INSTRUCTIONS" button)
-        if (mouseX >= 123 && mouseX <= 123 + 139 &&
-                mouseY >= 510 && mouseY <= 510 + 40 && gamePanel.getGamePhase1() == false) {
-      	  	  isInstructions = true;
+        else if (mouseX >= 123 && mouseX <= 123 + 139 &&
+                mouseY >= 510 && mouseY <= 510 + 40 && isOnHomeScreen == true && Level1.getisOnLevel() == true) {
+      	  	    isInstructions = true;
                 flash = true;
             }
+        
         //Displaying the BackStory (pressing the "STORY" button)
-        if (mouseX >= 287 && mouseX <= 287 + 139 &&
+        else if (mouseX >= 287 && mouseX <= 287 + 139 &&
                 mouseY >= 434 && mouseY <= 434 + 40 && gamePanel.getGamePhase1() == false) {
       	  	  isBackstory = true;
                 flash = true;
             }
+        
         //Moving the instructions & Backstory screen off the page(press the red x in the corner)
-        if (mouseX >= 24 && mouseX <= 24 + 25 &&
+        else if (mouseX >= 24 && mouseX <= 24 + 25 &&
                 mouseY >= 25 && mouseY <= 25 + 25 && (isInstructions == true || isBackstory == true)) {
       	  	  isInstructions = false;
       	  	  isBackstory = false;
@@ -163,27 +189,7 @@
 
             }
         //Start Levels(pressing the "START?" button)
-        if (mouseX >= 69 && mouseX <= 69 + 176 &&
-                mouseY >= 525 && mouseY <= 525 + 42 &&  Level1.getisOnLevel() == false && isOnHomeScreen == true) {
-      	  if ( Level2.getisOnLevel() == true)
-      	  {
-      	  	  startLevel2 = true;
-      	  }
-      	  if ( Level3.getisOnLevel() == true)
-      	  {
-      		  startLevel3 = true;
-      	  }
-      	  if ( Level4.getisOnLevel() == true)
-      	  {
-      		  startLevel4 = true;
-      	  }
-      	  if (Level5.getisOnLevel() == true)
-      	  {
-      		  startLevel5 = true;
-      	  }
-      	  	  flash = true;
-
-            }
+        
         
         
         
