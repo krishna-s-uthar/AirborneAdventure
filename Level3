@@ -90,18 +90,18 @@ public class Level3
 		 Color kalaBrown = new Color(90, 65, 74, 255);
 		 
 		 g2d.setColor(darkpurple);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 6), gamePanel.getPanelWidth(), 6);
+		 g2d.fillRect(0, 629, 530, 6);
 		 g2d.setColor(purple);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 8), gamePanel.getPanelWidth(), 2);
+		 g2d.fillRect(0, 627, 530, 2);
 		 g2d.setColor(brightOrange);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 23), gamePanel.getPanelWidth(), 15);
+		 g2d.fillRect(0, 612, 530, 15);
 
 		 g2d.setColor(orange);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 25), gamePanel.getPanelWidth(), 2);
+		 g2d.fillRect(0, 610, 530, 2);
 		 g2d.setColor(kalaBrown);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 28), gamePanel.getPanelWidth(), 3);
+		 g2d.fillRect(0, 607, 530, 3);
 		 g2d.setColor(Color.BLACK);
-		 g2d.fillRect(0,  gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 6) + 7, gamePanel.getPanelWidth(), 150);
+		 g2d.fillRect(0,  636, 530, 150);
 		 int borderThickness = 2;
 		 g2d.setColor(Color.BLACK);
          g2d.setStroke(new BasicStroke(borderThickness));		 
