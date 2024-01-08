@@ -102,7 +102,7 @@ public class Level2
 			 
 			
 			 g2d.setColor(waterBlue);
-			 g2d.fillRect(0, 136, gamePanel.getPanelWidth(), 15);
+			 g2d.fillRect(0, 136, 530, 15);
 			 int borderThickness = 1;
 			 g2d.setColor(Color.WHITE);
 	         g2d.setStroke(new BasicStroke(borderThickness));
@@ -114,15 +114,15 @@ public class Level2
 			 	g2d.drawOval(i * 50 + 37 + x, 616 - 475, 8, 8);
 			 }
 			 g2d.setColor(darkBlue);
-			 g2d.fillRect(0, 134, gamePanel.getPanelWidth(), 2);
+			 g2d.fillRect(0, 134, 530, 2);
 			 g2d.setColor(green);
-			 g2d.fillRect(0, 128, gamePanel.getPanelWidth(), 6);
+			 g2d.fillRect(0, 128, 530, 6);
 			 g2d.setColor(spongBobBlue);
-			 g2d.fillRect(0, 0, gamePanel.getPanelWidth(), 128);
+			 g2d.fillRect(0, 0, 530, 128);
 			 g2d.setColor(kalaBrown);
-			 g2d.fillRect(0, 154, gamePanel.getPanelWidth(), 3);
+			 g2d.fillRect(0, 154, 530, 3);
 			 g2d.setColor(brown);
-			 g2d.fillRect(0, 151, gamePanel.getPanelWidth(), 3);
+			 g2d.fillRect(0, 151, 530, 3);
 			 if (gamePanel.getGameStarted() == false)
 	    	 {
 	    		g.drawImage(Level2Label, -60, y, 650, 350, null);	
