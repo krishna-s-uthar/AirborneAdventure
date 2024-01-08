@@ -88,7 +88,7 @@ public class Level4
 		 Color kalaBrown = new Color(90, 65, 74, 255);
 		 
 		 g2d.setColor(green);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 23), gamePanel.getPanelWidth(), 15);
+		 g2d.fillRect(0, 612, gamePanel.getPanelWidth(), 15);
 		 for (int i = 0; i < 172; i++)
  		 {
 			 int borderThickness = 2;
@@ -98,13 +98,13 @@ public class Level4
         	 g2d.drawArc(i * 30 + 15 + x, 614, 14, 13, 180, 180);
  		 }
 		 g2d.setColor(darkgreen);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 6), gamePanel.getPanelWidth(), 6);
+		 g2d.fillRect(0, 629, gamePanel.getPanelWidth(), 6);
 		 g2d.setColor(brown);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 8), gamePanel.getPanelWidth(), 2);
+		 g2d.fillRect(0, 627, gamePanel.getPanelWidth(), 2);
 		 g2d.setColor(Color.WHITE);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 25), gamePanel.getPanelWidth(), 2);
+		 g2d.fillRect(0, 610, gamePanel.getPanelWidth(), 2);
 		 g2d.setColor(kalaBrown);
-		 g2d.fillRect(0, gamePanel.getPanelHeight() - (gamePanel.getPanelHeight() / 6 + 28), gamePanel.getPanelWidth(), 3);
+		 g2d.fillRect(0, 607, gamePanel.getPanelWidth(), 3);
 		 if (gamePanel.getGameStarted() == false)
     	 {
 			g.drawImage(Level4Label, -60, y, 650, 350, null);	
