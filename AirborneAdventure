@@ -130,7 +130,10 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 		{
 		Medal.setY((int) (300 * Math.random()) - 100);
 		}
-
+	}
+	
+	public void FullGameReset()
+	{
 		
 	}
 	
@@ -172,7 +175,10 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 			 gc.setY(341);
 			 teleport = true;
 		 }
-		 gc.move3();
+		 if(gameStarted == false)
+		 {
+			 gc.move3();
+		 }
 		 if(gc.geteasyMode() == false)
 		 {
 		 level1.move2();
