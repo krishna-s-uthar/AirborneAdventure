@@ -108,7 +108,16 @@ public void move() {
 	  
 	  if(Level2.getisOnLevel() == false)
 	  {
-		  if (this.getMoving()) {
+		  if(isJumping == true)
+		  {
+			  y-= 5;
+		  }
+		  y += 3;
+		  
+		  
+		 
+		  
+		  /*if (this.getMoving()) {
 			  if (isJumping && y > 0) {
 				  speed = jumpSpeed; // Jump speed
 				  y += speed; // Adjust the bird's position based on speed
@@ -121,11 +130,18 @@ public void move() {
 					  speed = 0; // Stop the upward motion when reaching the top
 				  }
 			  }
-		  }
+		  */
 	  }
 	  else
 	  {
-		  if (this.getMoving()) {
+		  
+		  if(isJumping == true)
+		  {
+			  y+= 5;
+		  }
+		  y -= 3;
+		  
+		  /*if (this.getMoving()) {
 			  if (isJumping && y < 756 ) {
 				  jumpSpeed = 4;
 				  speed = jumpSpeed; // Jump speed
@@ -138,7 +154,7 @@ public void move() {
 					  speed = 0; // Stop the upward motion when reaching the top
 				  }
 			  }
-		  }
+		  }*/
 	  }
   }
   else
