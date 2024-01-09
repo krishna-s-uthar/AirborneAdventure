@@ -20,6 +20,8 @@ public class ProgressionBar
 	private BufferedImage Level3EndScreen = null;
 	private BufferedImage Level4EndScreen = null;
 	private BufferedImage Level5EndScreen = null;
+	private BufferedImage jeffery = null;
+
 
 
 
@@ -40,6 +42,8 @@ public class ProgressionBar
 			Level3EndScreen = ImageIO.read(new File("Level3EndScreen.png"));
 			Level4EndScreen = ImageIO.read(new File("Level4EndScreen.png"));
 			Level5EndScreen = ImageIO.read(new File("CongratsScreen.png"));
+			jeffery = ImageIO.read(new File("jeffery.png"));
+
 
 
 
@@ -114,8 +118,12 @@ public class ProgressionBar
 	{
 	     Graphics2D g2d = (Graphics2D) g;
 		
-
-	    
+	     if(Level5.getisOnLevel() == true)
+	     {
+			 g.drawImage(jeffery, x + 230, 260, -100, 100, null);
+	     }
+	     else
+	     {
 		 for (int i = 0; i < 9; i++)
 		 {
 			 for (int j =0; j < 28; j++)
@@ -138,6 +146,7 @@ public class ProgressionBar
 				}
 			 }
 		 }	
+	     }
 	  
 		 if(endOfScreen == true) 
 		 {
