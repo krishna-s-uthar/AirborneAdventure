@@ -252,7 +252,7 @@
     	  	  isOnHomeScreen = true;
                 flash = true;
                 gamePanel.reset();
-                gamePanel.setGamePhase1(true);
+                gamePanel.setGamePhase1(false);
              
 
             }
