@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,9 +23,15 @@ public class Collision {
 	private BufferedImage Level3GameOver = null;
 	private BufferedImage Level4GameOver = null;
 	private BufferedImage Level5GameOver = null;
+	private AirborneAdventure gamePanel;
+	private int score = 0;
+	boolean a = false;
+	private int next = 1;
+	private int HighScore = 0;
 
 
-	Collision(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, PipeThingy [] p, GravityandCollision gc, Clicky Clicky, ProgressionBar pb){
+
+	Collision(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, PipeThingy [] p, GravityandCollision gc, Clicky Clicky, ProgressionBar pb, AirborneAdventure gamePanel){
 		for (int i = 0; i < p.length; i++) {
 			p[i] = new PipeThingy(((int) (325 * Math.random()) + 200), a, b, c, d, f);
 			p[i].setX(350 * i + 700);
@@ -39,6 +47,7 @@ public class Collision {
 		this.gc= gc;
 		this.Clicky = Clicky;
 		this.pb = pb;
+		this.gamePanel = gamePanel;
 		try {
 		Level1GameOver = ImageIO.read(new File("Level1GameOver.png"));
 		Level2GameOver = ImageIO.read(new File("Level2GameOver.png"));
@@ -59,13 +68,32 @@ public class Collision {
 		this.hitsPipe = value;
 	}
 	
+	public void setScore(int value)
+	{
+		this.score = value;
+	}
+	
 	public void CheckForCollision()
 	{
 		if(pb.getendOfScreen() == false)
 		{
 		for (int i = 0; i < p.length; i++)
 		{
-		if(Level1.getisOnLevel() == true)
+		if(Level1.getisOnLevel() == true && Level1.getisOnInifniteMode() == true)
+		{
+			if (gc.getX() + 78 >= p[i].getX() && gc.getX() + 23 <= p[i].getX() + 75 && (gc.getY() - 12 <= p[i].getHeight() - 123 || gc.getY() + 29 >= p[i].getHeight()))
+		  	{
+		  		hitsPipe = true;
+		  		//g.drawRect(x + 23, y - 12, 55, 41);
+
+		  	}
+		  	if(gc.getY() + 29 > 607)
+			  {
+		  		hitsPipe = true;			  
+		  	  }
+		}
+		
+		else if(Level1.getisOnLevel() == true)
 		  {
 		  	if (gc.getX() + 69 >= p[i].getX() && gc.getX() + 15 <= p[i].getX() + 75 && (gc.getY() - 12 <= p[i].getHeight() - 123 || gc.getY() + 26 >= p[i].getHeight()))
 		  	{
@@ -133,6 +161,15 @@ public class Collision {
 		if(hitsPipe == true)
 		{
 			Clicky.setgameOver(true);
+			for (PipeThingy pipe : p) {
+			if(Level1.getisOnLevel() == true && Level1.getisOnInifniteMode() == true)
+			{
+				if(pipe.getX() + 75 == 190)
+				{
+					   score += 1;
+             	}
+			}
+			}
 		}
 		else
 		{
@@ -144,6 +181,7 @@ public class Collision {
 	
 	public void paint(Graphics2D g) 
 	{
+		Graphics2D g2d = (Graphics2D) g;
 		if(hitsPipe == true)
 		{
 			if(Level1.getisOnLevel() == true)
@@ -167,5 +205,156 @@ public class Collision {
 				g.drawImage(Level5GameOver, 35, 90, 510, 610, null);
 			}
 		}
+		
+		 g2d.setColor(Color.WHITE);
+		 Font scoreFont1 = new Font("Bangers", Font.BOLD, 75);
+		 Font scoreFont2 = new Font("Bangers", Font.BOLD, 30);
+		 g2d.setFont(scoreFont1);
+		 if(gc.geteasyMode() == false && pb.getendOfScreen() == false)
+		 {
+		 if (hitsPipe == false)
+		 {
+			 if(gamePanel.getGamePhase1() == false)
+			 {
+					g2d.drawString(Integer.toString(score), -10, -10);
+
+			 }
+				if (Level1.getisOnLevel() == true && gamePanel.getGameStarted() == true)
+				{
+					g2d.drawString(Integer.toString(score), 250, 100);
+				}
+				if (Level2.getisOnLevel() == true && Level2.getStart() == true)
+				{
+					g2d.setColor(Color.BLUE);
+				  	g2d.drawString(Integer.toString(score), 250, 700);
+				}
+				if (Level3.getisOnLevel() == true && Level3.getStart() == true)
+				{
+					g2d.setColor(Color.ORANGE);
+				  	g2d.drawString(Integer.toString(score), 250, 100);
+				}
+				if (Level4.getisOnLevel() == true && Level4.getStart() == true)
+				{
+					g2d.setColor(Color.GREEN);
+				  	g2d.drawString(Integer.toString(score), 250, 100);
+				}
+				if (Level5.getisOnLevel() == true && Level5.getStart() == true)
+				{
+					g2d.setColor(Color.RED);
+				  	g2d.drawString(Integer.toString(score), 250, 100);
+				}
+		 }
+		 else
+		 {
+			 if(Level1.getisOnLevel() == true)
+			 {
+				 g2d.setFont(scoreFont2);
+				 g2d.drawString(Integer.toString(score), 354, 362);
+				 if(Level1.getisOnInifniteMode() == true)
+				 {
+				 g2d.drawString(Integer.toString(HighScore), 354, 412);
+				 }
+			 }
+			 if(Level2.getisOnLevel() == true)
+			 {
+				 g2d.setColor(Color.BLUE);
+				 g2d.setFont(scoreFont2);
+				 g2d.drawString(Integer.toString(score), 354, 362);
+			 }
+			 if(Level3.getisOnLevel() == true)
+			 {
+				 g2d.setColor(Color.ORANGE);
+				 g2d.setFont(scoreFont2);
+				 g2d.drawString(Integer.toString(score), 354, 362);
+			 }
+			 if(Level4.getisOnLevel() == true)
+			 {
+				 g2d.setColor(Color.GREEN);
+				 g2d.setFont(scoreFont2);
+				 g2d.drawString(Integer.toString(score), 354, 362);
+			 }
+			 if(Level5.getisOnLevel() == true)
+			 {
+				 g2d.setColor(Color.RED);
+				 g2d.setFont(scoreFont2);
+				 g2d.drawString(Integer.toString(score), 354, 362);
+			 }
+			 
+		 }
+		 }
+		
+			 //g2d.setFont(scoreFont2);
+			 //g2d.drawString(Integer.toString(score), 330, 288);
+		
+	}
+	
+	public void move()
+	{
+		 if (Level1.getisOnLevel() == true && hitsPipe == false)
+		 {
+			 Level1.move();
+
+		 }
+		 if (Level2.getisOnLevel() == true && hitsPipe == false)
+		 {
+			 Level2.move();
+		 }
+		 
+		 if (Level3.getisOnLevel() == true && hitsPipe == false)
+		 {
+			 
+			 Level3.move();
+		 }
+		 
+		 if (Level4.getisOnLevel() == true && hitsPipe == false)
+		 {
+			 
+			 Level4.move();
+		 }
+		 
+		 if (Level5.getisOnLevel() == true && hitsPipe == false)
+		 {
+			 Level5.move();
+		 }
+	}
+	
+	public void score()
+	{
+		 for (int i =0; i < p.length; i++) 
+		 {
+			 if(gc.geteasyMode() == false)
+			 {
+			 
+			   if (hitsPipe == false && pb.getendOfScreen() == false && gamePanel.getGameStarted() == true &&  a == false) 
+			   {
+			
+				   if(p[i].getX() + 55 == gc.getX() || p[i].getX() + 56 == gc.getX() )
+				   {
+					   score += 1;
+					   if (score >= HighScore)
+					   {
+						   HighScore = score;
+					   }
+					   a = true;
+					   if (next == 1)
+					   {
+						   next = 0;
+					   }
+					   else
+					   {
+						   next = 1;
+					   }
+				   }
+			   }
+			   if (hitsPipe == false && pb.getendOfScreen() == false && gamePanel.getGameStarted() == true && a == true)
+			   {
+				    if(p[next].getX() < gc.getX() && a == true)
+			   		{
+				   		a= false;
+			   		}
+			   }
+			 }
+		  }
+		
 	}
 }
