@@ -16,6 +16,7 @@ public class Level1 {
 	private boolean isMedalCollected = false;
 	private boolean moveUp = true;
 	private boolean moveDown = false;
+	private boolean isOnInfiniteMode = false;
 	private AirborneAdventure gamePanel;
 
 	public Level1(AirborneAdventure gamePanel) {
@@ -59,6 +60,16 @@ public class Level1 {
 	public boolean getisOnLevel()
 	{
 		return this.isOnLevel;
+	}
+	
+	public boolean getisOnInifniteMode()
+	{
+		return this.isOnInfiniteMode;
+	}
+	
+	public void setisOnInfiniteMode(boolean value)
+	{
+		this.isOnInfiniteMode = value;
 	}
 	
 	public void setisOnLevel(boolean value)
@@ -125,7 +136,7 @@ public class Level1 {
 			g2d.setColor(green3);
     	g2d.fillPolygon(x1, y1, 4);
 		}
-	if (gamePanel.getGamePhase1() == false) 
+	if (gamePanel.getGamePhase1() == false ) 
 	{
 	g.drawImage(Level1HomeScreen, 70, -50, 400, 710, null);	
     }
