@@ -71,6 +71,11 @@ public class Level5
 		this.start = value;
 	}
 	
+	public boolean getStart()
+	{
+		return this.start;
+	}
+	
 	public void paint(Graphics g)
 	{
 		if (start == false)
