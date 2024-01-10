@@ -9,7 +9,9 @@ public class LevelSelect
 {
 	private BufferedImage LevelSelect = null;
 	private BufferedImage LevelLocked = null;
+	private BufferedImage Infinite = null;
 	private BufferedImage Medal = null;
+
 
 	private Level1 Level1;
 	private Level2 Level2;
@@ -24,6 +26,8 @@ public class LevelSelect
 			LevelSelect = ImageIO.read(new File("LevelSelectScreen.png"));
 			LevelLocked = ImageIO.read(new File("LevelLocked.png"));
 			Medal = ImageIO.read(new File("Medal.png"));
+			Infinite = ImageIO.read(new File("Infinite.png"));
+
 
 
 		} catch (IOException e) {
@@ -56,6 +60,13 @@ public class LevelSelect
 		 if(Level4.getisCompleted() == false)
 		 {
 			 g.drawImage(LevelLocked, 75, 127, 545, 761, null);
+		 }
+		 if(Level5.getisCompleted() == true)
+		 {
+			 g.setColor(Color.BLACK);
+			 g.fillRect(117, 566, 268, 143);
+			 g.drawImage(Infinite, -57, 177, 615, 1061, null);
+
 		 }
 		
 
