@@ -70,6 +70,10 @@ public class Level4
 	{
 		this.start = value;
 	}
+	public boolean getStart()
+	{
+		return this.start;
+	}
 	
 	public void paint(Graphics g)
 	{
