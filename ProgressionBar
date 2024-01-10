@@ -84,7 +84,7 @@ public class ProgressionBar
 	{
 	       
 	       x -= 2; // Adjust the speed of pipe movement here
-	       if (x + 100 <= gc.getX())
+	       if (x + 100 <= gc.getX() && Level1.getisOnInifniteMode() == false && Level5.getisCompleted() == false)
 	       {
 	    	   endOfScreen = true;
 	    	   x = -500; 
@@ -109,7 +109,6 @@ public class ProgressionBar
 	    	   {
 	    		   Level5.setisCompleted(true);
 	    	   }
-	    	 
 	       }
 	      
 	}
