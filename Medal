@@ -67,7 +67,7 @@ public class Medal {
 			 g.drawImage(Medal, x, y, 300, 500, null);
 	     	g2d.drawOval(x + 120, y + 220, 58, 58);
 		 }
-	     if(Clicky.getisLevelSelect() == true)
+	     if(Clicky.getisLevelSelect() == true && Level5.getisCompleted() == false)
 	     {
 	    	 if(Level1.getisMedalCollected() == true)
 	    	 {
