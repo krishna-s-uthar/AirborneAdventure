@@ -18,6 +18,7 @@ public class GravityandCollision {
 	private BufferedImage Level3GameOver = null;
 	private BufferedImage Level4GameOver = null;
 	private BufferedImage Level5GameOver = null;
+	private BufferedImage jeffery = null;
 
 
 	private boolean isJumping = false;
@@ -53,6 +54,8 @@ public class GravityandCollision {
 		    Level3GameOver = ImageIO.read(new File("Level3GameOver.png"));
 		    Level4GameOver = ImageIO.read(new File("Level4GameOver.png"));
 		    Level5GameOver = ImageIO.read(new File("Level5GameOver.png"));
+			jeffery = ImageIO.read(new File("jeffery.png"));
+
 
 
 		    
@@ -284,15 +287,19 @@ public void keyReleased(KeyEvent e) {
 		g.setColor(Color.RED);
 		int borderThickness = 1;
 	    g.setStroke(new BasicStroke(borderThickness));
-		if (Level1.getisOnLevel() == true)
+	    if (Level1.getisOnLevel() == true && Level1.getisOnInifniteMode() == true)
 		{
-			g.drawImage(flappy, x, y-40, 100, 100, null);
-			//Flappy hitbox
-			if(easyMode == true)
-			{
-			g.drawRect(x + 15, y - 12, 54, 38);
-			}
-
+			 g.drawImage(jeffery, x, y- 40, 100, 100, null);
+				g.drawRect(x + 23, y - 12, 55, 41);
+		}
+		else if (Level1.getisOnLevel() == true)
+		{
+			 g.drawImage(flappy, x, y-40, 100, 100, null);
+				//Flappy hitbox
+				if(easyMode == true)
+				{
+				g.drawRect(x + 15, y - 12, 54, 38);
+				}
 		}
 		else if (Level2.getisOnLevel() == true)
 		{
@@ -324,7 +331,7 @@ public void keyReleased(KeyEvent e) {
 			g.drawRect(x + 30, y - 2, 35, 53);
 			}
 		}
-		else
+		else 
 		{
 			g.drawImage(mike, x, y-40, 100, 100, null);
 			//mike hitbox
