@@ -22,6 +22,8 @@ public class Level4
 	private boolean isMedalCollected = false;
 	private boolean moveUp = true;
 	private boolean moveDown = false;
+	private int xSpeed = 2;
+
 
 	Level4 (AirborneAdventure gamePanel)
 	{		
@@ -41,6 +43,11 @@ public class Level4
 	public void setisMedalCollected(boolean value)
 	{
 		this.isMedalCollected= value;
+	}
+	
+	public void setXSpeed(int value) 
+	{
+		this.xSpeed = value;
 	}
 	
 	public boolean getisMedalCollected()
@@ -123,7 +130,7 @@ public class Level4
 		{
 			x+= 990;
 		}
-		x -= 2;
+		x -= xSpeed;
 	}
 	
 	public void move2()
