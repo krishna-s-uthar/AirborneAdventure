@@ -21,6 +21,7 @@ public class ProgressionBar
 	private BufferedImage Level4EndScreen = null;
 	private BufferedImage Level5EndScreen = null;
 	private BufferedImage jeffery = null;
+	private int xSpeed = 2;
 
 
 
@@ -70,6 +71,11 @@ public class ProgressionBar
 		this.x = x;
 	}
 	
+	public void setXSpeed(int value) 
+	{
+		this.xSpeed = value;
+	}
+	
 	public boolean getendOfScreen()
 	{
 		return endOfScreen;
@@ -83,7 +89,7 @@ public class ProgressionBar
 	public void move()
 	{
 	       
-	       x -= 2; // Adjust the speed of pipe movement here
+	       x -= xSpeed; // Adjust the speed of pipe movement here
 	       if (x + 100 <= gc.getX() && Level1.getisOnInifniteMode() == false && Level5.getisCompleted() == false)
 	       {
 	    	   endOfScreen = true;
