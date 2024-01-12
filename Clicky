@@ -12,6 +12,7 @@
 	private Level5 Level5;
 	private GravityandCollision gc;
 	private ProgressionBar pb;
+	private LevelIntros LI;
 
     private boolean startLevel2 = false;
     private boolean isInstructions = false;
@@ -21,7 +22,7 @@
     private boolean flash = false;
     private boolean gameOver = false;
     private boolean EndOfScreen = false;
-    public Clicky(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, AirborneAdventure gamePanel, GravityandCollision gc, ProgressionBar pb) {
+    public Clicky(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, AirborneAdventure gamePanel, GravityandCollision gc, ProgressionBar pb, LevelIntros LI) {
         this.gamePanel = gamePanel;
         this.Level1 = a;
 		this.Level2 = b;
@@ -30,6 +31,7 @@
 		this.Level5 = f;
 		this.gc = gc;
 		this.pb = pb;
+		this.LI = LI;
     }
     public boolean getisOnHomeScreen()
     {
@@ -98,8 +100,17 @@
         int mouseX = e.getX();
         int mouseY = e.getY();
         
+        //Displaying LevelIntro screens
+        if (mouseX >= 176 && mouseX <= 176 + 163 &&
+                mouseY >= 623 && mouseY <= 623 + 45 && LI.getisOnLevelIntros() == true) 
+    	{       
+            		flash = true;
+            		isOnHomeScreen = true;
+            		LI.setisOnLevelIntros(false);
+        }
+        
         //Displaying the INSTRUCTIONS (pressing the "INSTRUCTIONS" button) from LEVEL1
-         if (mouseX >= 123 && mouseX <= 123 + 139 &&
+        else if (mouseX >= 123 && mouseX <= 123 + 139 &&
                 mouseY >= 510 && mouseY <= 510 + 40 && isOnHomeScreen == true  
                 && gamePanel.getGamePhase1() == false && Level1.getisOnLevel()== true && Level1.getisOnInifniteMode() == false) {
       	  	    isInstructions = true;
@@ -123,13 +134,11 @@
 
       	  	  Level1.setisOnLevel(false);
       	  	  Level2.setisOnLevel(true);
-              isOnHomeScreen = true;
+              LI.setisOnLevelIntros(true);
   	  	  	  gamePanel.reset();
   	  	  	  pb.setEndOfScreen(false);
   	  	  	  Level2.setStart(false);
-
-
-                flash = true;
+              flash = true;
         }
         
       //Level2 to Level3 
@@ -137,7 +146,7 @@
                 mouseY >= 493 && mouseY <= 493 + 50 && Level2.getisOnLevel() == true && pb.getendOfScreen() == true ) {
         	  Level2.setisOnLevel(false);
         	  Level3.setisOnLevel(true);
-              isOnHomeScreen = true;
+              LI.setisOnLevelIntros(true);
   	  	  	  gamePanel.reset();
     	  	  pb.setEndOfScreen(false);
   	  	  	  Level3.setStart(false);
@@ -148,7 +157,7 @@
                 mouseY >= 493 && mouseY <= 493 + 50 && Level3.getisOnLevel() == true &&  pb.getendOfScreen() == true  ) {
         	Level3.setisOnLevel(false);
         	Level4.setisOnLevel(true);
-            isOnHomeScreen = true;
+            LI.setisOnLevelIntros(true);
 	  	  	gamePanel.reset();
 	  	  	pb.setEndOfScreen(false);
 	  	  	  Level4.setStart(false);
@@ -163,7 +172,7 @@
         {
         	Level4.setisOnLevel(false);
         	Level5.setisOnLevel(true);
-            isOnHomeScreen = true;
+            LI.setisOnLevelIntros(true);
 	  	  	gamePanel.reset();
 	  	  	Level5.setStart(false);
 	  	  	pb.setEndOfScreen(false);
@@ -218,7 +227,8 @@
            }
         
         else if (mouseX >= 69 && mouseX <= 69 + 176 &&
-        mouseY >= 514 && mouseY <= 514 + 42  && isOnHomeScreen == true && Level1.getisOnInifniteMode() == false && isLevelSelect == false) {
+        mouseY >= 514 && mouseY <= 514 + 42  && isOnHomeScreen == true &&
+        Level1.getisOnInifniteMode() == false && isLevelSelect == false && Level1.getisOnLevel() == false) {
         	if ( Level2.getisOnLevel() == true)
         	{
         		startLevel2 = true;
@@ -308,7 +318,15 @@
     	  	  isOnHomeScreen = true;
                 flash = true;
                 gamePanel.reset();
-                gamePanel.setGamePhase1(false);
+                if(Level1.getisOnLevel() == true)
+                {
+                	gamePanel.setGamePhase1(false);
+                }
+                else
+                {
+                	gamePanel.setGamePhase1(true);
+
+                }
                 if(Level1.getisOnLevel() == true && Level1.getisOnInifniteMode() == false)
                 {
                 	gc.setY(55);
@@ -414,7 +432,8 @@
             	  	  	gc.setY(341);
             	  	  	gc.setX(230);
             }
-        
+            
+        	
         	
         }
         
@@ -438,6 +457,10 @@
   		Graphics2D g2d = (Graphics2D) g;
   		Color semiTransparentColor = new Color(255, 255, 255, 220);
   		g2d.setColor(semiTransparentColor);
+  		if(LI.getisOnLevelIntros() == true)
+  		{
+  			LI.paint(g2d);
+  		}
   		if (flash == true)
   		{
   			g2d.fillRect(0, 0, 530, 800);
