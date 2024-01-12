@@ -96,6 +96,9 @@ public class GravityandCollision {
 		return this.easyMode;
 	}
 	
+	public void seteasyMode(boolean value) {
+		this.easyMode = value;
+	}
 	
 	
 	
@@ -290,7 +293,10 @@ public void keyReleased(KeyEvent e) {
 	    if (Level1.getisOnLevel() == true && Level1.getisOnInifniteMode() == true)
 		{
 			 g.drawImage(jeffery, x, y- 40, 100, 100, null);
-				g.drawRect(x + 23, y - 12, 55, 41);
+			 if(easyMode == true)
+			 {
+			 g.drawRect(x + 23, y - 12, 55, 41);
+			 }
 		}
 		else if (Level1.getisOnLevel() == true)
 		{
