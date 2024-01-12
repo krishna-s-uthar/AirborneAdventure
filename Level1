@@ -17,6 +17,8 @@ public class Level1 {
 	private boolean moveUp = true;
 	private boolean moveDown = false;
 	private boolean isOnInfiniteMode = false;
+	private int xSpeed = 2;
+
 	private AirborneAdventure gamePanel;
 
 	public Level1(AirborneAdventure gamePanel) {
@@ -36,6 +38,11 @@ public class Level1 {
 	
 	public void setY(int n) {
 		this.y = n;
+	}
+	
+	public void setXSpeed(int value) 
+	{
+		this.xSpeed = value;
 	}
 	
 	public void setisMedalCollected(boolean value)
@@ -152,7 +159,7 @@ public class Level1 {
 		{
 			x+= 990;
 		}
-		x -= 2;
+		x -= xSpeed;
 	}
 	
 	public void move2()
