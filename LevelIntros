@@ -1,0 +1,85 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+public class LevelIntros
+{
+	private BufferedImage Level2Intro = null;
+	private BufferedImage Level3Intro = null;
+	private BufferedImage Level4Intro = null;
+	private BufferedImage Level5Intro = null;
+	private BufferedImage Level1PowerUp = null;
+	private BufferedImage Level2PowerUp = null;
+	private BufferedImage Level3PowerUp = null;
+	private BufferedImage Level4PowerUp = null;
+	private Level1 Level1;
+	private Level2 Level2;
+	private Level3 Level3;
+	private Level4 Level4;
+	private Level5 Level5;
+	
+	private boolean isOnLevelIntros = false;
+	
+	public void setisOnLevelIntros(boolean value)
+	{
+		this.isOnLevelIntros = value;
+	}
+	
+	public boolean getisOnLevelIntros()
+	{
+		return this.isOnLevelIntros;
+	}
+	
+	
+	LevelIntros (Level1 a, Level2 b, Level3 c, Level4 d, Level5 f)
+	{
+		try {
+			Level2Intro = ImageIO.read(new File("Level2Intro.png"));
+			Level3Intro = ImageIO.read(new File("Level3Intro.png"));
+			Level4Intro = ImageIO.read(new File("Level4Intro.png"));
+			Level5Intro = ImageIO.read(new File("Level5Intro.png"));
+			Level1PowerUp = ImageIO.read(new File("Level1PowerUp.png"));
+			Level2PowerUp = ImageIO.read(new File("Level2PowerUp.png"));
+			Level3PowerUp = ImageIO.read(new File("Level3PowerUp.png"));
+			Level4PowerUp = ImageIO.read(new File("Level4PowerUp.png"));
+		} catch (IOException e) {
+			System.out.println("No Image");
+		}
+		
+		this.Level1 = a;
+		this.Level2 = b;
+		this.Level3 = c;
+		this.Level4 = d;
+		this.Level5 = f;
+		
+	}
+	public void paint(Graphics g)
+	{
+	     Graphics2D g2d = (Graphics2D) g;			
+	     if(Level2.getisOnLevel() == true)
+	     {
+		 g.drawImage(Level2Intro,0, 0, 515, 761, null);
+	   	 g.drawImage(Level1PowerUp, 270, 275, 95, 95, null);
+	     }
+	     if(Level3.getisOnLevel() == true)
+	     {
+		 g.drawImage(Level3Intro,0, 0, 515, 761, null);
+	   	 g.drawImage(Level2PowerUp, 270, 275, 95, 95, null);
+	     }
+	     if(Level4.getisOnLevel() == true)
+	     {
+		 g.drawImage(Level4Intro,0, 0, 515, 761, null);
+	   	 g.drawImage(Level3PowerUp, 270, 275, 95, 95, null);
+	     }
+	     if(Level5.getisOnLevel() == true)
+	     {
+		 g.drawImage(Level5Intro,0, 0, 515, 761, null);
+	   	 g.drawImage(Level4PowerUp, 270, 275, 95, 95, null);
+	     }
+	   	 //g.fillRect(176, 623, 163, 45);
+	}
+	
+}
