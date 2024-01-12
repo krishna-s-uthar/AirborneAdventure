@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,13 +16,33 @@ public class PowerUps {
 	private BufferedImage NotLevel2PowerUp = null;
 	private BufferedImage NotLevel3PowerUp = null;
 	private BufferedImage NotLevel4PowerUp = null;
+	private BufferedImage FireBall = null;
+
 	private int x1;
 	private int x2;
 	private int x3;
 	private int x4;
+	private boolean dash = false;
+	private boolean fireball = false;
+	private boolean fireballStart = false;
+	private boolean gravity = false;
+	private boolean time = false;
+	private GravityandCollision gc;
+	private PipeThingy[] p = new PipeThingy[1];
+	private ProgressionBar pb;
+	private Level1 Level1;
+	private Level2 Level2;
+	private Level3 Level3;
+	private Level4 Level4;
+	private Level5 Level5;
+	private Medal Medal;
+	private boolean recharge = false;
+	private int exception = 0;
+	private int xSpeed = 2;
+	
 
 	
-	PowerUps (AirborneAdventure gamePanel)
+	PowerUps (AirborneAdventure gamePanel, GravityandCollision gc, PipeThingy [] p, ProgressionBar pb, Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, Medal Medal)
 	{		
 	    this.gamePanel = gamePanel;
 		try {
@@ -33,6 +54,8 @@ public class PowerUps {
 			NotLevel2PowerUp = ImageIO.read(new File("Level2PowerUp!.png"));
 			NotLevel3PowerUp = ImageIO.read(new File("Level3PowerUp!.png"));
 			NotLevel4PowerUp = ImageIO.read(new File("Level4PowerUp!.png"));
+			FireBall = ImageIO.read(new File("FireBall.png"));
+
 
 		} catch (IOException e) {
 			System.out.println("No Image");
@@ -41,23 +64,158 @@ public class PowerUps {
 		this.x2 = 160;
 		this.x3 = 290;
 		this.x4 = 420;
+		this.gc = gc;
+		this.p = p;
+		this.pb = pb;
+		this.Level1 = a;
+		this.Level2 = b;
+		this.Level3 = c;
+		this.Level4 = d;
+		this.Level5 = f;
+		this.Medal = Medal;
+		
+
+
+	}
+	
+	public boolean getFireBall()
+	{
+		return this.fireball;
+	}
+	
+	public void setreset(boolean value)
+	{
+		this.recharge = value;
+	}
+	
+	public void keyPressed(KeyEvent e) {
+	if(recharge == false)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_1 && Level1.getisCompleted() == true) {
+		  	dash = true; // Set jumping flag on space key press
+		  	recharge = true;
+		  	recharge();
+	  	}
+		if (e.getKeyCode() == KeyEvent.VK_2 && Level2.getisCompleted() == true) {
+		  	fireballStart = true; // Set jumping flag on space key press
+		  	recharge = true;
+		  	recharge();
+
+
+	  	}		
+		if (e.getKeyCode() == KeyEvent.VK_3 && Level3.getisCompleted() == true) {
+			gravity = true; // Set jumping flag on space key press
+		  	recharge = true;
+		  	recharge();
+
+	  	}	
+		if (e.getKeyCode() == KeyEvent.VK_4 && Level4.getisCompleted() == true) {
+			time = true; // Set jumping flag on space key press
+		  	recharge = true;
+		  	recharge();
+
+
+	  	}	
+	}
+	}
+	 
+	
+	public void keyReleased(KeyEvent e) {
+	  if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+	  }
 	}
 	
 	public void paint(Graphics g)
 	{
-   	 	g.drawImage(NotLevel1PowerUp, x1, 650, 75, 75, null);
-   	 	g.drawImage(NotLevel2PowerUp, x2, 650, 75, 75, null);
-   	 	g.drawImage(NotLevel3PowerUp, x3, 650, 75, 75, null);
-   	 	g.drawImage(NotLevel4PowerUp, x4, 650, 75, 75, null);
+		if(Level2.getisOnLevel() == true)
+		{
+			exception = 620;
+		}
+		else
+		{
+			exception = 0;
+		}
+   	 	g.drawImage(NotLevel1PowerUp, x1, 650 - exception, 75, 75, null);
+   	 	g.drawImage(NotLevel2PowerUp, x2, 650 - exception, 75, 75, null);
+   	 	g.drawImage(NotLevel3PowerUp, x3, 650 - exception, 75, 75, null);
+   	 	g.drawImage(NotLevel4PowerUp, x4, 650 - exception, 75, 75, null);
+   	 	if ( recharge == false)
+   	 	{
+		if(Level1.getisCompleted() == true)
+		{
+	   	   g.drawImage(Level1PowerUp, x1, 650 - exception, 75, 75, null);
+		}
+		if(Level2.getisCompleted() == true)
+		{
+	   	   g.drawImage(Level2PowerUp, x2, 650 - exception, 75, 75, null);
+		}
+		if(Level3.getisCompleted() == true)
+		{
+	   	   g.drawImage(Level3PowerUp, x3, 650 - exception, 75, 75, null);
+		}
+		if(Level4.getisCompleted() == true)
+		{
+	   	   g.drawImage(Level4PowerUp, x4, 650 - exception, 75, 75, null);
+		}
+   	 	}
+   	 	
+   	if(dash == true)
+   	{
+   	   	 g.drawImage(NotLevel1PowerUp, x1, 650 - exception, 75, 75, null);
+   	}
+   	 	
+   	if(fireball == true)
+	{
+   	 	g.drawImage(FireBall, gc.getX() - 58, gc.getY() - 53, 180, 140, null);
+   	    g.drawImage(NotLevel2PowerUp, x2, 650 - exception, 75, 75, null);
+	}
+   	
+   	if(gravity == true)
+	{
+   	    g.drawImage(NotLevel3PowerUp, x3, 650 - exception, 75, 75, null);
+	}
+   	
+   	
+   	if(time == true)
+	{
+   	    g.drawImage(NotLevel4PowerUp, x4, 650 - exception, 75, 75, null);
+	}
+   	
+   	 if(fireballStart == true)
+		{
+	   	  new Thread(() -> {
+	   		  fireball = true;
+	     	  
+
+		        // Record the start time
+		        long startTime = System.currentTimeMillis();
+
+		        // Run the effect for 5 seconds
+		        while (System.currentTimeMillis() - startTime < 4000) {
+		            // Your code here for the gravity effect
+
+		            // Optionally, you can introduce a small delay to control the loop speed
+		            try {
+		                Thread.sleep(10);  // Sleep for 10 milliseconds
+		            } catch (InterruptedException e) {
+		                e.printStackTrace();
+		            }
+		        }
+
+		        // Turn off the gravity effect after 5 seconds
+			    fireball = false;
+		    }).start();
+	   	fireballStart = false;
+		}
 	}
 	
 	public void move()
 	{
 	
-		x1 -= 2;
-		x2 -= 2;
-		x3 -= 2;
-		x4 -= 2;
+		x1 -= xSpeed;
+		x2 -= xSpeed;
+		x3 -= xSpeed;
+		x4 -= xSpeed;
 		if(x1 + 75 < 0)
 		{
 			x1 = 530;
@@ -74,5 +232,134 @@ public class PowerUps {
 		{
 			x4 = 530;
 		}
+		if(dash == true)
+		{
+			for(int i = 0; i < p.length; i++)
+			{
+				p[i].setX(p[i].getX() - 160);
+			}
+			pb.setX(pb.getX() - 160);
+			Medal.setX(Medal.getX() - 100);
+			dash = false;
+		}
+		if (gravity == true) {
+		    // Start a new thread for the gravity effect
+		    new Thread(() -> {
+		        gc.seteasyMode(true);
+		        
+
+		        // Record the start time
+		        long startTime = System.currentTimeMillis();
+
+		        // Run the effect for 5 seconds
+		        while (System.currentTimeMillis() - startTime < 4000) {
+		            // Your code here for the gravity effect
+
+		            // Optionally, you can introduce a small delay to control the loop speed
+		            try {
+		                Thread.sleep(10);  // Sleep for 10 milliseconds
+		            } catch (InterruptedException e) {
+		                e.printStackTrace();
+		            }
+		        }
+
+		        // Turn off the gravity effect after 5 seconds
+		        gc.seteasyMode(false);
+			    gravity = false;
+ 
+		    }).start();
+		}
+		
+		if(time == true)
+		{
+			
+			new Thread(() -> {
+				for(int i = 0; i < p.length; i++)
+				{
+					p[i].setXSpeed(1);
+					pb.setXSpeed(1);
+					Level1.setXSpeed(1);
+					Level2.setXSpeed(1);
+					Level3.setXSpeed(1);
+					Level4.setXSpeed(1);
+					Level5.setXSpeed(1);
+					Medal.setXSpeed(1);
+					xSpeed = 1;
+				}
+		        // Record the start time
+		        long startTime = System.currentTimeMillis();
+
+		        // Run the effect for 5 seconds
+		        while (System.currentTimeMillis() - startTime < 4000) {
+		            // Your code here for the gravity effect
+
+		            // Optionally, you can introduce a small delay to control the loop speed
+		            try {
+		                Thread.sleep(10);  // Sleep for 10 milliseconds
+		            } catch (InterruptedException e) {
+		                e.printStackTrace();
+		            }
+		            
+		        }
+
+		        // Turn off the gravity effect after 5 seconds
+		        for(int i = 0; i < p.length; i++)
+				{
+					p[i].setXSpeed(2);
+					pb.setXSpeed(2);
+					Level1.setXSpeed(2);
+					Level2.setXSpeed(2);
+					Level3.setXSpeed(2);
+					Level4.setXSpeed(2);
+					Level5.setXSpeed(2);
+					Medal.setXSpeed(2);
+				}		    
+			    time = false;
+
+		        }).start();
+			
+		}
+	}
+	
+	public void recharge()	
+	{
+		 new Thread(() -> {
+		        
+
+		        // Record the start time
+		        long startTime = System.currentTimeMillis();
+
+		        // Run the effect for 5 secondsi
+		        
+		        if(Level1.getisOnInifniteMode() == true)
+		        {
+		        	 while (System.currentTimeMillis() - startTime < 10) {
+				            // Your code here for the gravity effect
+
+				            // Optionally, you can introduce a small delay to control the loop speed
+				            try {
+				                Thread.sleep(10);  // Sleep for 10 milliseconds
+				            } catch (InterruptedException e) {
+				                e.printStackTrace();
+				            }
+				        }
+		        }
+		        else
+		        {
+		        while (System.currentTimeMillis() - startTime < 9000) {
+		            // Your code here for the gravity effect
+
+		            // Optionally, you can introduce a small delay to control the loop speed
+		            try {
+		                Thread.sleep(10);  // Sleep for 10 milliseconds
+		            } catch (InterruptedException e) {
+		                e.printStackTrace();
+		            }
+		        }
+		        }
+
+		        // Turn off the gravity effect after 5 seconds
+		        recharge = false;
+		    }).start();
 	}
 }
