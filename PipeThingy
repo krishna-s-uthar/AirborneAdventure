@@ -9,6 +9,7 @@ public class PipeThingy {
 	private Level5 Level5;
 	private boolean moveUp = true;
 	private boolean moveDown = false;
+	private int xSpeed = 2;
 
 	PipeThingy(int height, Level1 a, Level2 b, Level3 c, Level4 d, Level5 f ) {
 		this.height = height;
@@ -23,6 +24,10 @@ public class PipeThingy {
 	}
 	public void setX(int x) {
 		this.x = x;
+	}
+	
+	public void setXSpeed(int value) {
+		this.xSpeed = value;
 	}
 	
 	public int getX()
@@ -412,7 +417,7 @@ public class PipeThingy {
  public void move( ) 
  {
 	 
-         x -= 2; // Adjust the speed of pipe movement here
+         x -= xSpeed; // Adjust the speed of pipe movement here
  }
  
  public void move2()
@@ -446,5 +451,4 @@ public class PipeThingy {
 	 }
  }
 }
-
 
