@@ -15,7 +15,7 @@ public class Medal {
 	private Level3 Level3;
 	private Level4 Level4;
 	private Level5 Level5;
-	private GravityandCollision gc;
+	private Character c;
 	private Clicky Clicky;
 	private ProgressionBar pb;
 	private Collision Collision;
@@ -26,7 +26,7 @@ public class Medal {
 
 	
 	
-	Medal (Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, int x, int y, GravityandCollision gc, Clicky Clicky, ProgressionBar pb, Collision Collision)
+	Medal (Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, int x, int y, Character C, Clicky Clicky, ProgressionBar pb, Collision Collision)
 	{
 		try {
 			Medal = ImageIO.read(new File("Medal.png"));
@@ -42,7 +42,7 @@ public class Medal {
 		this.Level5 = f;
 		this.x = x;
 		this.y = y; 
-		this.gc = gc;
+		this.c = C;
 		this.Clicky = Clicky;
 		this.pb = pb;
 		this.Collision = Collision;
@@ -211,7 +211,7 @@ public class Medal {
 	   x -= xSpeed;
 	   if (Level1.getisOnLevel() == true)
 	   {
-		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 69 && y + 220 <= gc.getY() + 26 && y + 278 >= gc.getY() - 12)
+		   	if(x + 178 >= c.getX() && x + 120 <= c.getX() + 69 && y + 220 <= c.getY() + 26 && y + 278 >= c.getY() - 12)
 	   		{
 		   		Level1.setisMedalCollected(true);
 	   		}
@@ -220,7 +220,7 @@ public class Medal {
 	   }
 	   if (Level2.getisOnLevel() == true)
 	   {
-		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 75 && y + 220 <= gc.getY() + 42 && y + 278 >= gc.getY() - 10)
+		   	if(x + 178 >= c.getX() && x + 120 <= c.getX() + 75 && y + 220 <= c.getY() + 42 && y + 278 >= c.getY() - 10)
 	   		{
 		   		Level2.setisMedalCollected(true);
 	   		}
@@ -229,7 +229,7 @@ public class Medal {
 	   }
 	   if (Level3.getisOnLevel() == true)
 	   {
-		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 81 && y + 220 <= gc.getY() + 53 && y + 278 >= gc.getY() - 1)
+		   	if(x + 178 >= c.getX() && x + 120 <= c.getX() + 81 && y + 220 <= c.getY() + 53 && y + 278 >= c.getY() - 1)
 	   		{
 		   		Level3.setisMedalCollected(true);
 	   		}
@@ -239,7 +239,7 @@ public class Medal {
 	   }
 	   if (Level4.getisOnLevel() == true)
 	   {
-		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 75 && y + 220 <= gc.getY() + 51 && y + 278 >= gc.getY() - 2)
+		   	if(x + 178 >= c.getX() && x + 120 <= c.getX() + 75 && y + 220 <= c.getY() + 51 && y + 278 >= c.getY() - 2)
 	   		{
 		   		Level4.setisMedalCollected(true);
 	   		}
@@ -248,7 +248,7 @@ public class Medal {
 	   }
 	   if (Level5.getisOnLevel() == true)
 	   {
-		   	if(x + 178 >= gc.getX() && x + 120 <= gc.getX() + 71 && y + 220 <= gc.getY() + 43 && y + 278 >= gc.getY() - 15)
+		   	if(x + 178 >= c.getX() && x + 120 <= c.getX() + 71 && y + 220 <= c.getY() + 43 && y + 278 >= c.getY() - 15)
 	   		{
 		   		Level5.setisMedalCollected(true);
 	   		}
