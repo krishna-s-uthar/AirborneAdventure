@@ -14,7 +14,7 @@ public class ProgressionBar
 	private Level3 Level3;
 	private Level4 Level4;
 	private Level5 Level5;
-	private GravityandCollision gc;
+	private Character c;
 	private BufferedImage Level1EndScreen = null;
 	private BufferedImage Level2EndScreen = null;
 	private BufferedImage Level3EndScreen = null;
@@ -32,7 +32,7 @@ public class ProgressionBar
 	private AirborneAdventure gamePanel;
 
 	
-	ProgressionBar (int x, AirborneAdventure gamePanel,  Level1 a, Level2 b, Level3 c, Level4 d, Level5 f,  GravityandCollision gc)
+	ProgressionBar (int x, AirborneAdventure gamePanel,  Level1 a, Level2 b, Level3 c, Level4 d, Level5 f,  Character C)
 	{
 		this.x = x;
 	    this.gamePanel = gamePanel;
@@ -57,7 +57,7 @@ public class ProgressionBar
 		this.Level3 = c;
 		this.Level4 = d;
 		this.Level5 = f;
-		this.gc = gc;
+		this.c = C;
 		
 	}
 	
@@ -90,11 +90,11 @@ public class ProgressionBar
 	{
 	       
 	       x -= xSpeed; // Adjust the speed of pipe movement here
-	       if (x + 100 <= gc.getX() && Level1.getisOnInifniteMode() == false && Level5.getisCompleted() == false)
+	       if (x + 100 <= c.getX() && Level1.getisOnInifniteMode() == false)
 	       {
 	    	   endOfScreen = true;
 	    	   x = -500; 
-	    	   gc.setX(-200);
+	    	   c.setX(-200);
 	    	   if(Level1.getisOnLevel() == true)
 	    	   {
 	    		   Level1.setisCompleted(true);
