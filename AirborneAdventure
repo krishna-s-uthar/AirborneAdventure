@@ -12,20 +12,20 @@ import javax.swing.JButton;
 //This is our main class
 public class AirborneAdventure extends JPanel implements ActionListener {
 //Creating instances of all our classes
-	private PipeThingy[] p = new PipeThingy[2];
+	private PipeThingy[] p = new PipeThingy[7];
 	private Level1 level1 = new Level1(this);
 	private Level2 level2 = new Level2(this);
 	private Level3 level3 = new Level3(this);
 	private Level4 level4 = new Level4(this);
 	private Level5 level5 = new Level5(this);
-	private GravityandCollision gc = new GravityandCollision(230, 55, false, level1, level2, level3, level4);//550 //390
-	private ProgressionBar pb =  new ProgressionBar(3000, this, level1, level2, level3, level4, level5, gc);
+	private Character c = new Character(230, 55, false, level1, level2, level3, level4);//550 //390
+	private ProgressionBar pb =  new ProgressionBar(3000, this, level1, level2, level3, level4, level5, c);
 	private LevelIntros LevelIntros = new LevelIntros(level1, level2, level3, level4, level5); 
-    private Clicky Clicky = new Clicky(level1, level2, level3, level4, level5, this, gc, pb, LevelIntros);
-	private Collision Collision = new Collision(level1, level2, level3, level4, level5, p, gc, Clicky, pb, this);
+    private Clicky Clicky = new Clicky(level1, level2, level3, level4, level5, this, c, pb, LevelIntros);
+	private Collision Collision = new Collision(level1, level2, level3, level4, level5, p, c, Clicky, pb, this);
 	private Medal Medal = new Medal(level1, level2, level3, level4, level5,770 + 350 * (int) (3 * Math.random()) + 2 , 
-			(int) (300 * Math.random()) - 100, gc, Clicky, pb, Collision);
-	private PowerUps PowerUps = new PowerUps(this, gc, p, pb, level1, level2, level3, level4, level5, Medal);
+			(int) (300 * Math.random()) - 100, c, Clicky, pb, Collision);
+	private PowerUps PowerUps = new PowerUps(c, p, pb, level1, level2, level3, level4, level5, Medal, Collision);
 	private Instructions instructions = new Instructions(); 
 	private Backstory Backstory = new Backstory(); 
 	private LevelSelect LevelSelect = new LevelSelect(level1, level2, level3, level4, level5); 
@@ -33,7 +33,6 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 	
 	private boolean gameStarted = false;
 	private boolean gamePhase1 = false;
-	private int temp = 1;
     private boolean teleport = false;
 	private int x = 0;
 
@@ -51,10 +50,12 @@ public class AirborneAdventure extends JPanel implements ActionListener {
   addKeyListener(new KeyAdapter() {
       @Override
       public void keyPressed(KeyEvent e) {
-          gc.keyPressed(e);
+          c.keyPressed(e);
           PowerUps.keyPressed(e);
           level1.keyPressed(e);
-          if (e.getKeyCode() == KeyEvent.VK_SPACE && Clicky.getisOnHomeScreen() == false && Clicky.getisLevelSelect() == false) {
+          if (e.getKeyCode() == KeyEvent.VK_SPACE && Clicky.getisOnHomeScreen() == false 
+        		  && Clicky.getisLevelSelect() == false && Clicky.getisInstructions() == false 
+        		  && Clicky.getisBackstory() == false && LevelIntros.getisOnLevelIntros() == false) {
               if (gamePhase1 == true)
               {
             	  gameStarted = true; // Start the game when the up arrow key is pressed
@@ -77,7 +78,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
       }
       @Override
       public void keyReleased(KeyEvent e) {
-          gc.keyReleased(e);
+          c.keyReleased(e);
           PowerUps.keyReleased(e);
       }
   
@@ -129,13 +130,16 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 		Medal.setY((int) (300 * Math.random()) - 100);
 		}
 		PowerUps.setreset(false);
+		PowerUps.setfireBall(false);
+		PowerUps.settime(false);
+		PowerUps.setgravity(false);
+		PowerUps.setdash(false);
 	}
 	
 	//Creating a full game reset for the end of the game
 	public void FullGameReset()
 	{
 		Collision.sethitsPipe(false);
-		gameStarted = false;
 		Collision.setScore(0);
 		teleport = false;
 		level1.setisCompleted(false);
@@ -162,15 +166,21 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 		{
 			p[i].setHeight(((int) (175 * Math.random()) + 275));
 			p[i].setX(350 * i + 700);
+			if(i == p.length - 1)
+			{
+				pb.setX(350 * i + 900);
+			}
 		}
+		
 		Medal.setX(770 + 350 * (int) (3 * Math.random()) + 2);
 		Medal.setY((int) (300 * Math.random()) - 100);
 		pb.setEndOfScreen(false);
 		Clicky.setisOnHomeScreen(true);
-		gc.setX(230);
-		gc.setY(55);
+		c.setX(230);
+		c.setY(55);
 		gameStarted = false;
 		gamePhase1 = false;
+		x = 0;
 	}
 	
 	public void setGamePhase1(boolean value) {
@@ -209,22 +219,22 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 		if (teleport == false)
 		{		 
 			 level1.setY(-50);
-			 gc.setY(341);
+			 c.setY(341);
 			 teleport = true;
 		}
 		
 		if(gameStarted == false)
 		{
-			gc.move3();
+			c.move3();
 		}
 	 }
 	  if (gameStarted == false  && gamePhase1 == false && level1.getisOnLevel() == true)
 	  {
-		  gc.move2();
+		  c.move2();
 	  }
 	
-  if (!gc.getMoving()) {
-      gc.setMoving(true); // Start the game when the up arrow key is pressed
+  if (!c.getMoving()) {
+      c.setMoving(true); // Start the game when the up arrow key is pressed
   }
   if(PowerUps.getFireBall() == false)
   {
@@ -256,9 +266,8 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 	  {
 		  if(p[i].getX() + 75 < 0)
 		  {
-			  p[i].setX(p[temp].getX() + 350);
+			  p[i].setX(2375);
 			  p[i].setHeight((int) (175 * Math.random()) + 275);
-			  temp = i;
 		  }
 	  }
   }
@@ -270,7 +279,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 	 
 	
 		 if (Collision.gethitsPipe() == false && gameStarted == true && pb.getendOfScreen() == false) {
-				gc.move();
+				c.move();
 		 }
 		
 		 if(pb.getendOfScreen() == true)
@@ -336,7 +345,7 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 		
 		 if (Clicky.getisInstructions() == false && Clicky.getisBackstory() == false && Clicky.getisLevelSelect() == false)
 		 {
-			 gc.paint(g2d);
+			 c.paint(g2d);
 		 }
 		 if (pb.getendOfScreen() == true)
 		 {
@@ -351,10 +360,6 @@ public class AirborneAdventure extends JPanel implements ActionListener {
 				 && Clicky.getisBackstory() == false && Clicky.getisLevelSelect() == false)
 		 PowerUps.paint(g2d);
 		 Medal.paint(g2d);
-
-
-		 
-
 
 	}	
 	public static void main(String[] args) throws InterruptedException {
