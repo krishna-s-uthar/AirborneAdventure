@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-public class GravityandCollision {
-	private int x, y, speed;
+public class Character {
+	private int x, y;
 	private int xa = 0;
 	 private int ya = 0;
 	private BufferedImage flappy = null;
@@ -13,35 +13,21 @@ public class GravityandCollision {
 	private BufferedImage Pumpkin = null;
 	private BufferedImage snowman = null;
 	private BufferedImage mike = null;
-	private BufferedImage gameOverScreen = null;
-	private BufferedImage Level2GameOver = null;
-	private BufferedImage Level3GameOver = null;
-	private BufferedImage Level4GameOver = null;
-	private BufferedImage Level5GameOver = null;
 	private BufferedImage jeffery = null;
-
-
 	private boolean isJumping = false;
 	private boolean moving = false;
-	private boolean gameOver = false;
 	private boolean moveUp = true;
 	private boolean moveDown = false;
  	private boolean easyMode = false;
-	private boolean right = false, left = false;
 	private Boolean up = false, down = false;
 	private Level1 Level1;
 	private Level2 Level2;
 	private Level3 Level3;
 	private Level4 Level4;
-	private Level5 Level5;
 	
-	private static boolean gamePhase1 = false;
-	
-	GravityandCollision(int x, int y, boolean space, Level1 a, Level2 b, Level3 c, Level4 d, Level5 f){
+	Character(int x, int y, boolean space, Level1 a, Level2 b, Level3 c, Level4 d){
 		this.x = x;
 		this.y = y;
-		this.isJumping = isJumping;
-		this.speed = 0;
 		this.moving = true;
 		try {
 		    flappy = ImageIO.read(new File("Flappy.png"));		
@@ -49,11 +35,6 @@ public class GravityandCollision {
 		    Pumpkin = ImageIO.read(new File("Pumpkin.png"));
 		    snowman = ImageIO.read(new File("snowman.png"));
 		    mike = ImageIO.read(new File("mike.png"));
-		    gameOverScreen = ImageIO.read(new File("Level1GameOver.png"));
-		    Level2GameOver = ImageIO.read(new File("Level2GameOver.png"));
-		    Level3GameOver = ImageIO.read(new File("Level3GameOver.png"));
-		    Level4GameOver = ImageIO.read(new File("Level4GameOver.png"));
-		    Level5GameOver = ImageIO.read(new File("Level5GameOver.png"));
 			jeffery = ImageIO.read(new File("jeffery.png"));
 
 
@@ -66,7 +47,6 @@ public class GravityandCollision {
 		this.Level2 = b;
 		this.Level3 = c;
 		this.Level4 = d;
-		this.Level5 = f;
 		
 		
 		
@@ -106,9 +86,7 @@ public class GravityandCollision {
 	
 	
 public void move() {
-  final int maxY = 472; // Adjust this value as needed for the maximum height
-  final int minY = 0;   // Adjust this value as needed for the minimum height
-  int jumpSpeed = -4; // Adjust jump speed as needed
+
   if (easyMode == false)
   {
 	  
@@ -119,24 +97,6 @@ public void move() {
 			  y-= 5;
 		  }
 		  y += 3;
-		  
-		  
-		 
-		  
-		  /*if (this.getMoving()) {
-			  if (isJumping && y > 0) {
-				  speed = jumpSpeed; // Jump speed
-				  y += speed; // Adjust the bird's position based on speed
-			  } else {
-				  speed += 1; // Acceleration/gravity
-				  y += speed; // Adjust the bird's position based on speed
-    
-				  if (y < 0) {
-					  y = 0;
-					  speed = 0; // Stop the upward motion when reaching the top
-				  }
-			  }
-		  */
 	  }
 	  else
 	  {
@@ -146,31 +106,10 @@ public void move() {
 			  y+= 5;
 		  }
 		  y -= 3;
-		  
-		  /*if (this.getMoving()) {
-			  if (isJumping && y < 756 ) {
-				  jumpSpeed = 4;
-				  speed = jumpSpeed; // Jump speed
-				  y += speed; // Adjust the bird's position based on speed
-			  } else {
-				  speed -= 1; // Acceleration/gravity
-				  y += speed; // Adjust the bird's position based on speed
-				  if (y > 756) {
-					  y = 756;
-					  speed = 0; // Stop the upward motion when reaching the top
-				  }
-			  }
-		  }*/
 	  }
   }
   else
   {
-	  if (right){
-		  xa = 2;
-		  }
-		  if (left){
-		  xa = -2;
-		  }
 		  if (down){
 		  ya = 2;
 		  }
@@ -230,10 +169,7 @@ public void move3()
 	  }
 	}
 }
-public boolean gameOver()
-{
-	return gameOver = true;
-}
+
 public void keyPressed(KeyEvent e) {
 	if (e.getKeyCode() == KeyEvent.VK_E) {
 	  	easyMode = true; // Set jumping flag on space key press
@@ -250,12 +186,6 @@ public void keyPressed(KeyEvent e) {
   }
   if(easyMode == true)
   {
-	  if (e.getKeyCode() == KeyEvent.VK_LEFT){
-		  left = true;
-		  }
-		  if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-		  right = true;
-		  }
 		  if (e.getKeyCode() == KeyEvent.VK_UP){
 		  up = true;
 		  }
@@ -268,14 +198,6 @@ public void keyReleased(KeyEvent e) {
   if (e.getKeyCode() == KeyEvent.VK_SPACE) {
       isJumping = false; // Reset jumping flag on space key release
   }
-  if (e.getKeyCode() == KeyEvent.VK_LEFT){
-	  left = false;
-	  xa=0;
-	  }
-	  if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-	  right = false;
-	  xa=0;
-	  }
 	  if (e.getKeyCode() == KeyEvent.VK_UP){
 	  up = false;
 	  ya=0;
