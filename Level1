@@ -90,11 +90,13 @@ public class Level1 {
 	public void startGame() {
 		gameStarted = true;
 	}
+	
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			up = true;
 		}
 	}
+	
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			up = false;
@@ -147,7 +149,7 @@ public class Level1 {
 	{
 	g.drawImage(Level1HomeScreen, 70, -50, 400, 710, null);	
     }
-	if (gamePanel.getGameStarted() == false && gamePanel.getGamePhase1() == true )
+	if (gamePanel.getGameStarted() == false && gamePanel.getGamePhase1() == true && isOnInfiniteMode == false)
 	{
 		g.drawImage(Level1Label, -60, y, 650, 350, null);	
 	}
