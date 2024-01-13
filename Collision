@@ -8,13 +8,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Collision {
+	//Creating instances of other classes
 	private Level1 Level1;
 	private Level2 Level2;
 	private Level3 Level3;
 	private Level4 Level4;
 	private Level5 Level5;
 	private PipeThingy[] p = new PipeThingy[1];
-	private GravityandCollision gc;
+	private Character c;
 	private ProgressionBar pb;
 	private Clicky Clicky;
 	private boolean hitsPipe = false;
@@ -25,18 +26,16 @@ public class Collision {
 	private BufferedImage Level5GameOver = null;
 	private AirborneAdventure gamePanel;
 	private int score = 0;
-	boolean a = false;
 	private int next = 1;
+	private boolean a = true;
 	private int HighScore = 0;
 
 
 
-	Collision(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, PipeThingy [] p, GravityandCollision gc, Clicky Clicky, ProgressionBar pb, AirborneAdventure gamePanel){
+	Collision(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, PipeThingy [] p, Character C, Clicky Clicky, ProgressionBar pb, AirborneAdventure gamePanel){
 		for (int i = 0; i < p.length; i++) {
 			p[i] = new PipeThingy(((int) (325 * Math.random()) + 200), a, b, c, d, f);
 			p[i].setX(350 * i + 700);
-			//p[i] = new PipeThingy((int) (325 * Math.random()) + 350);
-			//p[i].setX(300);
 		}
 		this.Level1 = a;
 		this.Level2 = b;
@@ -44,7 +43,7 @@ public class Collision {
 		this.Level4 = d;
 		this.Level5 = f;
 		this.p = p;
-		this.gc= gc;
+		this.c = C;
 		this.Clicky = Clicky;
 		this.pb = pb;
 		this.gamePanel = gamePanel;
@@ -68,6 +67,12 @@ public class Collision {
 		this.hitsPipe = value;
 	}
 	
+	
+	public int getScore()
+	{
+		return this.score;
+	}
+	
 	public void setScore(int value)
 	{
 		this.score = value;
@@ -81,13 +86,13 @@ public class Collision {
 		{
 		if(Level1.getisOnLevel() == true && Level1.getisOnInifniteMode() == true)
 		{
-			if (gc.getX() + 78 >= p[i].getX() && gc.getX() + 23 <= p[i].getX() + 75 && (gc.getY() - 12 <= p[i].getHeight() - 123 || gc.getY() + 29 >= p[i].getHeight()))
+			if (c.getX() + 78 >= p[i].getX() && c.getX() + 23 <= p[i].getX() + 75 && (c.getY() - 12 <= p[i].getHeight() - 123 || c.getY() + 29 >= p[i].getHeight()))
 		  	{
 		  		hitsPipe = true;
 		  		//g.drawRect(x + 23, y - 12, 55, 41);
 
 		  	}
-		  	if(gc.getY() + 29 > 607)
+		  	if(c.getY() + 29 > 607)
 			  {
 		  		hitsPipe = true;			  
 		  	  }
@@ -95,12 +100,12 @@ public class Collision {
 		
 		else if(Level1.getisOnLevel() == true)
 		  {
-		  	if (gc.getX() + 69 >= p[i].getX() && gc.getX() + 15 <= p[i].getX() + 75 && (gc.getY() - 12 <= p[i].getHeight() - 123 || gc.getY() + 26 >= p[i].getHeight()))
+		  	if (c.getX() + 69 >= p[i].getX() && c.getX() + 15 <= p[i].getX() + 75 && (c.getY() - 12 <= p[i].getHeight() - 123 || c.getY() + 26 >= p[i].getHeight()))
 		  	{
 		  		hitsPipe = true;
 		  		 //g.drawRect(x + 15, y - 12, 54, 38);
 		  	}
-		  	if(gc.getY() + 26 > 607)
+		  	if(c.getY() + 26 > 607)
 			  {
 		  		hitsPipe = true;			  
 		  	  }
@@ -109,36 +114,36 @@ public class Collision {
 		  }
 		  if(Level2.getisOnLevel() == true)
 		  {
-		  	if (gc.getX() + 75 >= p[i].getX() && gc.getX() + 20 <= p[i].getX() + 75 && (gc.getY() - 10 <= p[i].getHeight() - 123 || gc.getY() + 42 >= p[i].getHeight()))
+		  	if (c.getX() + 75 >= p[i].getX() && c.getX() + 20 <= p[i].getX() + 75 && (c.getY() - 10 <= p[i].getHeight() - 123 || c.getY() + 42 >= p[i].getHeight()))
 		  	{
 		  		hitsPipe = true;
 		  		 //g.drawRect(x + 20, y - 10, 55, 52);
 		  	}
-		  	if(gc.getY() - 10 < 157)
+		  	if(c.getY() - 10 < 157)
 			   {
 		  		hitsPipe = true;
 			   }
 		  }	   
 		  if(Level3.getisOnLevel() == true)
 		  {
-			if (gc.getX() + 81 >= p[i].getX() && gc.getX() + 8 <= p[i].getX() + 75 && (gc.getY() - 1 <= p[i].getHeight() - 133 || gc.getY() + 44 >= p[i].getHeight()))
+			if (c.getX() + 81 >= p[i].getX() && c.getX() + 8 <= p[i].getX() + 75 && (c.getY() - 1 <= p[i].getHeight() - 133 || c.getY() + 44 >= p[i].getHeight()))
 		  	{
 		  		hitsPipe = true;
 		  		 //g.drawRect(x + 8, y - 15, 73, 68);
 		  	}
-		  	if(gc.getY() + 53 > 607)
+		  	if(c.getY() + 53 > 607)
 			  {
 		  		hitsPipe = true;
 			  }
 		  }
 		  if(Level4.getisOnLevel() == true)
 		  {
-		  	if (gc.getX() + 65 >= p[i].getX() && gc.getX() + 30 <= p[i].getX() + 75 && (gc.getY() - 2 <= p[i].getHeight() - 123 || gc.getY() + 51 >= p[i].getHeight()))
+		  	if (c.getX() + 65 >= p[i].getX() && c.getX() + 30 <= p[i].getX() + 75 && (c.getY() - 2 <= p[i].getHeight() - 123 || c.getY() + 51 >= p[i].getHeight()))
 		  	{
 		  		hitsPipe = true;
 		  		 //g.drawRect(x + 30, y - 2, 35, 53);
 		  	}
-		  	if(gc.getY() + 51 > 607)
+		  	if(c.getY() + 51 > 607)
 			  {
 		  		hitsPipe = true;
 			  }
@@ -146,12 +151,12 @@ public class Collision {
 		  
 		  if(Level5.getisOnLevel() == true)
 		  {
-		  	if (gc.getX() + 71 >= p[i].getX() && gc.getX() + 15 <= p[i].getX() + 75 && (gc.getY() - 15 <= p[i].getHeight() - 123 || gc.getY() + 43 >= p[i].getHeight()))
+		  	if (c.getX() + 71 >= p[i].getX() && c.getX() + 15 <= p[i].getX() + 75 && (c.getY() - 15 <= p[i].getHeight() - 123 || c.getY() + 43 >= p[i].getHeight()))
 		  	{
 		  		hitsPipe = true;
 		  		 //g.drawRect(x + 15, y - 15, 56, 58);
 		  	}
-		  	if(gc.getY() + 43 > 607)
+		  	if(c.getY() + 43 > 607)
 			  {
 		  		hitsPipe = true;
 			  }
@@ -210,35 +215,34 @@ public class Collision {
 		 Font scoreFont1 = new Font("Bangers", Font.BOLD, 75);
 		 Font scoreFont2 = new Font("Bangers", Font.BOLD, 30);
 		 g2d.setFont(scoreFont1);
-		 if(gc.geteasyMode() == false && pb.getendOfScreen() == false)
+		 if(pb.getendOfScreen() == false)
 		 {
 		 if (hitsPipe == false)
 		 {
 			 if(gamePanel.getGamePhase1() == false)
 			 {
 					g2d.drawString(Integer.toString(score), -10, -10);
-
 			 }
-				if (Level1.getisOnLevel() == true && gamePanel.getGameStarted() == true)
+				if (Level1.getisOnLevel() == true && gamePanel.getGameStarted() == true && Clicky.getisLevelSelect() == false)
 				{
 					g2d.drawString(Integer.toString(score), 250, 100);
 				}
-				if (Level2.getisOnLevel() == true && Level2.getStart() == true)
+				if (Level2.getisOnLevel() == true && Level2.getStart() == true && Clicky.getisLevelSelect() == false)
 				{
 					g2d.setColor(Color.BLUE);
 				  	g2d.drawString(Integer.toString(score), 250, 700);
 				}
-				if (Level3.getisOnLevel() == true && Level3.getStart() == true)
+				if (Level3.getisOnLevel() == true && Level3.getStart() == true && Clicky.getisLevelSelect() == false)
 				{
 					g2d.setColor(Color.ORANGE);
 				  	g2d.drawString(Integer.toString(score), 250, 100);
 				}
-				if (Level4.getisOnLevel() == true && Level4.getStart() == true)
+				if (Level4.getisOnLevel() == true && Level4.getStart() == true && Clicky.getisLevelSelect() == false)
 				{
 					g2d.setColor(Color.GREEN);
 				  	g2d.drawString(Integer.toString(score), 250, 100);
 				}
-				if (Level5.getisOnLevel() == true && Level5.getStart() == true)
+				if (Level5.getisOnLevel() == true && Level5.getStart() == true && Clicky.getisLevelSelect() == false)
 				{
 					g2d.setColor(Color.RED);
 				  	g2d.drawString(Integer.toString(score), 250, 100);
@@ -322,20 +326,15 @@ public class Collision {
 	{
 		 for (int i =0; i < p.length; i++) 
 		 {
-			 if(gc.geteasyMode() == false)
+			 if (hitsPipe == false && pb.getendOfScreen() == false)
 			 {
-			 
-			   if (hitsPipe == false && pb.getendOfScreen() == false && gamePanel.getGameStarted() == true &&  a == false) 
-			   {
-			
-				   if(p[i].getX() + 55 == gc.getX() || p[i].getX() + 56 == gc.getX() )
+				   if(p[i].getX() == 170 || p[i].getX() == 169 && a == true)
 				   {
 					   score += 1;
 					   if (score >= HighScore)
 					   {
 						   HighScore = score;
 					   }
-					   a = true;
 					   if (next == 1)
 					   {
 						   next = 0;
@@ -344,17 +343,29 @@ public class Collision {
 					   {
 						   next = 1;
 					   }
+					   a = false;
 				   }
-			   }
-			   if (hitsPipe == false && pb.getendOfScreen() == false && gamePanel.getGameStarted() == true && a == true)
-			   {
-				    if(p[next].getX() < gc.getX() && a == true)
-			   		{
-				   		a= false;
-			   		}
-			   }
+			   
+				   if(p[i].getX() == 150 || p[i].getX() == 149 && a == false)
+				   {
+					   a = true; 
+				   }
 			 }
 		  }
-		
+	}
+	
+	public void deathAnimation()
+	{
+		if (hitsPipe == true)
+		{
+			if(Level2.getisOnLevel() == true)
+			{
+				c.setY(c.getY() - 5);
+			}
+			else
+			{
+			c.setY(c.getY() + 5);
+			}
+		}
 	}
 }
