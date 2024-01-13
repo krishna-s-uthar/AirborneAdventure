@@ -11,7 +11,7 @@
 	private Level3 Level3;
 	private Level4 Level4;
 	private Level5 Level5;
-	private GravityandCollision gc;
+	private Character c;
 	private ProgressionBar pb;
 	private LevelIntros LI;
 	//Booleans that are used to navaigate through the game
@@ -23,7 +23,7 @@
     private boolean flash = false;
     private boolean gameOver = false;
     
-    public Clicky(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, AirborneAdventure gamePanel, GravityandCollision gc, ProgressionBar pb, LevelIntros LI) {
+    public Clicky(Level1 a, Level2 b, Level3 c, Level4 d, Level5 f, AirborneAdventure gamePanel, Character C, ProgressionBar pb, LevelIntros LI) {
         //Initializing all instances of our classes
     	this.gamePanel = gamePanel;
         this.Level1 = a;
@@ -31,7 +31,7 @@
 		this.Level3 = c;
 		this.Level4 = d;
 		this.Level5 = f;
-		this.gc = gc;
+		this.c = C;
 		this.pb = pb;
 		this.LI = LI;
     }
@@ -183,8 +183,8 @@
 	  	  	gamePanel.reset();
 	  	  	Level5.setStart(false);
 	  	  	pb.setEndOfScreen(false);
-	  	  	gc.setY(341);
-	  	  	gc.setX(230);
+	  	  	c.setY(341);
+	  	  	c.setX(230);
             flash = true;
         }
          
@@ -245,17 +245,19 @@
 	  	  	flash = true;
 	  	  	isOnHomeScreen = false;
 	  	  	gamePanel.setGameStarted(false);
-	  	  	gc.setX(230);
-	  	  	gc.setY(341);
+	  	  	c.setX(230);
+	  	  	c.setY(341);
 	  	  	gamePanel.reset();
         }
+        
+        
         
         //Reseting the game(Pressing the "Play again" button)
         else if (mouseX >= 199 && mouseX <= 199 + 182 &&
                 mouseY >= 460 && mouseY <= 460 + 48 && gameOver == true) {
                 gamePanel.reset();    
                 flash = true;
-                gc.setX(230);
+                c.setX(230);
         }
         
         
@@ -312,7 +314,7 @@
                 }
                 if(Level1.getisOnLevel() == true && Level1.getisOnInifniteMode() == false)
                 {
-                	gc.setY(55);
+                	c.setY(55);
                 }
              
 
@@ -334,8 +336,8 @@
         		flash = true;
         		isLevelSelect = false;
         		gamePanel.setGamePhase1(false);
-        		gc.setX(230);
-        		gc.setY(55);
+        		c.setX(230);
+        		c.setY(55);
   
         	}
             //Start Level 2
@@ -353,8 +355,8 @@
                 		isOnHomeScreen = true;
                 		flash = true;
                 		isLevelSelect = false;
-                		gc.setX(-200);
-                		gc.setY(341);
+                		c.setX(-200);
+                		c.setY(341);
                 		gamePanel.setGamePhase1(true);
 
             }
@@ -373,8 +375,8 @@
                 		isOnHomeScreen = true;
                 		flash = true;
                 		isLevelSelect = false;
-                		gc.setX(-200);
-                		gc.setY(341);
+                		c.setX(-200);
+                		c.setY(341);
                 		gamePanel.setGamePhase1(true);
 
             }
@@ -393,8 +395,8 @@
                 		isOnHomeScreen = true;
                 		flash = true;
                 		isLevelSelect = false;
-                		gc.setX(-200);
-                		gc.setY(341);
+                		c.setX(-200);
+                		c.setY(341);
                 		gamePanel.setGamePhase1(true);
             }
             
@@ -413,8 +415,8 @@
                  		flash = true;
                  		isLevelSelect = false;
                  		gamePanel.setGamePhase1(true);
-                 		gc.setX(-200);
-                 		gc.setY(341);
+                 		c.setX(-200);
+                 		c.setY(341);
 
              }
         	
@@ -435,8 +437,8 @@
                 		gamePanel.setGamePhase1(true);
                 		Level5.setStart(false);
             	  	  	pb.setEndOfScreen(false);
-            	  	  	gc.setY(341);
-            	  	  	gc.setX(230);
+            	  	  	c.setY(341);
+            	  	  	c.setX(230);
             }
             
         	
