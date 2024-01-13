@@ -101,17 +101,17 @@ public class Level5
 		 Color pink = new Color(239,63,197,255);
 		 Color kalaBrown = new Color(90, 65, 74, 255);
 		 g2d.setColor(Color.BLACK);	 
-		 g2d.fillRect(0, 615, gamePanel.getPanelWidth(), 1000);
+		 g2d.fillRect(0, 615, 530, 1000);
 		 g2d.setColor(pink);
-		 g2d.fillRect(0, 629, gamePanel.getPanelWidth(), 6);
+		 g2d.fillRect(0, 629, 530, 6);
 		 g2d.setColor(yellow);
-		 g2d.fillRect(0, 627, gamePanel.getPanelWidth(), 2);
+		 g2d.fillRect(0, 627, 530, 2);
 		 g2d.setColor(Color.BLACK);
-		 g2d.fillRect(0, 612, gamePanel.getPanelWidth(), 15);
+		 g2d.fillRect(0, 612, 530, 15);
 		 g2d.setColor(cyan);
-		 g2d.fillRect(0, 610, gamePanel.getPanelWidth(), 2);
+		 g2d.fillRect(0, 610, 530, 2);
 		 g2d.setColor(kalaBrown);
-		 g2d.fillRect(0, 607, gamePanel.getPanelWidth(), 3);
+		 g2d.fillRect(0, 607, 530, 3);
 		 for (int i = 0; i < 172; i++)
 		 {
 			 g2d.setColor(Color.YELLOW);
